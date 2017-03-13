@@ -1,0 +1,52 @@
+App2.MainActivity, Main;md5e8abd99e1f2b58f9bf39a255b96f2e4d.MainActivity
+App2.MainActivity, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5e8abd99e1f2b58f9bf39a255b96f2e4d.MainActivity
+App2.MainActivity;md5e8abd99e1f2b58f9bf39a255b96f2e4d.MainActivity
+app2.MainActivity;md5e8abd99e1f2b58f9bf39a255b96f2e4d.MainActivity
+App2.Resources.PasswordScreen, Main;md588c6defbe7125f1ad72a98923651efff.PasswordScreen
+App2.Resources.PasswordScreen, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.PasswordScreen
+App2.Resources.PasswordScreen;md588c6defbe7125f1ad72a98923651efff.PasswordScreen
+app2.resources.PasswordScreen;md588c6defbe7125f1ad72a98923651efff.PasswordScreen
+App2.Resources.FileExplorerImp, Main;md588c6defbe7125f1ad72a98923651efff.FileExplorerImp
+App2.Resources.FileExplorerImp, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.FileExplorerImp
+App2.Resources.FileExplorerImp;md588c6defbe7125f1ad72a98923651efff.FileExplorerImp
+app2.resources.FileExplorerImp;md588c6defbe7125f1ad72a98923651efff.FileExplorerImp
+App2.Resources.Prefs, Main;md588c6defbe7125f1ad72a98923651efff.Prefs
+App2.Resources.Prefs, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.Prefs
+App2.Resources.Prefs;md588c6defbe7125f1ad72a98923651efff.Prefs
+app2.resources.Prefs;md588c6defbe7125f1ad72a98923651efff.Prefs
+App2.Resources.SetPassAct, Main;md588c6defbe7125f1ad72a98923651efff.SetPassAct
+App2.Resources.SetPassAct, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.SetPassAct
+App2.Resources.SetPassAct;md588c6defbe7125f1ad72a98923651efff.SetPassAct
+app2.resources.SetPassAct;md588c6defbe7125f1ad72a98923651efff.SetPassAct
+App2.Resources.FileExplorerExp, Main;md588c6defbe7125f1ad72a98923651efff.FileExplorerExp
+App2.Resources.FileExplorerExp, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.FileExplorerExp
+App2.Resources.FileExplorerExp;md588c6defbe7125f1ad72a98923651efff.FileExplorerExp
+app2.resources.FileExplorerExp;md588c6defbe7125f1ad72a98923651efff.FileExplorerExp
+App2.Resources.AllCosts, Main;md588c6defbe7125f1ad72a98923651efff.AllCosts
+App2.Resources.AllCosts, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.AllCosts
+App2.Resources.AllCosts;md588c6defbe7125f1ad72a98923651efff.AllCosts
+app2.resources.AllCosts;md588c6defbe7125f1ad72a98923651efff.AllCosts
+App2.Resources.LookForPeriodRequested, Main;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequested
+App2.Resources.LookForPeriodRequested, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequested
+App2.Resources.LookForPeriodRequested;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequested
+app2.resources.LookForPeriodRequested;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequested
+App2.Resources.FindForDayRequested, Main;md588c6defbe7125f1ad72a98923651efff.FindForDayRequested
+App2.Resources.FindForDayRequested, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.FindForDayRequested
+App2.Resources.FindForDayRequested;md588c6defbe7125f1ad72a98923651efff.FindForDayRequested
+app2.resources.FindForDayRequested;md588c6defbe7125f1ad72a98923651efff.FindForDayRequested
+App2.Resources.AddRecAct, Main;md588c6defbe7125f1ad72a98923651efff.AddRecAct
+App2.Resources.AddRecAct, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.AddRecAct
+App2.Resources.AddRecAct;md588c6defbe7125f1ad72a98923651efff.AddRecAct
+app2.resources.AddRecAct;md588c6defbe7125f1ad72a98923651efff.AddRecAct
+App2.Resources.FindForDayRequest, Main;md588c6defbe7125f1ad72a98923651efff.FindForDayRequest
+App2.Resources.FindForDayRequest, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.FindForDayRequest
+App2.Resources.FindForDayRequest;md588c6defbe7125f1ad72a98923651efff.FindForDayRequest
+app2.resources.FindForDayRequest;md588c6defbe7125f1ad72a98923651efff.FindForDayRequest
+App2.Resources.LookForPeriodRequest, Main;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequest
+App2.Resources.LookForPeriodRequest, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequest
+App2.Resources.LookForPeriodRequest;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequest
+app2.resources.LookForPeriodRequest;md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequest
+App2.Resources.MenuActivity, Main;md588c6defbe7125f1ad72a98923651efff.MenuActivity
+App2.Resources.MenuActivity, Main, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md588c6defbe7125f1ad72a98923651efff.MenuActivity
+App2.Resources.MenuActivity;md588c6defbe7125f1ad72a98923651efff.MenuActivity
+app2.resources.MenuActivity;md588c6defbe7125f1ad72a98923651efff.MenuActivity

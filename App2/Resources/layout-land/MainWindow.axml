@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/BGLand"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="450dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="133.3dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="133.3dp"
+                android:layout_height="133.3dp">
+                <Button
+                    android:layout_width="133.3dp"
+                    android:layout_height="133.3dp"
+                    android:id="@+id/MainBut1"
+                    android:background="@drawable/addButt" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="133.3dp"
+                android:layout_height="133.3dp"
+                android:layout_marginLeft="24.3dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/listButt"
+                    android:id="@+id/MainBut2" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="133.3dp"
+                android:layout_height="133.3dp"
+                android:layout_marginLeft="24.3dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dayButt"
+                    android:id="@+id/MainBut3" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="133.3dp"
+            android:layout_marginTop="17.6dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="133.3dp"
+                android:layout_height="133.3dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/perButt"
+                    android:id="@+id/MainBut4" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="133.3dp"
+                android:layout_height="133.3dp"
+                android:layout_marginLeft="24.3dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/toolsLandButt"
+                    android:id="@+id/MainBut5" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="133.3dp"
+                android:layout_height="133.3dp"
+                android:layout_marginLeft="24.3dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/exitLandButt"
+                    android:id="@+id/MainBut6" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp" />
+    </LinearLayout>
+</LinearLayout>
