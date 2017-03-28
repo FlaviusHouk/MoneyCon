@@ -1,3 +1,20 @@
+﻿/* Цей файл — частина MoneyCon.
+
+   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
+   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
+   в якому вона була опублікована Фондом вільного програмного забезпечення;
+   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
+   версії.
+
+   Moneycon розповсюджується з надією, що вона буде корисною,
+   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
+   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
+   суспільній ліцензії GNU.
+
+   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
+   разом з цією програмою. Якщо це не так, див.
+   <http://www.gnu.org/licenses/>.*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +40,7 @@ namespace App2.Resources
             savedInstanse = savedInstanceState;
             SetContentView(Resource.Layout.AllCosts);
             TextView Header = (TextView)FindViewById(Resource.Id.TextViev1_All);
-            Header.Text = "�� �������";
+            Header.Text = "Âñ³ âèäàòêè";
             Info = (TableLayout)FindViewById(Resource.Id.Table_All);
             DataBase.ReadRec(DrawRows);
             FirstRowDecoration();
@@ -65,14 +82,14 @@ namespace App2.Resources
             TextView date = (TextView)((TableRow)sender).GetChildAt(0);
             TextView descr = (TextView)((TableRow)sender).GetChildAt(2);
             TextView price = (TextView)((TableRow)sender).GetChildAt(4);
-            deleteDial.SetTitle("�� ����� ������ �������� ����� " + descr.Text + "?");
-            deleteDial.SetPositiveButton("���", (innSender, innArr) => 
+            deleteDial.SetTitle("Âè ä³éñíî õî÷åòå âèäàëèòè çàïèñ " + descr.Text + "?");
+            deleteDial.SetPositiveButton("Òàê", (innSender, innArr) => 
             {
                 DateTime tempo = DateTime.Parse(date.Text);
                 DataBase.Delete(tempo.ToShortDateString(), price.Text, descr.Text);
                 this.OnCreate(savedInstanse);
             });
-            deleteDial.SetNegativeButton("ͳ", (innSender, innArr) => { });
+            deleteDial.SetNegativeButton("Í³", (innSender, innArr) => { });
             deleteDial.Create().Show();
         }
     }

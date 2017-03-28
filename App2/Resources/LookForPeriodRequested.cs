@@ -1,3 +1,20 @@
+﻿/* Цей файл — частина MoneyCon.
+
+   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
+   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
+   в якому вона була опублікована Фондом вільного програмного забезпечення;
+   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
+   версії.
+
+   Moneycon розповсюджується з надією, що вона буде корисною,
+   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
+   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
+   суспільній ліцензії GNU.
+
+   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
+   разом з цією програмою. Якщо це не так, див.
+   <http://www.gnu.org/licenses/>.*/
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,8 +47,8 @@ namespace App2.Resources
             catch
             {
                 AlertDialog.Builder errMsg = new AlertDialog.Builder(this);
-                errMsg.SetTitle("��...");
-                errMsg.SetMessage("�� ���������� � �������� ����. ����-����� �������� ���� � ��������� �����");
+                errMsg.SetTitle("Îé...");
+                errMsg.SetMessage("Âè ïîìèëèëèñÿ ç ââåäåíÿì äàòè. Áóäü-ëàñêà ïåðåâ³ðòå äàí³ é ñïðîáóéòå çíîâó");
                 errMsg.SetPositiveButton("OK", (senderAlert, ar) => { OnBackPressed(); });
                 errMsg.SetCancelable(true);
                 errMsg.Create().Show();
@@ -47,8 +64,8 @@ namespace App2.Resources
             catch
             {
                 AlertDialog.Builder errMsg = new AlertDialog.Builder(this);
-                errMsg.SetTitle("��...");
-                errMsg.SetMessage("�� ���������� � �������� ����. ����-����� �������� ���� � ��������� �����");
+                errMsg.SetTitle("Îé...");
+                errMsg.SetMessage("Âè ïîìèëèëèñÿ ç ââåäåíÿì äàòè. Áóäü-ëàñêà ïåðåâ³ðòå äàí³ é ñïðîáóéòå çíîâó");
                 errMsg.SetPositiveButton("OK", (senderAlert, ar) => { OnBackPressed(); });
                 errMsg.SetCancelable(true);
                 errMsg.Create().Show();
@@ -57,9 +74,9 @@ namespace App2.Resources
             DataBase.outputMeth1 LookForDay_out = DrawRows;
             
             TextView Header = (TextView)FindViewById(Resource.Id.TextViev1_LookForPer_Req);
-            Header.Text = "������� �� ����� � " + BDate.ToShortDateString() + " �� " + EDate.ToShortDateString();
+            Header.Text = "Âèòðàòè çà ïåð³îä ç " + BDate.ToShortDateString() + " ïî " + EDate.ToShortDateString();
             TextView SumView = (TextView)FindViewById(Resource.Id.TextViev1_LookForPer_Sum);
-            SumView.Text = "������� �� ��� ����� ����������: " + DataBase.PerSum(BDate,EDate,LookForDay_out).ToString() + " ���";
+            SumView.Text = "Âèòðàòè çà öåé ïåð³îä ñòàíîâëÿòü: " + DataBase.PerSum(BDate,EDate,LookForDay_out).ToString() + " ãðí";
         }
 
         private void DrawRows(string description, string price)

@@ -1,3 +1,20 @@
+﻿/* Цей файл — частина MoneyCon.
+
+   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
+   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
+   в якому вона була опублікована Фондом вільного програмного забезпечення;
+   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
+   версії.
+
+   Moneycon розповсюджується з надією, що вона буде корисною,
+   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
+   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
+   суспільній ліцензії GNU.
+
+   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
+   разом з цією програмою. Якщо це не так, див.
+   <http://www.gnu.org/licenses/>.*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +43,10 @@ namespace App2.Resources
             DataBase.outputMeth1 LookForDay_out = DrawRows;
             SetContentView(Resource.Layout.DayActRet);
             TextView Header = (TextView)FindViewById(Resource.Id.TextViev1_LookForDay_Req);
-            Header.Text = "������� �� " + requestedTime.ToShortDateString();
+            Header.Text = "Âèòðàòè çà " + requestedTime.ToShortDateString();
             DataBase.LookFor(requestedTime, LookForDay_out);
             TextView SumView = (TextView)FindViewById(Resource.Id.TextViev1_LookForDay_Sum);
-            SumView.Text = "������� �� ��� ���� ����������: " + DataBase.DaySum(requestedTime).ToString() + " ���";
+            SumView.Text = "Âèòðàòè çà öåé äåíü ñòàíîâëÿòü: " + DataBase.DaySum(requestedTime).ToString() + " ãðí";
         }
 
         private void DrawRows(string description, string price)

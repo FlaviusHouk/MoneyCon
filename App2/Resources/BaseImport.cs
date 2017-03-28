@@ -1,3 +1,20 @@
+﻿/* Цей файл — частина MoneyCon.
+
+   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
+   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
+   в якому вона була опублікована Фондом вільного програмного забезпечення;
+   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
+   версії.
+
+   Moneycon розповсюджується з надією, що вона буде корисною,
+   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
+   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
+   суспільній ліцензії GNU.
+
+   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
+   разом з цією програмою. Якщо це не так, див.
+   <http://www.gnu.org/licenses/>.*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +30,7 @@ using Android.Widget;
 
 namespace App2.Resources
 {
-    [Activity(Label = "�������� ��������")]
+    [Activity(Label = "Ôàéëîâèé ïðîâ³äíèê")]
     public class FileExplorerImp : Activity
     {
         static int count = 0;
@@ -65,7 +82,7 @@ namespace App2.Resources
             //string dbpath = DataBase.GetStartPath() + "/localbase.db";
             //System.IO.File.Copy(dbpath, path + "/localbase " + now.ToShortDateString() + ".db");
             AlertDialog.Builder dial = new AlertDialog.Builder(this);
-            dial.SetMessage("���� ���� �����������");
+            dial.SetMessage("Áàçó áóëî ³ìïîðòîâàíî");
             dial.SetPositiveButton("OK", (inSender, inE) => { OnBackPressed(); });
             dial.Create().Show();
         }
@@ -149,8 +166,8 @@ namespace App2.Resources
             catch (UnauthorizedAccessException)
             {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.SetMessage("�� �� ���� ������� ��� ��������� ���� �����");
-                dialog.SetPositiveButton("�����", (sender, ar) => { GoOut(); });
+                dialog.SetMessage("Âè íå ìàºòå äîçâîëó äëÿ ïåðåãëÿäó ö³º¿ ïàïêè");
+                dialog.SetPositiveButton("Äîáðå", (sender, ar) => { GoOut(); });
                 dialog.Create().Show();
             }
         }
