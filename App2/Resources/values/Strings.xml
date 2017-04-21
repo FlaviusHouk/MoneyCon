@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">App2</string>
+    <string name="ApplicationName">MoneyCon</string>
+  <string name="BoldFont">Fonts/Exo_2_Bold.otf</string>
+  <string name="MediumFont">Fonts/Exo_2_Medium.otf</string>
+  <string name="LightFont">Fonts/Exo_2_Light.otf</string>
+  <string-array name="AddTagArray">
+    <item id="@+id/AddTagButton">Додати Тег</item>
+  </string-array>
 </resources>

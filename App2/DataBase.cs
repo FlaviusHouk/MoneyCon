@@ -1,21 +1,4 @@
-﻿/* Цей файл — частина MoneyCon.
-
-   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
-   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
-   в якому вона була опублікована Фондом вільного програмного забезпечення;
-   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
-   версії.
-
-   Moneycon розповсюджується з надією, що вона буде корисною,
-   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
-   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
-   суспільній ліцензії GNU.
-
-   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
-   разом з цією програмою. Якщо це не так, див.
-   <http://www.gnu.org/licenses/>.*/
-
-using System;
+﻿using System;
 using Mono.Data.Sqlite;
 using System.Data;
 using System.IO;
@@ -26,20 +9,20 @@ namespace App2
     public static class DataBase
     {
         //область бази даних
+        #region
+        //private static SQLite.SQLiteAsyncConnection newCon;
         private static SqliteConnection newCon;
         static string documentsPath = Android.OS.Environment.DataDirectory.AbsolutePath;
         static string path = string.Concat(documentsPath, "/data/MoneyCon.MoneyCon/localbase.db");
-		//static string path = "localbase.db";
+
+        //static string path = "localbase.db";
         private static string connectionStr = "Data Source=" + path + "; Version=3;";
         private static string secureCon = connectionStr;
         private static System.Text.StringBuilder queryBuilder = new System.Text.StringBuilder();
 		private static string Key;
-		//private static byte[] pass;
-		//private static byte[] IV;
-
-        //область делегатів
-        public delegate void outputMeth1(string str1, string str2);
-        public delegate void outputMeth2(string str1, string str4, string str5);
+        //private static byte[] pass;
+        //private static byte[] IV;
+        #endregion
 
         //область допоміжних полів
         private static DateTime fewTimesCont;
@@ -125,22 +108,21 @@ namespace App2
         {
             return Path.GetDirectoryName(path);
         }
-        public static void Open()
+        public static async void Open()
         {
             if (!File.Exists(path))
             {
                 File.Create(path);
             }
             newCon = new SqliteConnection(connectionStr);
-            newCon.Open();
-			string sql = "create table if not exists DB (date varchar(20), price varchar(10), desc varchar(200))";
+            await newCon.OpenAsync();
+			string sql = "create table if not exists DB (date varchar(20), price varchar(10), desc varchar(200), tag varchar(30))";
             SqliteCommand command = new SqliteCommand(sql, newCon);
             command.ExecuteNonQuery();
             CheckBase();
-                
+            CreateTagTab();
+            CreateTemplateTab();
         }
-
-       
         public static int FirstCheck()
         {
             string sql = "select * from DBFirst";
@@ -163,9 +145,23 @@ namespace App2
             command.ExecuteNonQuery();
         }
         
-		public static void AddRec(string date, string price, string desc)
+		private static void AddRec(string date, string price, string desc)
         {
 			string sql = queryBuilder.Append("insert into DB (date, price, desc) values (").Append("'").Append(date).Append("', '").Append(price.ToString()).Append("', '").Append(desc).Append("')").ToString();
+            SqliteCommand command = new SqliteCommand(sql, newCon);
+            command.ExecuteNonQuery();
+            queryBuilder.Clear();
+        }
+        public static void AddTemp(string price, string desc, string tag)
+        {
+            string sql = queryBuilder.Append("insert into Templates (price, desc, tag) values (").Append("'").Append(price).Append("', '").Append(desc).Append("', '").Append(tag).Append("')").ToString();
+            SqliteCommand command = new SqliteCommand(sql, newCon);
+            command.ExecuteNonQuery();
+            queryBuilder.Clear();
+        }
+        public static void AddRec(string date, string price, string desc, string tag)
+        {
+            string sql = queryBuilder.Append("insert into DB (date, price, desc, tag) values (").Append("'").Append(date).Append("', '").Append(price.ToString()).Append("', '").Append(desc).Append("', '").Append(tag).Append("')").ToString();
             SqliteCommand command = new SqliteCommand(sql, newCon);
             command.ExecuteNonQuery();
             queryBuilder.Clear();
@@ -186,7 +182,7 @@ namespace App2
             command.ExecuteNonQuery();
             return i;
         }
-		public static void ReadRec (outputMeth2 output)
+		public static void ReadRec (Action<string, string, string> output)
         {
             output("Дата ", "Ціна ", "Опис");
             string sql = "select * from DB";
@@ -220,7 +216,7 @@ namespace App2
             reader.Close();
             command.ExecuteNonQuery();
         }
-		public static void LookFor(DateTime query, outputMeth1 output)
+		public static void LookFor(DateTime query, Action<string,string> output)
         {
             if (fewTimesCont == query)
             {
@@ -259,13 +255,16 @@ namespace App2
             command.ExecuteNonQuery();
             queryBuilder.Clear();
         }
-        public static void LookFor(string desc)
+        public static void LookFor(string tag, Action<string, string, string> output)
         {
-            string sql = "select price, desc from DB where desc = '" + desc + "'";
+            output("Тег", "Опис", "Ціна");
+            string sql = "select date, price, desc from DB where tag = '" + tag + "'";
             SqliteCommand command = new SqliteCommand(sql, newCon);
             SqliteDataReader reader = command.ExecuteReader();
             while (reader.Read())
-                Console.WriteLine("\nЦіна: " + reader["price"] + "\nОпис: " + reader["desc"]);
+            {
+                output((string)reader["date"], (string)reader["price"], (string)reader["desc"]);
+            }
             reader.Close();
             command.ExecuteNonQuery();
         }
@@ -319,7 +318,7 @@ namespace App2
 			}
             return sum;
         }
-		public static double PerSum(DateTime bDate, DateTime eDate, outputMeth1 output)
+		public static double PerSum(DateTime bDate, DateTime eDate, Action<string, string> output)
         {
             double sum = 0;
             fewTimesCont = bDate;
@@ -389,6 +388,75 @@ namespace App2
             AddRec(temp.Date, temp.Price, temp.Desc);
             return;
 		}
+
+        private static void CreateTagTab()
+        {
+            string sql = "CREATE TABLE IF NOT EXISTS Tags(name varchar(30))";
+            SqliteCommand command = new SqliteCommand(sql, newCon);
+            command.ExecuteNonQuery();
+        }
+        public static void AddTag(string tag)
+        {
+            System.Text.StringBuilder command = new System.Text.StringBuilder();
+            command.Append("SELECT 1 FROM Tags WHERE name = '").Append(tag).Append("';");
+            SqliteCommand comand = new SqliteCommand(command.ToString(), newCon);
+            SqliteDataReader reader = comand.ExecuteReader();
+            if (!reader.Read())
+            {
+                reader.Close();
+                command.Clear();
+                command.Append("INSERT INTO Tags(name) values ('").Append(tag).Append("')");
+                comand.CommandText = command.ToString();
+                comand.ExecuteNonQuery();
+                return;
+            }
+            else
+            {
+                throw new SqliteException("Такий тег уже існує");
+            }
+            reader.Close();
+        }
+        public static void ReadTags(Action<string> output)
+        {
+            string sql = "SELECT * FROM Tags";
+            SqliteCommand command = new SqliteCommand(sql, newCon);
+            SqliteDataReader reader = command.ExecuteReader();
+            bool read = reader.Read();
+            while (read)
+            {
+                output((string)reader["name"]);
+                read = reader.Read();
+            }
+            reader.Close();
+            command.ExecuteNonQuery();
+        }
+        public static void DeleteTag(string tag)
+        {
+            System.Text.StringBuilder command = new System.Text.StringBuilder();
+            command.Append("DELETE FROM Tags WHERE name = '").Append(tag).Append("';");
+            SqliteCommand com = new SqliteCommand(command.ToString(), newCon);
+            com.ExecuteNonQuery();
+        }
+        private static void CreateTemplateTab()
+        {
+            string sql = "create table if not exists Templates (price varchar(10), desc varchar(200), tag varchar(30))";
+            SqliteCommand command = new SqliteCommand(sql, newCon);
+            command.ExecuteNonQuery();
+        }
+        public static void ReadTemplates(Action<string, string, string> output)
+        {
+            string sql = "SELECT * FROM Templates";
+            SqliteCommand command = new SqliteCommand(sql, newCon);
+            SqliteDataReader reader = command.ExecuteReader();
+            bool read = reader.Read();
+            while (read)
+            {
+                output((string)reader["price"], (string)reader["desc"], (string)reader["tag"]);
+                read = reader.Read();
+            }
+            reader.Close();
+            command.ExecuteNonQuery();
+        }
     }
 }
 

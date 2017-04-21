@@ -99,12 +99,6 @@ class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		/* We need to ensure that "Main.dll" comes first in this list. */
 		"Main.dll",
-		"SQLite-net.dll",
-		"SQLitePCL.batteries.dll",
-		"SQLitePCL.dll",
-		"SQLitePCL.Ext.dll",
-		"SQLitePCL.raw.dll",
-		"SQLitePCLPlugin_esqlite3.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};

@@ -1,20 +1,3 @@
-﻿/* Цей файл — частина MoneyCon.
-
-   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
-   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
-   в якому вона була опублікована Фондом вільного програмного забезпечення;
-   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
-   версії.
-
-   Moneycon розповсюджується з надією, що вона буде корисною,
-   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
-   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
-   суспільній ліцензії GNU.
-
-   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
-   разом з цією програмою. Якщо це не так, див.
-   <http://www.gnu.org/licenses/>.*/
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -32,8 +16,10 @@ namespace App2.Resources
     [Activity(Label = "Prefs")]
     public class Prefs : Activity
     {
+        Typeface boldFont;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            boldFont = Typeface.CreateFromAsset(Assets, "Fonts/Exo_2_Bold.otf");
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Prefs);
             Button export = FindViewById<Button>(Resource.Id.expButt);
@@ -46,13 +32,21 @@ namespace App2.Resources
             encoding.Click += EncryptHandler;
             Button decoding = FindViewById<Button>(Resource.Id.dec);
             decoding.Click += DecryptHanler;
+            Button tagsBut = FindViewById<Button>(Resource.Id.TagEdition);
+            tagsBut.Click += TagsBut_Click;
+            FindViewById<TextView>(Resource.Id.Prefs_Head).Typeface = boldFont;
+        }
+
+        private void TagsBut_Click(object sender, EventArgs e)
+        {
+            StartActivity(typeof(Resources.TagEdit));
         }
 
         private void DecryptHanler(object sender, EventArgs e)
         {
             DataBase.DecryptAll();
             AlertDialog.Builder dial = new AlertDialog.Builder(this);
-            dial.SetMessage("Áàçó ðîçøèôðîâàíî");
+            dial.SetMessage("���� ������������");
             dial.Create().Show();
         }
 
@@ -60,7 +54,7 @@ namespace App2.Resources
         {
             DataBase.EncryptAll();
             AlertDialog.Builder dial = new AlertDialog.Builder(this);
-            dial.SetMessage("Áàçó çàøèôðîâàíî");
+            dial.SetMessage("���� �����������");
             dial.Create().Show();
         }
 
@@ -77,6 +71,11 @@ namespace App2.Resources
         private void SetPassword(object sender, EventArgs e)
         {
             StartActivity(typeof(Resources.SetPassAct));
+        }
+
+        private void EditTags(object sender, EventArgs e)
+        {
+            StartActivity(typeof(Resources.TagEdit));
         }
     }
 }

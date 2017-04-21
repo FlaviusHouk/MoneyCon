@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="App2.DataBase">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="App2.DataBase.outputMeth1" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="App2.DataBase.outputMeth2" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EARAEACAGAAAJgUAgDYCAQIgAAHAAgEWCACAAAiSAgA=</HashCode>
+      <FileName>DataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Record">
+    <Position X="2.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAQAAAgAQAAAAAAAAAAAAAAABAAACQNgAAAA=</HashCode>
+      <FileName>DataBaseRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.MainActivity">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAACAAAACAAAAAAEAAAAA=</HashCode>
+      <FileName>MainActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resource">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="App2.Resource.Array" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="App2.Resource.Attribute" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="App2.Resource.Drawable" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="App2.Resource.Id" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="App2.Resource.Layout" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="App2.Resource.String" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Conventer">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAACAAAAAAAgAAAAAgAAA=</HashCode>
+      <FileName>StaticConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Persentage" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UniversalViev.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.NormalSpinner">
+    <Position X="7.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\AddRecAct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.AddRecAct">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="App2.Resources.AddRecAct.TagSpinnerWrapper" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Resources\AddRecAct.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACABAAAAAAAAAAAwAAAQAAAAACARQAAAAQBAAAAAAAA=</HashCode>
+      <FileName>Resources\AddRecAct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.AddTagAct">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\AddTagAct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.AllCosts">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAABAAAAAACAAAAAAAAQAAEAIAAA=</HashCode>
+      <FileName>Resources\AllCosts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.FileExplorerExp">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAABAAAAAAAAAAFAACBAAABCAAIAAAAAAAAEAACEA=</HashCode>
+      <FileName>Resources\BaseExport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.FileExplorerImp">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAABAAAAAAAAAANAACAAAABCAAIAAAAAAAAEAACEA=</HashCode>
+      <FileName>Resources\BaseImport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.FindForDayRequest">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAACAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Resources\FindForDayRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.FindForDayRequested">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAECAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\FindForDayRequested.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.LookForPeriodRequest">
+    <Position X="7.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\LookForPeriodRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.LookForPeriodRequested">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAIAAAAAAgAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\LookForPeriodRequested.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.MenuActivity">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAgAAAAAAAIAAACAAAAAAAAAAIAAAACA=</HashCode>
+      <FileName>Resources\MenuActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.PasswordScreen">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgCAAAAAAAAAAAAAAAAACAAAAAIAAAAAgAAIAA=</HashCode>
+      <FileName>Resources\PasswordScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.Prefs">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAIAAABAAAgCAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Resources\Prefs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App2.Resources.SetPassAct">
+    <Position X="7.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Resources\SetPassAct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

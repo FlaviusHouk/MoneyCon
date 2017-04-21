@@ -5,7 +5,7 @@
   <xs:import schemaLocation="schemas.android.com.tools.xsd" namespace="http://schemas.android.com/tools" />
   <xs:annotation>
     <xs:documentation>v16</xs:documentation>
-    <xs:documentation>05.03.2017 20:46:10</xs:documentation>
+    <xs:documentation>21.04.2017 14:52:13</xs:documentation>
   </xs:annotation>
   <xs:group name="any-view">
     <xs:choice>
@@ -79,6 +79,7 @@
       <xs:element ref="ImageSwitcher" />
       <xs:element ref="GridLayout" />
       <xs:element ref="fragment" />
+      <xs:element ref="App2.Resources.NormalSpinner" />
     </xs:choice>
   </xs:group>
   <xs:element name="ZoomControls" type="ZoomControls">
@@ -1217,5 +1218,41 @@
     <xs:attribute ref="android:layout_marginStart" />
     <xs:attribute ref="android:layout_marginEnd" />
     <xs:attribute ref="android:style" />
+  </xs:complexType>
+  <xs:element name="App2.Resources.NormalSpinner" type="App2.Resources.NormalSpinner">
+    <xs:annotation>
+      <xs:documentation>Runtime Type: App2.Resources.NormalSpinner</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="App2.Resources.NormalSpinner">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Spinner">
+        <xs:attribute ref="android:popupTheme" />
+        <xs:attribute ref="android:popupElevation" />
+        <xs:attribute ref="android:touchscreenBlocksFocus" />
+        <xs:attribute ref="android:layoutMode" />
+        <xs:attribute ref="android:transitionGroup" />
+        <xs:attribute ref="android:contextClickable" />
+        <xs:attribute ref="android:accessibilityTraversalBefore" />
+        <xs:attribute ref="android:accessibilityTraversalAfter" />
+        <xs:attribute ref="android:elevation" />
+        <xs:attribute ref="android:translationZ" />
+        <xs:attribute ref="android:accessibilityLiveRegion" />
+        <xs:attribute ref="android:labelFor" />
+        <xs:attribute ref="android:theme" />
+        <xs:attribute ref="android:transitionName" />
+        <xs:attribute ref="android:nestedScrollingEnabled" />
+        <xs:attribute ref="android:stateListAnimator" />
+        <xs:attribute ref="android:backgroundTint" />
+        <xs:attribute ref="android:backgroundTintMode" />
+        <xs:attribute ref="android:outlineProvider" />
+        <xs:attribute ref="android:foreground" />
+        <xs:attribute ref="android:foregroundGravity" />
+        <xs:attribute ref="android:foregroundInsidePadding" />
+        <xs:attribute ref="android:foregroundTint" />
+        <xs:attribute ref="android:foregroundTintMode" />
+        <xs:attribute ref="android:scrollIndicators" />
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 </xs:schema>

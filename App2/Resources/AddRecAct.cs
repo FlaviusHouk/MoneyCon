@@ -1,23 +1,5 @@
-﻿/* Цей файл — частина MoneyCon.
-
-   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
-   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
-   в якому вона була опублікована Фондом вільного програмного забезпечення;
-   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
-   версії.
-
-   Moneycon розповсюджується з надією, що вона буде корисною,
-   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
-   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
-   суспільній ліцензії GNU.
-
-   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
-   разом з цією програмою. Якщо це не так, див.
-   <http://www.gnu.org/licenses/>.*/
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 using Android.App;
@@ -25,23 +7,147 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Graphics;
 using Android.Widget;
 
 namespace App2.Resources
 {
+    class TagSpinnerWrapper : TextView
+    {
+        public override string ToString()
+        {
+            return base.Text;
+        }
+        public TagSpinnerWrapper(Context cont, Typeface typeface) : base(cont)
+        {
+            Typeface = typeface;
+        }
+    }
+
     [Activity(Label = "AddRecAct")]
     public class AddRecAct : Activity
     {
+        Typeface boldFont;
+        Typeface mediumFont;
+        Typeface lightFont;
         private string actName;
         private double price;
-        private DateTime curTime = DateTime.Now;
+        private DateTime date = DateTime.Now;
+        private Spinner comboBox;
+        private List<TagSpinnerWrapper> tags;
+        bool start;
+        DatePickerFragment picker;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            boldFont = Typeface.CreateFromAsset(Assets, "Fonts/Exo_2_Bold.otf");
+            mediumFont = Typeface.CreateFromAsset(Assets, "Fonts/Exo_2_Medium.otf");
+            lightFont = Typeface.CreateFromAsset(Assets, "Fonts/Exo_2_Light.otf");
             base.OnCreate(savedInstanceState);
+            start = true;
+            tags = new List<TagSpinnerWrapper>();
             SetContentView(Resource.Layout.AddRecLay);
-            DefaultDateValue();
+            UseFonts();
+            //DefaultDateValue();
+            Button datePickerButton = FindViewById<Button>(Resource.Id.SetDateBut);
+            datePickerButton.Click += StartPicker;
             Button AddBut = (Button)FindViewById(Resource.Id.Add);
             AddBut.Click += AddRecHand;
+            DataBase.ReadTags(BuildTagCol);
+            TagSpinnerWrapper text = new TagSpinnerWrapper(this, mediumFont);
+            text.Text = "������ ���";
+            tags.Add(text);
+            comboBox = new NormalSpinner(this);
+            ArrayAdapter<TagSpinnerWrapper> someAdapter = new ArrayAdapter<TagSpinnerWrapper>(this, Resource.Layout.ComboBoxElement, tags);
+            someAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            comboBox.Adapter = someAdapter;
+            comboBox.ItemSelected += CheckItem;
+            LinearLayout SpinnerLay = FindViewById<LinearLayout>(Resource.Id.SpinnerLayout);
+            SpinnerLay.AddView(comboBox, new ViewGroup.LayoutParams(-1, -1));
+            Button addTemp = FindViewById<Button>(Resource.Id.AddTemp);
+            addTemp.Click += AddTemplateHand;
+            Button addAsTemp = FindViewById<Button>(Resource.Id.AddTemplate);
+            addAsTemp.Click += AddAsTempHand;
+            picker = DatePickerFragment.NewInstanse(SetDate);
+        }
+
+        private void SetDate(DateTime fromPiker)
+        {
+            date = fromPiker;
+        }
+
+        private void StartPicker(object sender, EventArgs e)
+        {
+            picker.Show(FragmentManager, DatePickerFragment.TAG);
+        }
+
+        private void UseFonts()
+        {
+            FindViewById<TextView>(Resource.Id.TextViev1).Typeface = boldFont;
+            FindViewById<TextView>(Resource.Id.TextViev2).Typeface = mediumFont;
+            FindViewById<EditText>(Resource.Id.ActName).Typeface = lightFont;
+            FindViewById<TextView>(Resource.Id.TextViev3).Typeface = mediumFont;
+            FindViewById<EditText>(Resource.Id.ActPrice).Typeface = lightFont;
+        }
+
+        private void AddAsTempHand(object sender, EventArgs e)
+        {
+            StartActivity(typeof(TemplateScreen));
+        }
+
+        private void AddTemplateHand(object sender, EventArgs e)
+        {
+            EditText name = (EditText)FindViewById(Resource.Id.ActName);          
+            EditText priceField = (EditText)FindViewById(Resource.Id.ActPrice);
+            if (name.Text.Length == 0 || priceField.Text.Length == 0)
+            {
+                ShowErrorMsg();
+                return;
+            }
+            price = double.Parse(priceField.Text);
+            if (((TagSpinnerWrapper)comboBox.SelectedItem).Text != "������ ���")
+            {
+                DataBase.AddTemp(price.ToString(), name.Text, ((TagSpinnerWrapper)comboBox.SelectedItem).Text);
+            }
+            else
+            {
+                DataBase.AddTemp(price.ToString(), name.Text, "��");
+            }
+            AlertDialog.Builder dial = new AlertDialog.Builder(this);
+            dial.SetTitle("��������� �������");
+            dial.SetMessage("������� " + actName +  " ������ �� ������.");
+            dial.SetPositiveButton("OK", (senderAlert, ar) =>
+            {
+
+            });
+            dial.SetCancelable(true);
+            dial.Create().Show();
+        }
+
+        private void ShowErrorMsg()
+        { 
+            AlertDialog.Builder erroeMsg = new AlertDialog.Builder(this);
+            erroeMsg.SetTitle("��...");
+            erroeMsg.SetMessage("�� ���������� � ��������� �����");
+            erroeMsg.SetPositiveButton("OK", (senderAlert, ar) => {});
+            erroeMsg.SetCancelable(true);
+            erroeMsg.Create().Show();
+        }
+
+        private void CheckItem(object sender, EventArgs e)
+        {
+            string type = ((TagSpinnerWrapper)((NormalSpinner)sender).SelectedItem).Text;
+            if (!start && type == "������ ���")
+            {
+                StartActivity(typeof(AddTagAct));
+            }
+            start = false;
+        }
+
+        private void BuildTagCol(string tag)
+        {
+            TagSpinnerWrapper text = new TagSpinnerWrapper(this, mediumFont);
+            text.Text = tag;
+            tags.Add(text);
         }
 
         protected void AddRecHand(object e, EventArgs args)
@@ -49,29 +155,23 @@ namespace App2.Resources
             EditText name = (EditText)FindViewById(Resource.Id.ActName);
             actName = name.Text;
             EditText priceField = (EditText)FindViewById(Resource.Id.ActPrice);
-            price = double.Parse(priceField.Text);
-            EditText Year = (EditText)FindViewById(Resource.Id.ActYear);
-            EditText Month = (EditText)FindViewById(Resource.Id.ActMonth);
-            EditText Day = (EditText)FindViewById(Resource.Id.ActDay);
-            DateTime date;
-            try
+            if (name.Text.Length == 0 || priceField.Text.Length == 0)
             {
-                date = new DateTime(int.Parse(Year.Text), int.Parse(Month.Text), int.Parse(Day.Text));
-            }
-            catch
-            {
-                AlertDialog.Builder errMsg = new AlertDialog.Builder(this);
-                errMsg.SetTitle("Îé...");
-                errMsg.SetMessage("Âè ïîìèëèëèñÿ ç ââåäåíÿì äàòè. Áóäü-ëàñêà ïåðåâ³ðòå äàí³ é ñïðîáóéòå çíîâó");
-                errMsg.SetPositiveButton("OK", (senderAlert, ar) => { });
-                errMsg.SetCancelable(true);
-                errMsg.Create().Show();
+                ShowErrorMsg();
                 return;
             }
-            DataBase.AddRec(date.ToShortDateString(), price.ToString(), actName);
+            price = double.Parse(priceField.Text);
+            if (((TagSpinnerWrapper)comboBox.SelectedItem).Text != "������ ���")
+            {
+                DataBase.AddRec(date.ToShortDateString(), price.ToString(), actName, ((TagSpinnerWrapper)comboBox.SelectedItem).Text);
+            }
+            else
+            {
+                DataBase.AddRec(date.ToShortDateString(), price.ToString(), actName, "��");
+            }
             AlertDialog.Builder dial = new AlertDialog.Builder(this);
-            dial.SetTitle("Äîäàâàííÿ âèòðàòè");
-            dial.SetMessage("Âèäàòîê " + actName + " çðîáëåíèé " + date.ToShortDateString() + " äîäàíî.");
+            dial.SetTitle("��������� �������");
+            dial.SetMessage("������� " + actName + " ��������� " + date.ToShortDateString() + " ������.");
             dial.SetPositiveButton("OK", (senderAlert, ar) => 
             {
                 priceField.Text = String.Empty;
@@ -83,7 +183,7 @@ namespace App2.Resources
 
        
 
-        private void DefaultDateValue()
+        /*private void DefaultDateValue()
         {
             EditText Year = (EditText)FindViewById(Resource.Id.ActYear);
             EditText Month = (EditText)FindViewById(Resource.Id.ActMonth);
@@ -92,6 +192,6 @@ namespace App2.Resources
             Year.Text = year.ToString();
             Month.Text = curTime.Month.ToString();
             Day.Text = curTime.Day.ToString();
-        }
+        }*/
     }
 }

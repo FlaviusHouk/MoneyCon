@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="MoneyCon.MoneyCon" android:installLocation="internalOnly" android:versionName="0.3.1" android:versionCode="4">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="MoneyCon.MoneyCon" android:installLocation="internalOnly" android:versionName="0.3.3" android:versionCode="6">
   <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="16" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.INTERNET" />
   <application android:label="Контроль Видатків" android:icon="@drawable/ic_launcher" android:name="android.app.Application" android:allowBackup="true" android:debuggable="true">
     <activity android:label="Проект" android:name="md5e8abd99e1f2b58f9bf39a255b96f2e4d.MainActivity" />
+    <activity android:label="AddTagAct" android:name="md588c6defbe7125f1ad72a98923651efff.AddTagAct" />
     <activity android:label="Activity1" android:name="md588c6defbe7125f1ad72a98923651efff.PasswordScreen" />
     <activity android:label="Файловий провідник" android:name="md588c6defbe7125f1ad72a98923651efff.FileExplorerImp" />
     <activity android:label="Prefs" android:name="md588c6defbe7125f1ad72a98923651efff.Prefs" />
     <activity android:label="SetPassAct" android:name="md588c6defbe7125f1ad72a98923651efff.SetPassAct" />
+    <activity android:label="TagEdit" android:name="md588c6defbe7125f1ad72a98923651efff.TagEdit" />
+    <activity android:label="TemplateScreen" android:name="md588c6defbe7125f1ad72a98923651efff.TemplateScreen" />
     <activity android:label="Файловий провідник" android:name="md588c6defbe7125f1ad72a98923651efff.FileExplorerExp" />
     <activity android:label="AllCosts" android:name="md588c6defbe7125f1ad72a98923651efff.AllCosts" />
     <activity android:label="LookForPeriodRequested" android:name="md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequested" />
-    <activity android:label="FindForDayRequested" android:name="md588c6defbe7125f1ad72a98923651efff.FindForDayRequested" />
+    <activity android:label="FindForDayRequested" android:name="md588c6defbe7125f1ad72a98923651efff.LookTagRequested" />
     <activity android:label="AddRecAct" android:name="md588c6defbe7125f1ad72a98923651efff.AddRecAct" />
-    <activity android:label="FindForDayRequest" android:name="md588c6defbe7125f1ad72a98923651efff.FindForDayRequest" />
+    <activity android:label="FindForDayRequest" android:name="md588c6defbe7125f1ad72a98923651efff.LookTagRequest" />
     <activity android:label="LookForPeriodRequest" android:name="md588c6defbe7125f1ad72a98923651efff.LookForPeriodRequest" />
     <activity android:icon="@drawable/ic_launcher" android:label="MoneyCon" android:name="md588c6defbe7125f1ad72a98923651efff.MenuActivity">
       <intent-filter>

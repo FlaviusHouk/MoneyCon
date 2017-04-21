@@ -55,30 +55,6 @@
     <Reference Include="Mono.Android" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="mscorlib" />
-    <Reference Include="SQLite-net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\sqlite-net-pcl.1.1.2\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLite-net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCL, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCL.3.8.7.2\lib\MonoAndroid\SQLitePCL.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCL.batteries, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCL.bundle_green.0.9.2\lib\MonoAndroid\SQLitePCL.batteries.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCL.Ext, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCL.3.8.7.2\lib\MonoAndroid\SQLitePCL.Ext.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCL.raw, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCL.raw.0.9.2\lib\MonoAndroid\SQLitePCL.raw.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCLPlugin_esqlite3, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLitePCL.plugin.sqlite3.android.0.9.3\lib\MonoAndroid\SQLitePCLPlugin_esqlite3.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -87,10 +63,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseRecord.cs" />
+    <Compile Include="Resources\AddTagAct.cs" />
+    <Compile Include="Resources\DatePickerFragment.cs" />
+    <Compile Include="Resources\AdditionalClasses.cs" />
     <Compile Include="Resources\PasswordScreen.cs" />
     <Compile Include="Resources\BaseImport.cs" />
     <Compile Include="Resources\Prefs.cs" />
     <Compile Include="Resources\SetPassAct.cs" />
+    <Compile Include="Resources\TagEdit.cs" />
+    <Compile Include="Resources\TemplateScreen.cs" />
     <Compile Include="StaticConverter.cs" />
     <Compile Include="UniversalViev.cs" />
     <Compile Include="DataBase.cs" />
@@ -98,16 +79,22 @@
     <Compile Include="Resources\BaseExport.cs" />
     <Compile Include="Resources\AllCosts.cs" />
     <Compile Include="Resources\LookForPeriodRequested.cs" />
-    <Compile Include="Resources\FindForDayRequested.cs" />
+    <Compile Include="Resources\LookTagRequested.cs" />
     <Compile Include="Resources\AddRecAct.cs" />
-    <Compile Include="Resources\FindForDayRequest.cs" />
+    <Compile Include="Resources\LookTagRequest.cs" />
     <Compile Include="Resources\LookForPeriodRequest.cs" />
     <Compile Include="Resources\MenuActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <AndroidAsset Include="Assets\Fonts\DaxlinePro-ExtraBold.otf" />
+    <AndroidAsset Include="Assets\Fonts\DaxlinePro-Light.otf" />
+    <AndroidAsset Include="Assets\Fonts\DaxlinePro-Medium.otf" />
+    <AndroidAsset Include="Assets\Fonts\Exo_2_Bold.otf" />
+    <AndroidAsset Include="Assets\Fonts\Exo_2_Light.otf" />
+    <AndroidAsset Include="Assets\Fonts\Exo_2_Medium.otf" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\drawable\toolLand.png" />
@@ -117,13 +104,13 @@
     <AndroidResource Include="Resources\layout-port\AddRecLay.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\DayAct.axml">
+    <AndroidResource Include="Resources\layout-port\LookTagAct.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\DayActRet.axml">
+    <AndroidResource Include="Resources\layout-port\LookTagRet.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\RowTemplate.axml">
+    <AndroidResource Include="Resources\layout-port\TwoTextTemplate.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout-port\FindForPeriodRequest.axml">
@@ -135,7 +122,7 @@
     <AndroidResource Include="Resources\layout-port\AllCosts.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\RowTemplate2.axml">
+    <AndroidResource Include="Resources\layout-port\ThreeTextTemplate.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout-port\FileExplorer.axml">
@@ -196,6 +183,21 @@
     <AndroidResource Include="Resources\layout-land\PasswordChecker.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout-port\AddTagLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout-port\ComboBoxElement.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout-port\OneTextTempate.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout-port\TagEdit.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout-port\TemplateScreen.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout-port\Start.axml" />
@@ -208,9 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\startBG.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\BG.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\addButt.xml" />
@@ -258,10 +257,52 @@
     <AndroidResource Include="Resources\drawable\toolsLandButt.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\BGLand.png" />
+    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\values\spinerAddBut.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\BG.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\BGLand.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\dataPicker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\addAsTemp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\addBill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\addRec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\saveTemp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\decryotBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\encryptBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\exportBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\importBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\setPassBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\tagEditBut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\findBut.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

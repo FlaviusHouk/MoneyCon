@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-->
-﻿   Цей файл — частина MoneyCon.
-
-   Moneycon - вільна програма: ви можете повторно її розповсюджувати та/або
-   змінювати її на умовах Стандартної суспільної ліцензії GNU в тому вигляді,
-   в якому вона була опублікована Фондом вільного програмного забезпечення;
-   або третьої версії ліцензії, або (зігдно з вашим вибором) будь-якої наступної
-   версії.
-
-   Moneycon розповсюджується з надією, що вона буде корисною,
-   але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ; навіть без неявної гарантії ТОВАРНОГО ВИГЛЯДУ
-   або ПРИДАТНОСТІ ДЛЯ КОНКРЕТНИХ ЦІЛЕЙ. Детальніше див. в Стандартній
-   суспільній ліцензії GNU.
-
-   Ви повинні були отримати копію Стандартної суспільної ліцензії GNU
-   разом з цією програмою. Якщо це не так, див.
-   <http://www.gnu.org/licenses/>.
-<-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -30,7 +12,7 @@
         <TextView
             android:text="Додавання видатку:"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:gravity="center"
             android:textColor="#000"
             android:textSize="28sp"
@@ -41,7 +23,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="4dp">
         <TextView
             android:text="Назва видатку"
             android:layout_width="match_parent"
@@ -54,17 +37,20 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+      android:layout_marginLeft="2dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="#000"
             android:id="@+id/ActName" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+      android:layout_marginLeft="4dp">
         <TextView
             android:text="Ціна"
             android:layout_width="match_parent"
@@ -77,59 +63,63 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:layout_marginLeft="2dp">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="#000"
             android:inputType="number"
             android:id="@+id/ActPrice" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:text="Дата"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="left"
-            android:textColor="#000"
-            android:textSize="20sp"
-            android:id="@+id/TextViev4" />
-    </LinearLayout>
-    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <EditText
-            android:layout_width="75dp"
-            android:layout_height="50dp"
-            android:inputType="number"
-            android:id="@+id/ActYear" />
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:inputType="number"
-            android:id="@+id/ActMonth" />
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:inputType="number"
-            android:id="@+id/ActDay" />
+        android:layout_marginLeft="5dp"
+        android:layout_height="75dp">
+        <Button
+            android:layout_height="75dp"
+            android:layout_width="150dp"
+            android:id="@+id/SetDateBut"
+            android:background="@drawable/dataPicker" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="2dp"
+        android:id="@+id/SpinnerLayout" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="25dp">
         <Button
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Додати"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@drawable/addAsTemp"
+            android:id="@+id/AddTemplate" />
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@drawable/saveTemp"
+            android:id="@+id/AddTemp" />
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@drawable/addBill"
+            android:id="@+id/ParsePhoto" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_horizontal">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/addRec"
             android:id="@+id/Add" />
     </LinearLayout>
 </LinearLayout>

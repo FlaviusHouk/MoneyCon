@@ -2,7 +2,7 @@
 <xs:schema xmlns:android="http://schemas.android.com/apk/res/android" attributeFormDefault="qualified" targetNamespace="http://schemas.android.com/apk/res/android" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v16</xs:documentation>
-    <xs:documentation>05.03.2017 20:46:10</xs:documentation>
+    <xs:documentation>21.04.2017 14:52:13</xs:documentation>
   </xs:annotation>
   <xs:attribute name="accessibilityFocusable">
     <xs:annotation>
@@ -16,6 +16,46 @@
             <xs:enumeration value="no" />
             <xs:enumeration value="yes" />
           </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="accessibilityLiveRegion">
+    <xs:annotation>
+      <xs:documentation>Indicates to accessibility services whether the user should be notified when this view changes.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="assertive" />
+            <xs:enumeration value="none" />
+            <xs:enumeration value="polite" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="accessibilityTraversalAfter">
+    <xs:annotation>
+      <xs:documentation>Sets the id of a view after which this one is visited in accessibility traversal. A screen-reader must visit the content of the other view before the content of this one. @see android.view.View#setAccessibilityTraversalAfter(int)}</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="accessibilityTraversalBefore">
+    <xs:annotation>
+      <xs:documentation>Sets the id of a view before which this one is visited in accessibility traversal. A screen-reader must visit the content of this view before the content of the one it precedes. @see android.view.View#setAccessibilityTraversalBefore(int)}</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
         </xs:simpleType>
       </xs:union>
     </xs:simpleType>
@@ -248,6 +288,37 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="backgroundTint">
+    <xs:annotation>
+      <xs:documentation>Tint to apply to the background.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="backgroundTintMode">
+    <xs:annotation>
+      <xs:documentation>Blending mode used to apply the background tint.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="add" />
+            <xs:enumeration value="multiply" />
+            <xs:enumeration value="screen" />
+            <xs:enumeration value="src_atop" />
+            <xs:enumeration value="src_in" />
+            <xs:enumeration value="src_over" />
+          </xs:restriction>
         </xs:simpleType>
       </xs:union>
     </xs:simpleType>
@@ -662,6 +733,21 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="contextClickable">
+    <xs:annotation>
+      <xs:documentation>Defines whether this view reacts to context click events.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false" />
+            <xs:enumeration value="true" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="cropToPadding">
     <xs:annotation>
       <xs:documentation>If true, the image will be cropped to fit within its padding.</xs:documentation>
@@ -1054,6 +1140,18 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="elevation">
+    <xs:annotation>
+      <xs:documentation>base z depth of the view</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="ellipsize">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -1435,6 +1533,37 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="false" />
             <xs:enumeration value="true" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="foregroundTint">
+    <xs:annotation>
+      <xs:documentation>Tint to apply to the foreground.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="foregroundTintMode">
+    <xs:annotation>
+      <xs:documentation>Blending mode used to apply the foreground tint.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="add" />
+            <xs:enumeration value="multiply" />
+            <xs:enumeration value="screen" />
+            <xs:enumeration value="src_atop" />
+            <xs:enumeration value="src_in" />
+            <xs:enumeration value="src_over" />
           </xs:restriction>
         </xs:simpleType>
       </xs:union>
@@ -2097,6 +2226,18 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="labelFor">
+    <xs:annotation>
+      <xs:documentation>Specifies the id of a view for which this view serves as a label for accessibility purposes. For example, a TextView before an EditText in the UI usually specifies what infomation is contained in the EditText. Hence, the TextView is a label for the EditText.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="layerType">
     <xs:annotation>
       <xs:documentation>Specifies the type of layer backing this view. The default value is none. Refer to android.graphics.Paint) for more information.</xs:documentation>
@@ -2302,6 +2443,21 @@
             <xs:enumeration value="locale" />
             <xs:enumeration value="ltr" />
             <xs:enumeration value="rtl" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="layoutMode">
+    <xs:annotation>
+      <xs:documentation>Defines the layout mode of this ViewGroup.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="clipBounds" />
+            <xs:enumeration value="opticalBounds" />
           </xs:restriction>
         </xs:simpleType>
       </xs:union>
@@ -2616,6 +2772,21 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="nestedScrollingEnabled">
+    <xs:annotation>
+      <xs:documentation>Specifies that this view should permit nested scrolling within a compatible ancestor view.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false" />
+            <xs:enumeration value="true" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="nextFocusDown">
     <xs:annotation>
       <xs:documentation>Defines the next view to give focus to when the next focus is android.view.View.FOCUS_DOWN If the reference refers to a view that does not exist or is part of a hierarchy that is invisible, a java.lang.RuntimeException will result when the reference is accessed.</xs:documentation>
@@ -2753,6 +2924,23 @@
       <xs:union memberTypes="xs:string">
         <xs:simpleType>
           <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="outlineProvider">
+    <xs:annotation>
+      <xs:documentation>ViewOutlineProvider used to determine the View's Outline.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="background" />
+            <xs:enumeration value="bounds" />
+            <xs:enumeration value="none" />
+            <xs:enumeration value="paddedBounds" />
+          </xs:restriction>
         </xs:simpleType>
       </xs:union>
     </xs:simpleType>
@@ -2940,9 +3128,33 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="popupElevation">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="popupPromptView">
     <xs:annotation>
       <xs:documentation>Reference to a layout to use for displaying a prompt in the dropdown for spinnerMode="dropdown". This layout must contain a TextView with the id @android:id/text1 to be populated with the prompt text.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="popupTheme">
+    <xs:annotation>
+      <xs:documentation>Theme to use for the drop-down or dialog popup window.</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:union memberTypes="xs:string">
@@ -3353,6 +3565,26 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="scrollIndicators">
+    <xs:annotation>
+      <xs:documentation>Defines which scroll indicators should be displayed when the view can be scrolled. Multiple values may be combined using logical OR, for example "top|bottom".</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="bottom" />
+            <xs:enumeration value="end" />
+            <xs:enumeration value="left" />
+            <xs:enumeration value="none" />
+            <xs:enumeration value="right" />
+            <xs:enumeration value="start" />
+            <xs:enumeration value="top" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="scrollingCache">
     <xs:annotation>
       <xs:documentation>When set to true, the list uses a drawing cache during scrolling. This makes the rendering faster but uses more memory. The default value is true.</xs:documentation>
@@ -3727,6 +3959,18 @@
   <xs:attribute name="startYear">
     <xs:annotation>
       <xs:documentation>The first year (inclusive), for example "1940". Deprecated: Use minDate instead.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="stateListAnimator">
+    <xs:annotation>
+      <xs:documentation>Sets the state-based animator for the View.</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:union memberTypes="xs:string">
@@ -4216,6 +4460,18 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="theme">
+    <xs:annotation>
+      <xs:documentation>Specifies a theme override for a view. When a theme override is set, the view will be inflated using a android.content.Context themed with the specified resource. During XML inflation, any child views under the view with a theme override will inherit the themed context.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="thumb">
     <xs:annotation>
       <xs:documentation>Draws the thumb on a seekbar.</xs:documentation>
@@ -4276,6 +4532,21 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="touchscreenBlocksFocus">
+    <xs:annotation>
+      <xs:documentation>Set to true if this ViewGroup blocks focus in the presence of a touchscreen.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false" />
+            <xs:enumeration value="true" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="track">
     <xs:annotation>
       <xs:documentation>Drawable to use as the "track" that the switch thumb slides within.</xs:documentation>
@@ -4328,6 +4599,33 @@
       </xs:union>
     </xs:simpleType>
   </xs:attribute>
+  <xs:attribute name="transitionGroup">
+    <xs:annotation>
+      <xs:documentation>Sets whether or not this ViewGroup should be treated as a single entity when doing an Activity transition. Typically, the elements inside a ViewGroup are each transitioned from the scene individually. The default for a ViewGroup is false unless it has a background. See android.view.View, String) for more information. Corresponds to android.view.ViewGroup.setTransitionGroup(boolean).</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="false" />
+            <xs:enumeration value="true" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="transitionName">
+    <xs:annotation>
+      <xs:documentation>Names a View such that it can be identified for Transitions. Names should be unique in the View hierarchy.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
   <xs:attribute name="translationX">
     <xs:annotation>
       <xs:documentation>translation in x of the view. This value is added post-layout to the left property of the view, which is set by its layout.</xs:documentation>
@@ -4343,6 +4641,18 @@
   <xs:attribute name="translationY">
     <xs:annotation>
       <xs:documentation>translation in y of the view. This value is added post-layout to the left property of the view, which is set by its layout.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleType>
+      <xs:union memberTypes="xs:string">
+        <xs:simpleType>
+          <xs:restriction base="xs:string" />
+        </xs:simpleType>
+      </xs:union>
+    </xs:simpleType>
+  </xs:attribute>
+  <xs:attribute name="translationZ">
+    <xs:annotation>
+      <xs:documentation>translation in z of the view. This value is added to its elevation.</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:union memberTypes="xs:string">
