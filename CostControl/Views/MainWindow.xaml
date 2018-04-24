@@ -1,0 +1,77 @@
+﻿<Window x:Class="CostControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        Height="600"
+        Width="945.687"
+        Title="CostControl"
+        DataContext="{Binding Main, Source={StaticResource Locator}}" WindowStartupLocation="CenterScreen">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="32">
+            <ToolBar>
+                <Button>
+                    <Image Source="{StaticResource AddImage}"></Image>
+                </Button>
+            </ToolBar>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" MinWidth="150"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <TabControl SelectedIndex="{Binding SelectedFilter}">
+                    <TabItem Header="Поис по тексту">
+                       <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </TabItem>
+                    <TabItem Header="Дата">
+                        <DatePicker BorderThickness="0" SelectedDate="{Binding AloneDate, Mode=TwoWay}"/>
+                    </TabItem>
+                    <TabItem Header="Между датами">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="85*"/>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="85*"/>
+                            </Grid.ColumnDefinitions>
+                            <DatePicker Text="От" BorderThickness="0" SelectedDate="{Binding StartDate, Mode=TwoWay}" Grid.Column="0"/>
+                            <DatePicker Text="До" BorderThickness="0" SelectedDate="{Binding EndDate, Mode=TwoWay}" Grid.Column="2"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+                <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date}"></GridViewColumn>
+                            <GridViewColumn Header="Цель" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
+                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <Grid Grid.Column="2" DataContext="{Binding SelectedCost}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="103*"/>
+                    <RowDefinition Height="72*"/>
+                    <RowDefinition Height="362*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="97*"/>
+                    <ColumnDefinition Width="163*"/>
+                    <ColumnDefinition Width="330*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Дата" Grid.ColumnSpan="3" Grid.RowSpan="3"></TextBlock>
+                <DatePicker BorderThickness="0" SelectedDate="{Binding Date, Mode=TwoWay}" Grid.Column="1"></DatePicker>
+                <TextBlock Text="Цель" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"></TextBlock>
+                <TextBlock Text="{Binding Header}" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"></TextBlock>
+                <TextBlock Text="Цена" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBlock Text="{Binding Cost}" Grid.Row="2" Grid.Column="1"></TextBlock>
+            </Grid>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Green" Width="5"/>
+        </Grid>
+    </DockPanel>
+</Window>
