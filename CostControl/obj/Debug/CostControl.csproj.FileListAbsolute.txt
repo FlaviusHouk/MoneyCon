@@ -29,3 +29,34 @@ C:\Users\danyil.hryhoriev\Documents\Visual Studio 2015\Projects\CostControl\Cost
 C:\Users\danyil.hryhoriev\Documents\Visual Studio 2015\Projects\CostControl\CostControl\obj\Debug\MoneyConWPF.g.resources
 C:\Users\danyil.hryhoriev\Documents\Visual Studio 2015\Projects\CostControl\CostControl\obj\Debug\MoneyConWPF.exe
 C:\Users\danyil.hryhoriev\Documents\Visual Studio 2015\Projects\CostControl\CostControl\obj\Debug\MoneyConWPF.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.dll
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.xml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.csprojResolveAssemblyReference.cache
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\MainWindow.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\MainWindow.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\App.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\App.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.Properties.Resources.resources
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.csproj.GenerateResource.Cache
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\CostControl.exe.config
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\CostControl.exe
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\CostControl.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\CostControl.exe.CodeAnalysisLog.xml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\CostControl.exe.lastcodeanalysissucceeded
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl_MarkupCompile.cache
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl_MarkupCompile.lref
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.g.resources
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.exe
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.pdb

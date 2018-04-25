@@ -11,8 +11,14 @@
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="32">
             <ToolBar>
-                <Button>
+                <Button Command="{Binding AddItem}" ToolTip="Добавить элемент">
                     <Image Source="{StaticResource AddImage}"></Image>
+                </Button>
+                <Button ToolTip="Удалить запись" Command="{Binding RemoveItem}">
+                    <Image Source="{StaticResource RemoveImage}"></Image>
+                </Button>
+                <Button ToolTip="Clear filters" Command="{Binding ClearFilters}">
+                    <Image Source="{StaticResource ClearImage}"></Image>
                 </Button>
             </ToolBar>
         </StackPanel>
@@ -25,7 +31,7 @@
             <StackPanel Orientation="Vertical">
                 <TabControl SelectedIndex="{Binding SelectedFilter}">
                     <TabItem Header="Поис по тексту">
-                       <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </TabItem>
                     <TabItem Header="Дата">
                         <DatePicker BorderThickness="0" SelectedDate="{Binding AloneDate, Mode=TwoWay}"/>
@@ -42,36 +48,65 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-
-                <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsFiltered, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center">
+                    <Image Source="{Binding CountOfItems, Converter={StaticResource IntToImageMatchConverter}}" Width="20" Margin="0,0,10,0"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding CountOfItems, StringFormat=Найдено:{0} записи(-ей)}"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}" >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date}"></GridViewColumn>
-                            <GridViewColumn Header="Цель" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
-                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost}"></GridViewColumn>
+                            <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date, Converter={StaticResource DateToShortDateConverter}}"></GridViewColumn>
+                            <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
+                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat='{}{0}₴'}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </StackPanel>
-            <Grid Grid.Column="2" DataContext="{Binding SelectedCost}">
+            <Grid Margin="5" Grid.Column="2" DataContext="{Binding SelectedCost}" Visibility="{Binding Path=Main.HasSelectedCost, Source={StaticResource Locator} , Converter={StaticResource BoolToVisibilityConverter}}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="103*"/>
-                    <RowDefinition Height="72*"/>
-                    <RowDefinition Height="362*"/>
+                    <RowDefinition Height="29*"/>
+                    <RowDefinition Height="21*"/>
+                    <RowDefinition Height="19*"/>
+                    <RowDefinition Height="458*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="97*"/>
                     <ColumnDefinition Width="163*"/>
                     <ColumnDefinition Width="330*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Дата" Grid.ColumnSpan="3" Grid.RowSpan="3"></TextBlock>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Opacity" TargetName="border" Value="1"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                                        </Trigger>
+                                        <Trigger Property="IsKeyboardFocused" Value="True">
+                                            <Setter Property="BorderBrush" TargetName="border" Value="Orange"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+                <TextBlock Text="Дата: " Grid.ColumnSpan="3" Grid.RowSpan="4"></TextBlock>
                 <DatePicker BorderThickness="0" SelectedDate="{Binding Date, Mode=TwoWay}" Grid.Column="1"></DatePicker>
-                <TextBlock Text="Цель" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"></TextBlock>
-                <TextBlock Text="{Binding Header}" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"></TextBlock>
-                <TextBlock Text="Цена" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBlock Text="{Binding Cost}" Grid.Row="2" Grid.Column="1"></TextBlock>
+                <TextBlock Text="Цель: " Grid.Row="1" Grid.Column="0" Grid.RowSpan="3"></TextBlock>
+                <TextBox Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" BorderBrush="Transparent">
+                </TextBox>
+                <TextBlock Text="Цена: " Grid.Row="2" Grid.Column="0" Grid.RowSpan="2"></TextBlock>
+                <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent"></TextBox>
             </Grid>
-            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Green" Width="5"/>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Gray" Width="5"/>
         </Grid>
     </DockPanel>
 </Window>

@@ -6,13 +6,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ignore="http://www.galasoft.ch/ignore"
              StartupUri="Views/MainWindow.xaml"
+             xmlns:converts="clr-namespace:CostControl.Converters"
              mc:Ignorable="d ignore">
     
     <Application.Resources>
         <!--Global View Model Locator-->
         <vm:ViewModelLocator x:Key="Locator"/>
 
+        <converts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converts:IntToImageMatchConverter x:Key="IntToImageMatchConverter"></converts:IntToImageMatchConverter>
+        <converts:DateToShortDateConverter x:Key="DateToShortDateConverter"></converts:DateToShortDateConverter>
+        
         <BitmapImage x:Key="AddImage" UriSource="Resources/add.png"/>
+        <BitmapImage x:Key="RemoveImage" UriSource="Resources/remove.png"/>
+        <BitmapImage x:Key="ClearImage" UriSource="Resources/clear.png"/>
+        <BitmapImage x:Key="FoundImage" UriSource="Resources/found.png"/>
+        <BitmapImage x:Key="NoFoundImage" UriSource="Resources/no found.png"/>
+
     </Application.Resources>
     
 </Application>

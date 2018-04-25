@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CostControl</RootNamespace>
-    <AssemblyName>MoneyConWPF</AssemblyName>
+    <AssemblyName>CostControl</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -76,6 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\DateToShortDayConverter.cs" />
+    <Compile Include="Converters\IntToImageMatchConverter.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="ViewModel\CostViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -126,6 +129,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\found.png" />
+    <Resource Include="Resources\no found.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
