@@ -22,6 +22,7 @@
         <BitmapImage x:Key="ClearImage" UriSource="Resources/clear.png"/>
         <BitmapImage x:Key="FoundImage" UriSource="Resources/found.png"/>
         <BitmapImage x:Key="NoFoundImage" UriSource="Resources/no found.png"/>
+        <BitmapImage x:Key="AddTagImage" UriSource="Resources/addTag.png"/>
 
     </Application.Resources>
     
