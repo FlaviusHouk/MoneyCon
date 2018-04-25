@@ -16,15 +16,23 @@ namespace CostControl.ViewModel
     {
         #region fieilds
         private ObservableCollection<CostViewModel> _costs = new ObservableCollection<CostViewModel>();
-        private RelayCommand _clearFilters;
-        private RelayCommand _addItem;
-        private RelayCommand _removeItem;
+        private ObservableCollection<string> _tags = new ObservableCollection<string>();
+        private RelayCommand _clearFiltersCommand;
+        private RelayCommand _addItemCommand;
+        private RelayCommand _removeItemCommand;
+        private RelayCommand _addTagCommand;
         #endregion
         #region properties
         public ObservableCollection<CostViewModel> Costs
         {
             get { return _costs; }
             set { _costs = value; }
+        }
+
+        public ObservableCollection<string> Tags
+        {
+            get { return _tags; }
+            set { _tags = value; }
         }
 
         public CollectionView CostsView { get; private set; }
@@ -43,51 +51,52 @@ namespace CostControl.ViewModel
 
         public bool HasSelectedCost
         {
-            get { return _selectedCost!=null; }
+            get { return _selectedCost != null; }
         }
 
 
-        public RelayCommand ClearFilters
+        public RelayCommand ClearFiltersCommand
         {
             get
             {
-                return _clearFilters ?? (_clearFilters = new RelayCommand(() =>
+                return _clearFiltersCommand ?? (_clearFiltersCommand = new RelayCommand(() =>
                 {
-                    _filterText = String.Empty;
-                    _aloneDate = DateTime.Now;
-                    _startDate = DateTime.Now;
-                    _endDate = DateTime.Now;
-                    RaisePropertyChanged(nameof(FilterText));
-                    RaisePropertyChanged(nameof(AloneDate));
-                    RaisePropertyChanged(nameof(StartDate));
-                    RaisePropertyChanged(nameof(EndDate));
-                    RaisePropertyChanged(nameof(Costs));
-                    IsFiltered = false;
-                    _flag = false;
-                    CostsView.Refresh();
+                    ClearAllFilters();
+                }, () => IsFiltersEnabled              
+                ));
+            }
+        }
+
+        public RelayCommand AddItemCommand
+        {
+            get
+            {
+                return _addItemCommand ?? (_addItemCommand = new RelayCommand(() =>
+                {
+                    Costs.Add(new CostViewModel(0, "Расход", DateTime.Now, null));
                 }));
             }
         }
 
-        public RelayCommand AddItem
+        public RelayCommand AddTagCommand
         {
             get
             {
-                return _addItem ?? (_addItem = new RelayCommand(() =>
+                return _addTagCommand ?? (_addTagCommand = new RelayCommand(() =>
                 {
-                    Costs.Add(new CostViewModel(0, "Расход", DateTime.Now));
+                    Tags.Add("Tag1");
                 }));
             }
         }
 
-        public RelayCommand RemoveItem
+        public RelayCommand RemoveItemCommand
         {
             get
             {
-                return _removeItem ?? (_removeItem = new RelayCommand(() =>
+                return _removeItemCommand ?? (_removeItemCommand = new RelayCommand(() =>
                 {
                     Costs.Remove(SelectedCost);
-                }));
+                }, () => HasSelectedCost));
             }
         }
 
@@ -97,10 +106,25 @@ namespace CostControl.ViewModel
         private DateTime _aloneDate = DateTime.Now.Date;
         private DateTime _startDate = DateTime.Now.Date;
         private DateTime _endDate = DateTime.Now.Date;
-        private bool _flag = true;
+        private string _tag;
+
+        private bool _isFiltersEnabled = false;
+        public bool IsFiltersEnabled
+        {
+            get { return _isFiltersEnabled; }
+            set
+            {
+                _isFiltersEnabled = value;
+                ClearAllFilters();
+                SelectedFilter = 0;
+                RaisePropertyChanged(nameof(IsFiltersEnabled));
+            }
+        }
 
         int _selectedFilt;
-        public int SelectedFilter { get { return _selectedFilt; }
+        public int SelectedFilter
+        {
+            get { return _selectedFilt; }
             set
             {
                 _selectedFilt = value;
@@ -117,7 +141,7 @@ namespace CostControl.ViewModel
                 _isFiltered = value;
                 RaisePropertyChanged(nameof(IsFiltered));
             }
-        } 
+        }
 
         public string FilterText
         {
@@ -168,13 +192,25 @@ namespace CostControl.ViewModel
             get { return CostsView.Count; }
         }
 
+        public string SelectedTag
+        {
+            get { return _tag; }
+            set
+            {
+                _tag = value;
+                RaiseFilters();
+            }
+        }
+
         #endregion
         #region ctors
         public MainViewModel()
         {
-            _costs.Add(new CostViewModel(15, "Хлеб", new System.DateTime(2018,11,30)));
-            _costs.Add(new CostViewModel(25, "Молоко", new System.DateTime(2018, 12, 30)));
-            _costs.Add(new CostViewModel(20, "Вода", new System.DateTime(2018, 10, 30)));
+            _costs.Add(new CostViewModel(15, "Хлеб", new System.DateTime(2018, 11, 30), "Еда"));
+            _costs.Add(new CostViewModel(25, "Молоко", new System.DateTime(2018, 12, 30), "Еда"));
+            _costs.Add(new CostViewModel(20, "Вода", new System.DateTime(2018, 10, 30), "Развлечения"));
+            _tags.Add("Еда");
+            _tags.Add("Развлечения");
             CostsView = (CollectionView)CollectionViewSource.GetDefaultView(Costs);
             CostsView.Filter = OnFilterMovie;
         }
@@ -182,22 +218,34 @@ namespace CostControl.ViewModel
         #region methods
         public void RaiseFilters()
         {
-            _flag = true;
             CostsView.Refresh();
             RaisePropertyChanged(nameof(CountOfItems));
             RaisePropertyChanged(nameof(Costs));
-            
+
         }
         private bool OnFilterMovie(object obj)
         {
-            if (_flag)
+            if (IsFiltersEnabled)
             {
                 return ApplySelectedCrit(obj as CostViewModel);
             }
             return true;
         }
 
-
+        private void ClearAllFilters()
+        {
+            _filterText = String.Empty;
+            _aloneDate = DateTime.Now;
+            _startDate = DateTime.Now;
+            _endDate = DateTime.Now;
+            RaisePropertyChanged(nameof(FilterText));
+            RaisePropertyChanged(nameof(AloneDate));
+            RaisePropertyChanged(nameof(StartDate));
+            RaisePropertyChanged(nameof(EndDate));
+            RaisePropertyChanged(nameof(Costs));
+            IsFiltered = false;
+            CostsView.Refresh();
+        }
 
         private bool ApplySelectedCrit(CostViewModel item)
         {
@@ -210,9 +258,13 @@ namespace CostControl.ViewModel
             {
                 return item.Date == AloneDate;
             }
-            else if (SelectedFilter ==2)
+            else if (SelectedFilter == 2)
             {
                 return item.Date > StartDate && item.Date < EndDate;
+            }
+            else if (SelectedFilter == 3)
+            {
+                return String.Compare(item.Tag, SelectedTag) == 0;
             }
             else
             {

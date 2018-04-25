@@ -12,6 +12,7 @@ namespace CostControl.ViewModel
         private int _cost;
         private string _header;
         private DateTime _date;
+        private string _tag;
         public int Cost
         {
             get
@@ -38,6 +39,18 @@ namespace CostControl.ViewModel
             }
         }
 
+        public string Tag
+        {
+            get
+            {
+                return _tag;
+            }
+            set
+            {
+                _tag = value;
+                RaisePropertyChanged(nameof(Tag));
+            }
+        }
 
         public DateTime Date
         {
@@ -48,11 +61,12 @@ namespace CostControl.ViewModel
                 RaisePropertyChanged(nameof(Date));
             }
         }
-        public CostViewModel(int price, string header, DateTime date)
+        public CostViewModel(int price, string header, DateTime date, string tag)
         {
             _cost = price;
             _header = header;
             _date = date;
+            _tag = tag;
         }
     }
 }
