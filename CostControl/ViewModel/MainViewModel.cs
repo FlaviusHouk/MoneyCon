@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System;
 using GalaSoft.MvvmLight.CommandWpf;
+using CostControl.Model;
 
 namespace CostControl.ViewModel
 {
@@ -21,6 +22,7 @@ namespace CostControl.ViewModel
         private RelayCommand _addItemCommand;
         private RelayCommand _removeItemCommand;
         private RelayCommand _addTagCommand;
+        private DataBaseWorker _db;
         #endregion
         #region properties
         public ObservableCollection<CostViewModel> Costs
@@ -206,6 +208,9 @@ namespace CostControl.ViewModel
         #region ctors
         public MainViewModel()
         {
+            _db = new DataBaseWorker();
+            
+
             _costs.Add(new CostViewModel(15, "Хлеб", new System.DateTime(2018, 11, 30), "Еда"));
             _costs.Add(new CostViewModel(25, "Молоко", new System.DateTime(2018, 12, 30), "Еда"));
             _costs.Add(new CostViewModel(20, "Вода", new System.DateTime(2018, 10, 30), "Развлечения"));

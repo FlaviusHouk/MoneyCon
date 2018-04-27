@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace CostControl.ViewModel
         private string _header;
         private DateTime _date;
         private string _tag;
+        private RelayCommand _saveCost;
+        private bool _isModifed;
+
         public int Cost
         {
             get
@@ -22,6 +26,7 @@ namespace CostControl.ViewModel
             set
             {
                 _cost = value;
+                IsModifed = true;
                 RaisePropertyChanged(nameof(Cost));
             }
         }
@@ -35,6 +40,7 @@ namespace CostControl.ViewModel
             set
             {
                 _header = value;
+                IsModifed = true;
                 RaisePropertyChanged(nameof(Header));
             }
         }
@@ -48,6 +54,7 @@ namespace CostControl.ViewModel
             set
             {
                 _tag = value;
+                IsModifed = true;
                 RaisePropertyChanged(nameof(Tag));
             }
         }
@@ -58,9 +65,32 @@ namespace CostControl.ViewModel
             set
             {
                 _date = value;
+                IsModifed = true;
                 RaisePropertyChanged(nameof(Date));
             }
         }
+
+        public RelayCommand SaveCost
+        {
+            get
+            {
+                return _saveCost ?? (_saveCost = new RelayCommand(() =>
+                {
+                    IsModifed = false;
+                }, ()=> IsModifed ));
+            }
+        }
+
+        public bool IsModifed
+        {
+            get { return _isModifed; }
+            set
+            {
+                _isModifed = value;
+                RaisePropertyChanged(nameof(IsModifed));
+            }
+        }
+
         public CostViewModel(int price, string header, DateTime date, string tag)
         {
             _cost = price;

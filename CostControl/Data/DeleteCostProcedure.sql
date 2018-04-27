@@ -1,0 +1,5 @@
+CREATE PROCEDURE DeleteCost(@ID int)
+AS
+BEGIN
+	DELETE FROM [dbo].Costs WHERE ID = @ID
+END

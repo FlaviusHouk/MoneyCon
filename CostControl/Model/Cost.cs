@@ -19,6 +19,24 @@ namespace CostControl.Model
             _performedDate = date;
             _desc = desc;
             _category = category;
+            _id = -1;
+        }
+
+        /// <summary>
+        /// Варто використовувати цей конструктор тільки для створення об'єктів під час зчитування з бази
+        /// </summary>
+        /// <param name="id">Ідентифікатор витрати</param>
+        /// <param name="date">Дата здійснення</param>
+        /// <param name="price">Ціна</param>
+        /// <param name="desc">Опис витрати</param>
+        /// <param name="category">Номер категорії</param>
+        public Cost(int id, DateTime date, double price, string desc, string category)
+        {
+            _price = price;
+            _performedDate = date;
+            _desc = desc;
+            _category = category;
+            _id = id;
         }
 
         public double Price
@@ -58,6 +76,14 @@ namespace CostControl.Model
             get
             {
                 return _id;
+            }
+        }
+
+        public bool InBase
+        {
+            get
+            {
+                return _id != -1;
             }
         }
 
