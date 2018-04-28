@@ -4,28 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-        Height="600"
-        Width="945.687"
+        Height="600" MinHeight="500"
+        Width="1000" MinWidth="500"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="CostControl"
         DataContext="{Binding Main, Source={StaticResource Locator}}" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="32">
             <ToolBar>
                 <Button Command="{Binding AddItemCommand}" ToolTip="Добавить элемент">
-                    <Image Source="{StaticResource AddImage}"></Image>
+                    <Image Source="{StaticResource AddImage}"/>
                 </Button>
                 <Button ToolTip="Удалить запись" Command="{Binding RemoveItemCommand}">
-                    <Image Source="{StaticResource RemoveImage}"></Image>
+                    <Image Source="{StaticResource RemoveImage}"/>
                 </Button>
-                <Button ToolTip="Clear filters" Command="{Binding ClearFiltersCommand}">
-                    <Image Source="{StaticResource ClearImage}"></Image>
+                <Button ToolTip="Очистить фильтры" Command="{Binding ClearFiltersCommand}">
+                    <Image Source="{StaticResource ClearImage}"/>
                 </Button>
-                <Button ToolTip="Add tag" Command="{Binding AddTagCommand}">
-                    <Image Source="{StaticResource AddTagImage}"></Image>
+                <Button ToolTip="Добавить категорию" Command="{Binding AddTagCommand}">
+                    <Image Source="{StaticResource AddTagImage}"/>
+                </Button>
+                <Button ToolTip="Сохранить всё" Command="{Binding SaveItemsCommand}">
+                    <Image Source="{StaticResource SaveImage}"/>
                 </Button>
             </ToolBar>
         </StackPanel>
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" MinWidth="150"/>
@@ -70,41 +74,61 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Расходы">
-                <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}"  BorderThickness="0">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date, Converter={StaticResource DateToShortDateConverter}}"></GridViewColumn>
-                            <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
-                            <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat='{}{0}₴'}"></GridViewColumn>
-                            <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Tag}"></GridViewColumn>
+                    <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}"  BorderThickness="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date, Converter={StaticResource DateToShortDateConverter}}"></GridViewColumn>
+                                <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
+                                <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat='{}{0}₴'}"></GridViewColumn>
+                                <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Tag}"></GridViewColumn>
                             </GridView>
-                    </ListView.View>
+                        </ListView.View>
 
-                    <ListView.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding }"/>
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
-                    </ListView.GroupStyle>
-                </ListView>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Background" Value="Transparent"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsModifed}" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                    <GradientStop Color="White" Offset="0.97" />
+                                                    <GradientStop Color="#FFFF0017" Offset="0.97" />
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding }"/>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
                 </GroupBox>
             </DockPanel>
             <GroupBox Header="Редактирование расхода" Grid.Column="2">
-                <Grid Margin="5"  DataContext="{Binding SelectedCost}" Visibility="{Binding Path=Main.HasSelectedCost, Source={StaticResource Locator} , Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid Margin="5"  DataContext="{Binding SelectedCost}" Visibility="{Binding Source={StaticResource Locator}, Path=Main.HasSelectedCost, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="25*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="35*"/>
                         <RowDefinition Height="458*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="73*"/>
+                        <ColumnDefinition Width="123*"/>
                         <ColumnDefinition Width="97*"/>
-                        <ColumnDefinition Width="163*"/>
-                        <ColumnDefinition Width="330*"/>
+                        <ColumnDefinition Width="37*"/>
+                        <ColumnDefinition Width="115*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.Resources>
                         <Style TargetType="{x:Type TextBox}">
@@ -119,7 +143,7 @@
                                                 <Setter Property="Opacity" TargetName="border" Value="1"/>
                                             </Trigger>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="border" Value="Red"/>
+                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF17FF00"/>
                                             </Trigger>
                                             <Trigger Property="IsKeyboardFocused" Value="True">
                                                 <Setter Property="BorderBrush" TargetName="border" Value="Orange"/>
@@ -139,6 +163,9 @@
                     <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent"></TextBox>
                     <TextBlock Text="Категория: " Grid.Row="3" Grid.Column="0" ></TextBlock>
                     <ComboBox ItemsSource="{Binding Main.Tags, Source={StaticResource Locator}}" SelectedItem="{Binding Tag}" Grid.Column="1" Grid.Row="3"/>
+                    <Button Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Background="Transparent" ToolTip="Сохранить запись" BorderThickness="0" Command="{Binding SaveCost}">
+                        <Image Source="{StaticResource SaveImage}"/>
+                    </Button>
                 </Grid>
             </GroupBox>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Gray" Width="5"/>
