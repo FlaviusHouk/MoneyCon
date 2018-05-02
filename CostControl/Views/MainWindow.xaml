@@ -41,8 +41,8 @@
                             <TextBlock Text="Фильтры"></TextBlock>
                         </StackPanel>
                     </GroupBox.Header>
-                    <StackPanel>
-                        <TabControl SelectedIndex="{Binding SelectedFilter}" IsEnabled="{Binding IsFiltersEnabled}">
+                    <StackPanel IsEnabled="{Binding IsFiltersEnabled}">
+                        <TabControl SelectedIndex="{Binding SelectedFilter}" >
                             <TabItem Header="Поис по тексту">
                                 <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"></TextBox>
                             </TabItem>
@@ -68,16 +68,17 @@
                             <Image Source="{Binding CountOfItems, Converter={StaticResource IntToImageMatchConverter}}" Width="20" Margin="0,0,10,0"/>
                             <TextBlock VerticalAlignment="Center" Text="{Binding CountOfItems, StringFormat=Найдено:{0} записи(-ей)}"/>
                         </StackPanel>
+                        <Button Content="Применить" Command="{Binding UseFilterCommand}"></Button>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Расходы">
-                    <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}"  BorderThickness="0">
+                    <ListView ItemsSource="{Binding Costs}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}"  BorderThickness="0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date, Converter={StaticResource DateToShortDateConverter}}"></GridViewColumn>
-                                <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
-                                <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat='{}{0}₴'}"></GridViewColumn>
-                                <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Tag}"></GridViewColumn>
+                                <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Desc}"></GridViewColumn>
+                                <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price, StringFormat='##.##₴'}"></GridViewColumn>
+                                <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
 
@@ -186,7 +187,7 @@
                     <TextBlock Text="Цель: " Grid.Row="1" Grid.Column="0" ></TextBlock>
                     <TextBox Grid.Row="1" Grid.Column="1" BorderBrush="Transparent" Validation.ErrorTemplate="{StaticResource validationFailed}">
                         <TextBox.Text>
-                            <Binding Path="Header" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Desc" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <DataErrorValidationRule/>
                                 </Binding.ValidationRules>
@@ -196,7 +197,7 @@
                     <TextBlock Text="Цена: " Grid.Row="2" Grid.Column="0"></TextBlock>
                     <TextBox Grid.Row="2" Grid.Column="1" BorderBrush="Transparent" Validation.ErrorTemplate="{StaticResource validationFailed}">
                         <TextBox.Text>
-                            <Binding Path="Cost" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Price" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <DataErrorValidationRule/>
                                 </Binding.ValidationRules>
@@ -206,7 +207,7 @@
                     <TextBlock Text="Категория: " Grid.Row="3" Grid.Column="0" ></TextBlock>
                     <ComboBox ItemsSource="{Binding Main.Tags, Source={StaticResource Locator}}" Grid.Column="1" Grid.Row="3" Validation.ErrorTemplate="{StaticResource validationFailed}">
                         <ComboBox.SelectedItem>
-                            <Binding Path="Tag" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Category" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <DataErrorValidationRule/>
                                 </Binding.ValidationRules>

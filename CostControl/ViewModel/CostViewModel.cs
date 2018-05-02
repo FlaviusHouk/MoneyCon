@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CostControl.Model;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -11,34 +12,37 @@ namespace CostControl.ViewModel
 {
     public class CostViewModel : ObservableObject, IDataErrorInfo
     {
-        private int _cost;
-        private string _header;
+        private double _price;
+        private string _desc;
         private DateTime _date;
-        private string _tag;
+        private string _category;
+        private Cost _cost;
         private RelayCommand _saveCost;
         private bool _isModifed;
         private string _error;
+        private DataBaseWorker _db;
 
         public string this[string columnName]
         {
             get
             {
+                _error = String.Empty;
                 switch (columnName)
                 {
-                    case nameof(Cost):
-                        if ((Cost < 0))
+                    case nameof(Price):
+                        if ((Price < 0))
                         {
                             _error = "Цена должна быть больше 0";
                         }
                         break;
-                    case nameof(Header):
-                        if (Header.Any(obj => Char.IsSeparator(obj) || Char.IsNumber(obj)))
+                    case nameof(Desc):
+                        if (Desc.Any(obj => Char.IsNumber(obj)))
                         {
                             _error = "Имя не должно содержать символов/цифер";
                         }
                         break;
-                    case nameof(Tag):
-                        if (String.IsNullOrEmpty(Tag))
+                    case nameof(Category):
+                        if (String.IsNullOrEmpty(Category))
                         {
                             _error = "Выберите категорию";
                         }
@@ -57,45 +61,48 @@ namespace CostControl.ViewModel
         {
             get { return _error; }
         }
-        public int Cost
+
+        public Cost Cost { get { return _cost; } }
+
+        public double Price
         {
             get
             {
-                return _cost;
+                return _price;
             }
             set
             {
-                _cost = value;
+                _price = value;
                 IsModifed = true;
-                RaisePropertyChanged(nameof(Cost));
+                RaisePropertyChanged(nameof(Price));
             }
         }
 
-        public string Header
+        public string Desc
         {
             get
             {
-                return _header;
+                return _desc;
             }
             set
             {
-                _header = value;
+                _desc = value;
                 IsModifed = true;
-                RaisePropertyChanged(nameof(Header));
+                RaisePropertyChanged(nameof(Desc));
             }
         }
 
-        public string Tag
+        public string Category
         {
             get
             {
-                return _tag;
+                return _category;
             }
             set
             {
-                _tag = value;
+                _category = value;
                 IsModifed = true;
-                RaisePropertyChanged(nameof(Tag));
+                RaisePropertyChanged(nameof(Category));
             }
         }
 
@@ -116,18 +123,9 @@ namespace CostControl.ViewModel
             {
                 return _saveCost ?? (_saveCost = new RelayCommand(() =>
                 {
+                    _db.UpdateRecord(_cost, GetCurrenCost(this));
                     IsModifed = false;
-                }, () =>
-                {
-                    if (!IsModifed || String.IsNullOrEmpty(_error))
-                    {
-                        return false;
-                    }
-
-                    return true;
-                }
-
-                ));
+                }));
             }
         }
 
@@ -142,12 +140,19 @@ namespace CostControl.ViewModel
             }
         }
 
-        public CostViewModel(int price, string header, DateTime date, string tag)
+        public CostViewModel(Cost cost, DataBaseWorker db)
         {
-            _cost = price;
-            _header = header;
-            _date = date;
-            _tag = tag;
+            _db = db;
+            _cost = cost;
+            _price = cost.Price;
+            _desc = cost.Desc;
+            _date = cost.PerformedDate;
+            _category = cost.Category;
+        }
+
+        private Cost GetCurrenCost(CostViewModel cost)
+        {
+            return new Cost(Date, Price, Desc, Category);
         }
     }
 }

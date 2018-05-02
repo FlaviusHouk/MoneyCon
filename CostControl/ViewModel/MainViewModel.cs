@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System;
 using GalaSoft.MvvmLight.CommandWpf;
 using CostControl.Model;
+using System.Collections;
 
 namespace CostControl.ViewModel
 {
@@ -17,12 +18,11 @@ namespace CostControl.ViewModel
     {
         #region fieilds
         private ObservableCollection<CostViewModel> _costs = new ObservableCollection<CostViewModel>();
-        private ObservableCollection<string> _tags = new ObservableCollection<string>();
         private RelayCommand _clearFiltersCommand;
         private RelayCommand _addItemCommand;
         private RelayCommand _removeItemCommand;
         private RelayCommand _addTagCommand;
-        private RelayCommand _saveitemsCommand;
+        private RelayCommand _useFilterCommand;
 
         private DataBaseWorker _db;
         #endregion
@@ -33,13 +33,14 @@ namespace CostControl.ViewModel
             set { _costs = value; }
         }
 
-        public ObservableCollection<string> Tags
+        public List<string> Tags
         {
-            get { return _tags; }
-            set { _tags = value; }
+            get
+            {
+                return _db.Categories;
+            }
         }
 
-        public CollectionView CostsView { get; private set; }
 
         private CostViewModel _selectedCost;
         public CostViewModel SelectedCost
@@ -77,11 +78,40 @@ namespace CostControl.ViewModel
             {
                 return _addItemCommand ?? (_addItemCommand = new RelayCommand(() =>
                 {
-                    Costs.Add(new CostViewModel(0, "Расход", DateTime.Now, null));
+                    Costs.Add(new CostViewModel(new Cost(DateTime.Now, 0.0, "Ваш расход", null), _db));
                 }));
             }
         }
-
+        public RelayCommand UseFilterCommand
+        {
+            get
+            {
+                return _useFilterCommand ?? (_useFilterCommand = new RelayCommand(() =>
+                {
+                    Costs.Clear();
+                    IEnumerable<Cost> res = null;
+                    if (SelectedFilter == 0)
+                    {
+                        res = _db.GetRecordsByDescription(_filterText);
+                    }
+                    else if (SelectedFilter == 1)
+                    {
+                        res = _db.GetRecordsByDate(_aloneDate);
+                    }
+                    else if (SelectedFilter == 2)
+                    {
+                        res = _db.GetRecordsByDateSpan(_startDate, _endDate);
+                    }
+                    else if (SelectedFilter == 3)
+                    {
+                        res = _db.GetRecordsByCategory(_tag);
+                    }
+                    res.ForEachCustom(obj => Costs.Add(new CostViewModel(obj, _db)));
+                    IsFiltered = true;
+                    RaisePropertyChanged(nameof(CountOfItems));
+                }));
+            }
+        }
 
         public RelayCommand AddTagCommand
         {
@@ -89,7 +119,7 @@ namespace CostControl.ViewModel
             {
                 return _addTagCommand ?? (_addTagCommand = new RelayCommand(() =>
                 {
-                    Tags.Add("Tag1");
+                    //todo category add
                 }));
             }
         }
@@ -101,6 +131,7 @@ namespace CostControl.ViewModel
             {
                 return _removeItemCommand ?? (_removeItemCommand = new RelayCommand(() =>
                 {
+                    _db.DeleteCost(SelectedCost.Cost);
                     Costs.Remove(SelectedCost);
                 }, () => HasSelectedCost));
             }
@@ -121,8 +152,11 @@ namespace CostControl.ViewModel
             set
             {
                 _isFiltersEnabled = value;
-                ClearAllFilters();
-                SelectedFilter = 0;
+                if (!value)
+                {
+                    ClearAllFilters();
+                    SelectedFilter = 0;
+                }
                 RaisePropertyChanged(nameof(IsFiltersEnabled));
             }
         }
@@ -155,7 +189,6 @@ namespace CostControl.ViewModel
             set
             {
                 _filterText = value;
-                RaiseFilters();
             }
 
         }
@@ -166,7 +199,6 @@ namespace CostControl.ViewModel
             set
             {
                 _aloneDate = value;
-                RaiseFilters();
             }
 
         }
@@ -177,7 +209,6 @@ namespace CostControl.ViewModel
             set
             {
                 _startDate = value;
-                RaiseFilters();
             }
 
         }
@@ -188,14 +219,13 @@ namespace CostControl.ViewModel
             set
             {
                 _endDate = value;
-                RaiseFilters();
             }
 
         }
 
         public int CountOfItems
         {
-            get { return CostsView.Count; }
+            get { return Costs.Count; }
         }
 
         public string SelectedTag
@@ -204,7 +234,6 @@ namespace CostControl.ViewModel
             set
             {
                 _tag = value;
-                RaiseFilters();
             }
         }
 
@@ -213,34 +242,11 @@ namespace CostControl.ViewModel
         public MainViewModel()
         {
             _db = new DataBaseWorker();
-            
-
-            _costs.Add(new CostViewModel(15, "Хлеб", new System.DateTime(2018, 11, 30), "Еда"));
-            _costs.Add(new CostViewModel(25, "Молоко", new System.DateTime(2018, 12, 30), "Еда"));
-            _costs.Add(new CostViewModel(20, "Вода", new System.DateTime(2018, 10, 30), "Развлечения"));
-            _tags.Add("Еда");
-            _tags.Add("Развлечения");
-            CostsView = (CollectionView)CollectionViewSource.GetDefaultView(Costs);
-            CostsView.Filter = OnFilterMovie;
+            InitializeStartCosts();
         }
         #endregion
         #region methods
-        public void RaiseFilters()
-        {
-            CostsView.Refresh();
-            RaisePropertyChanged(nameof(CountOfItems));
-            RaisePropertyChanged(nameof(Costs));
-
-        }
-        private bool OnFilterMovie(object obj)
-        {
-            if (IsFiltersEnabled)
-            {
-                return ApplySelectedCrit(obj as CostViewModel);
-            }
-            return true;
-        }
-
+    
         private void ClearAllFilters()
         {
             _filterText = String.Empty;
@@ -253,34 +259,18 @@ namespace CostControl.ViewModel
             RaisePropertyChanged(nameof(EndDate));
             RaisePropertyChanged(nameof(Costs));
             IsFiltered = false;
-            CostsView.Refresh();
+            InitializeStartCosts();
         }
 
-        private bool ApplySelectedCrit(CostViewModel item)
+        private void InitializeStartCosts()
         {
-            IsFiltered = true;
-            if (SelectedFilter == 0 && !String.IsNullOrEmpty(FilterText))
-            {
-                return item.Header.ToLower().Contains(FilterText?.ToLower());
-            }
-            else if (SelectedFilter == 1)
-            {
-                return item.Date == AloneDate;
-            }
-            else if (SelectedFilter == 2)
-            {
-                return item.Date > StartDate && item.Date < EndDate;
-            }
-            else if (SelectedFilter == 3)
-            {
-                return String.Compare(item.Tag, SelectedTag) == 0;
-            }
-            else
-            {
-                IsFiltered = false;
-                return true;
-            }
+            Costs.Clear();
+            var firstday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
+            var lastday = firstday.AddMonths(1).AddDays(1);
+            var coll = _db.GetRecordsByDateSpan(firstday, lastday).Select(obj => new CostViewModel(obj, _db));
+            coll.ForEachCustom(obj => Costs.Add(obj));
         }
+
         #endregion
     }
 }
