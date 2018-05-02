@@ -111,5 +111,115 @@ namespace CostControl.Model
                 com.ExecuteNonQuery();
             }
         }
+
+        public IEnumerable<Cost> GetRecordsByDate(DateTime date)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDate", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Date", System.Data.SqlDbType.Date);
+            com.Parameters["@Date"].Value = date.ToString("yyyy-MM-dd");
+
+            var reader = com.ExecuteReader();
+            List<Cost> toRet = new List<Cost>();
+
+            while (reader.Read())
+            {
+                string desc = reader.GetString(3);
+                int cat = reader.GetInt32(4);
+                double price = reader.GetDouble(2);
+                int id = reader.GetInt32(0);
+
+                Cost read = new Cost(id, date, price, desc, _categories[cat]);
+                toRet.Add(read);
+            }
+
+            return toRet;
+        }
+
+        public IEnumerable<Cost> GetRecordsByDateSpan(DateTime bDate, DateTime eDate)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDateSpan", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
+            com.Parameters["@bDate"].Value = bDate.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@eDate", System.Data.SqlDbType.Date);
+            com.Parameters["@eDate"].Value = eDate.ToString("yyyy-MM-dd");
+
+            var reader = com.ExecuteReader();
+            List<Cost> toRet = new List<Cost>();
+
+            while (reader.Read())
+            {
+                string desc = reader.GetString(3);
+                int cat = reader.GetInt32(4);
+                double price = reader.GetDouble(2);
+                int id = reader.GetInt32(0);
+                DateTime date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", null);
+
+                Cost read = new Cost(id, date, price, desc, _categories[cat]);
+                toRet.Add(read);
+            }
+
+            return toRet;
+        }
+
+        public IEnumerable<Cost> GetRecordsByCategory(int categoryIndex)
+        {
+            return GetRecordsByCategory(_categories[categoryIndex]);
+        }
+
+        public IEnumerable<Cost> GetRecordsByCategory(string category)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByCategory", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
+            com.Parameters["@Category"].Value = category;
+
+            var reader = com.ExecuteReader();
+            List<Cost> toRet = new List<Cost>();
+
+            while (reader.Read())
+            {
+                string desc = reader.GetString(3);
+                double price = reader.GetDouble(2);
+                int id = reader.GetInt32(0);
+                DateTime date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", null);
+
+                Cost read = new Cost(id, date, price, desc, category);
+                toRet.Add(read);
+            }
+
+            return toRet;
+        }
+
+        public IEnumerable<Cost> GetRecordsByDescription(string desc)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDescription", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
+            com.Parameters["@Desc"].Value = desc;
+
+            var reader = com.ExecuteReader();
+            List<Cost> toRet = new List<Cost>();
+
+            while (reader.Read())
+            {
+                string description = reader.GetString(3);
+                double price = reader.GetDouble(2);
+                int cat = reader.GetInt32(4);
+                int id = reader.GetInt32(0);
+                DateTime date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", null);
+
+                Cost read = new Cost(id, date, price, desc, _categories[cat]);
+                toRet.Add(read);
+            }
+
+            return toRet;
+        }
     }
 }
