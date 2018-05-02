@@ -22,6 +22,8 @@ namespace CostControl.ViewModel
         private RelayCommand _addItemCommand;
         private RelayCommand _removeItemCommand;
         private RelayCommand _addTagCommand;
+        private RelayCommand _saveitemsCommand;
+
         private DataBaseWorker _db;
         #endregion
         #region properties
@@ -80,6 +82,7 @@ namespace CostControl.ViewModel
             }
         }
 
+
         public RelayCommand AddTagCommand
         {
             get
@@ -88,6 +91,19 @@ namespace CostControl.ViewModel
                 {
                     Tags.Add("Tag1");
                 }));
+            }
+        }
+
+        
+        public RelayCommand SaveItemsCommand
+        {
+            get
+            {
+                return _saveitemsCommand ?? (_saveitemsCommand = new RelayCommand(() =>
+                {
+                    Costs.Where(obj => obj.IsModifed).ForEach(item => item.IsModifed = true);
+                }, () => Costs.Any(obj => obj.IsModifed)
+                ));
             }
         }
 

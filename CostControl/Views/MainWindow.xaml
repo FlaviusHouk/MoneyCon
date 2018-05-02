@@ -24,9 +24,6 @@
                 <Button ToolTip="Добавить категорию" Command="{Binding AddTagCommand}">
                     <Image Source="{StaticResource AddTagImage}"/>
                 </Button>
-                <Button ToolTip="Сохранить всё" Command="{Binding SaveItemsCommand}">
-                    <Image Source="{StaticResource SaveImage}"/>
-                </Button>
             </ToolBar>
         </StackPanel>
 
@@ -115,7 +112,7 @@
                 </GroupBox>
             </DockPanel>
             <GroupBox Header="Редактирование расхода" Grid.Column="2">
-                <Grid Margin="5"  DataContext="{Binding SelectedCost}" Visibility="{Binding Source={StaticResource Locator}, Path=Main.HasSelectedCost, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid Margin="5"  DataContext="{Binding SelectedCost}" Visibility="{Binding Source={StaticResource Locator}, Path=Main.HasSelectedCost, Converter={StaticResource BoolToVisibilityConverter}}" Background="White">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="30*"/>
@@ -139,31 +136,84 @@
                                             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="Opacity" TargetName="border" Value="1"/>
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF17FF00"/>
-                                            </Trigger>
-                                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="border" Value="Orange"/>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsMouseOver" Value="true"></Condition>
+                                                    <Condition Property="Validation.HasError" Value="false"></Condition>
+                                                </MultiTrigger.Conditions>
+                                                <MultiTrigger.Setters>
+                                                    <Setter Property="BorderBrush" TargetName="border" Value="#FF17FF00"/>
+                                                </MultiTrigger.Setters>
+                                            </MultiTrigger>
+                                            <Trigger Property="Validation.HasError" Value="true">
+                                                <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"></Setter>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
+                        <ControlTemplate x:Key="validationFailed">
+                            <StackPanel Orientation="Horizontal">
+                                <Border BorderBrush="Violet" BorderThickness="2">
+                                    <AdornedElementPlaceholder/>
+                                </Border>
+                                <TextBlock Foreground="Red" FontWeight="Bold">!</TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
                     </Grid.Resources>
                     <TextBlock Text="Дата: " ></TextBlock>
-                    <DatePicker BorderThickness="0" SelectedDate="{Binding Date, Mode=TwoWay}" Grid.Column="1"></DatePicker>
+                    <DatePicker BorderThickness="0" Grid.Column="1" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="Date" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="true">
+                                        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
                     <TextBlock Text="Цель: " Grid.Row="1" Grid.Column="0" ></TextBlock>
-                    <TextBox Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" BorderBrush="Transparent">
+                    <TextBox Grid.Row="1" Grid.Column="1" BorderBrush="Transparent" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <TextBox.Text>
+                            <Binding Path="Header" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                     <TextBlock Text="Цена: " Grid.Row="2" Grid.Column="0"></TextBlock>
-                    <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent"></TextBox>
+                    <TextBox Grid.Row="2" Grid.Column="1" BorderBrush="Transparent" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <TextBox.Text>
+                            <Binding Path="Cost" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Категория: " Grid.Row="3" Grid.Column="0" ></TextBlock>
-                    <ComboBox ItemsSource="{Binding Main.Tags, Source={StaticResource Locator}}" SelectedItem="{Binding Tag}" Grid.Column="1" Grid.Row="3"/>
-                    <Button Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Background="Transparent" ToolTip="Сохранить запись" BorderThickness="0" Command="{Binding SaveCost}">
+                    <ComboBox ItemsSource="{Binding Main.Tags, Source={StaticResource Locator}}" Grid.Column="1" Grid.Row="3" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <ComboBox.SelectedItem>
+                            <Binding Path="Tag" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                      </ComboBox.SelectedItem>
+                    </ComboBox>
+                    <Button Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Background="White" ToolTip="Сохранить запись" BorderThickness="0" Command="{Binding SaveCost}">
                         <Image Source="{StaticResource SaveImage}"/>
                     </Button>
                 </Grid>
