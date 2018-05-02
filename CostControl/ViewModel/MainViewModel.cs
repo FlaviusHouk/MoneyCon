@@ -94,19 +94,7 @@ namespace CostControl.ViewModel
             }
         }
 
-        
-        public RelayCommand SaveItemsCommand
-        {
-            get
-            {
-                return _saveitemsCommand ?? (_saveitemsCommand = new RelayCommand(() =>
-                {
-                    Costs.Where(obj => obj.IsModifed).ForEach(item => item.IsModifed = true);
-                }, () => Costs.Any(obj => obj.IsModifed)
-                ));
-            }
-        }
-
+       
         public RelayCommand RemoveItemCommand
         {
             get
