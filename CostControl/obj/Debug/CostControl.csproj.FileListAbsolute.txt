@@ -61,3 +61,9 @@ C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\C
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.exe
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl.pdb
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\CostControl_Content.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\CategoriesWindow.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\CategoriesWindow.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\InputNameWindow.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\InputNameWindow.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\AddCostWindow.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\AddCostWindow.g.cs

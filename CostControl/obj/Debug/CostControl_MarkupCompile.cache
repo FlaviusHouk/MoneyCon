@@ -10,11 +10,11 @@ none
 false
 CODE_ANALYSIS;DEBUG;TRACE
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\App.xaml
-11892971807
+4-239743887
 1720601551
-14-1015303495
+21118320914
 68-864829
-Views\MainWindow.xaml;
+Views\AddCostWindow.xaml;Views\CategoriesWindow.xaml;Views\InputNameWindow.xaml;Views\MainWindow.xaml;
 
 False
 

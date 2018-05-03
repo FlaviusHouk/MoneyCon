@@ -10,6 +10,7 @@ using System;
 using GalaSoft.MvvmLight.CommandWpf;
 using CostControl.Model;
 using System.Collections;
+using CostControl.Views;
 
 namespace CostControl.ViewModel
 {
@@ -25,6 +26,7 @@ namespace CostControl.ViewModel
         private RelayCommand _useFilterCommand;
 
         private DataBaseWorker _db;
+        public DataBaseWorker DB { get { return _db; } }
         #endregion
         #region properties
         public ObservableCollection<CostViewModel> Costs
@@ -78,7 +80,13 @@ namespace CostControl.ViewModel
             {
                 return _addItemCommand ?? (_addItemCommand = new RelayCommand(() =>
                 {
-                    Costs.Add(new CostViewModel(new Cost(DateTime.Now, 0.0, "Ваш расход", null), _db));
+                    var vm = new AddCostViewModel(_db);
+                    var win = new AddCostWindow() { Owner = App.Current.MainWindow, DataContext = vm };
+                    if (win.ShowDialog() == true)
+                    {
+                        Costs.Add(vm.Cost);
+                    }
+
                 }));
             }
         }
@@ -119,7 +127,11 @@ namespace CostControl.ViewModel
             {
                 return _addTagCommand ?? (_addTagCommand = new RelayCommand(() =>
                 {
-                    //todo category add
+                    var w = new Views.CategoriesWindow {Owner = App.Current.MainWindow };
+                    if (w.ShowDialog() == true)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Категории сохранены");
+                    }
                 }));
             }
         }

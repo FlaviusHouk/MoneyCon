@@ -79,12 +79,28 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateToShortDayConverter.cs" />
     <Compile Include="Converters\IntToImageMatchConverter.cs" />
+    <Compile Include="Converters\InverseAndBooleansToBooleanConverter.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Model\Cost.cs" />
     <Compile Include="Model\DataBaseWorker.cs" />
+    <Compile Include="ViewModel\AddCostViewModel.cs" />
     <Compile Include="ViewModel\CostViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\CategoriesWindowViewModel.cs" />
+    <Compile Include="ViewModel\InputNameWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="Views\AddCostWindow.xaml">
+      <SubType>Form</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoriesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +108,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\AddCostWindow.xaml.cs">
+      <DependentUpon>AddCostWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoriesWindow.xaml.cs">
+      <DependentUpon>CategoriesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputNameWindow.xaml.cs">
+      <DependentUpon>InputNameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

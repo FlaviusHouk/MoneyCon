@@ -30,15 +30,15 @@ namespace CostControl.ViewModel
                 switch (columnName)
                 {
                     case nameof(Price):
-                        if ((Price < 0))
+                        if ((Price <= 0))
                         {
                             _error = "Цена должна быть больше 0";
                         }
                         break;
                     case nameof(Desc):
-                        if (Desc.Any(obj => Char.IsNumber(obj)))
+                        if (Desc==String.Empty || Desc.Any(obj => Char.IsNumber(obj)))
                         {
-                            _error = "Имя не должно содержать символов/цифер";
+                            _error = "Описание не должно содержать цифр или быть пустым";
                         }
                         break;
                     case nameof(Category):
@@ -48,21 +48,40 @@ namespace CostControl.ViewModel
                         }
                         break;
                     case nameof(Date):
-                        if (Date < new DateTime(2000, 1, 1) || Date > DateTime.Now.AddDays(1))
+                        if (Date < new DateTime(2000, 1, 1) || Date > DateTime.Now)
                         {
-                            _error = "Дата не может быть меньше 1.1.2000 или больше завтрашнего дня";
+                            _error = "Дата не может быть меньше 1.1.2000 или больше " + DateTime.Now.ToShortDateString();
                         }
                         break;
                 }
+                RaisePropertyChanged(nameof(Error));
                 return _error;
             }
         }
+
+        internal void InsertIntoDB()
+        {
+            Cost = GetCurrenCost(this);
+            Cost.InsertCurrentRecord(_db);
+        }
+
         public string Error
         {
             get { return _error; }
         }
 
-        public Cost Cost { get { return _cost; } }
+        public Cost Cost
+        {
+            get { return _cost; }
+            set
+            {
+                if (_cost == null)
+                {
+                    _cost = value;
+                }
+                else { throw new ArgumentException("Cost was initialized"); }
+            }
+        }
 
         public double Price
         {
@@ -125,7 +144,8 @@ namespace CostControl.ViewModel
                 {
                     _db.UpdateRecord(_cost, GetCurrenCost(this));
                     IsModifed = false;
-                }));
+                }, () => IsModifed
+                ));
             }
         }
 
@@ -135,14 +155,14 @@ namespace CostControl.ViewModel
             set
             {
                 _isModifed = value;
+                SaveCost.RaiseCanExecuteChanged();
                 RaisePropertyChanged(nameof(IsModifed));
                 RaisePropertyChanged(nameof(SaveCost));
             }
         }
 
-        public CostViewModel(Cost cost, DataBaseWorker db)
+        public CostViewModel(Cost cost, DataBaseWorker db) : this(db)
         {
-            _db = db;
             _cost = cost;
             _price = cost.Price;
             _desc = cost.Desc;
@@ -150,9 +170,15 @@ namespace CostControl.ViewModel
             _category = cost.Category;
         }
 
+        public CostViewModel(DataBaseWorker db)
+        {
+            _db = db;
+        }
+
         private Cost GetCurrenCost(CostViewModel cost)
         {
             return new Cost(Date, Price, Desc, Category);
         }
+
     }
 }

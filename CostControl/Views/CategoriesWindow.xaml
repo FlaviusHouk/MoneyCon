@@ -1,0 +1,28 @@
+﻿<Window x:Class="CostControl.Views.CategoriesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CostControl.Views"
+        mc:Ignorable="d"
+        Title="CategoriesWindow" Height="300" Width="300" DataContext="{Binding Source={StaticResource Locator}, Path=CatViewModel}" WindowStartupLocation="CenterOwner">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Margin="0,5,0,0" FontSize="18" Text="Категории" HorizontalAlignment="Center"/>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <Button MinWidth="75" Margin="0,0,5,0" Content="OK" Command="{Binding Path=OkCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+                <Button MinWidth="75" IsCancel="True" Content="Cancel"/>
+            </StackPanel>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ListBox ItemsSource="{Binding Categories}" SelectedValue="{Binding SelectedCategory}">
+                </ListBox>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="2">
+                <Button Margin="0,0,0,5" Command="{Binding AddCategoryCommand}">Добавить</Button>
+                    <Button Command="{Binding RemoveCategoryCommand}">Удалить</Button>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+</Window>
