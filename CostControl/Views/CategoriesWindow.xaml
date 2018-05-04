@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CostControl.Views"
-        mc:Ignorable="d"
-        Title="CategoriesWindow" Width="300" Height="300" DataContext="{Binding Source={StaticResource Locator}, Path=CatViewModel}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        mc:Ignorable="d" Icon="{StaticResource TagsImage}"
+        Title="Категории" Width="300" Height="300" DataContext="{Binding Source={StaticResource Locator}, Path=CatViewModel}" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
         <DockPanel>
             <TextBlock DockPanel.Dock="Top" Margin="0,5,0,0" FontSize="18" Text="Категории" HorizontalAlignment="Center"/>
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">

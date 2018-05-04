@@ -32,26 +32,55 @@ namespace CostControl.ViewModel.PagesViewModels
 
         public string StartDate
         {
-            get { return Costs.Select(o => o.Date).Min().ToShortDateString(); }
+            get
+            {
+                if (!Costs.Any())
+                {
+                    return null;
+                }
+                return Costs.Select(o => o.Date).Min().ToShortDateString();
+            }
         }
 
         public string EndDate
         {
-            get { return Costs.Select(o => o.Date).Max().ToShortDateString(); }
+            get
+            {
+                if (!Costs.Any())
+                {
+                    return null;
+                }
+                return Costs.Select(o => o.Date).Max().ToShortDateString();
+            }
         }
 
         public double Sum
         {
-            get { return Costs.Select(o => o.Price).Sum(); }
+            get
+            {
+                if (!Costs.Any())
+                {
+                    return 0;
+                }
+                return Costs.Select(o => o.Price).Sum();
+            }
         }
 
         public double Max
         {
-            get { return Costs.Select(o => o.Price).Max(); }
+            get
+            {
+                if (!Costs.Any())
+                {
+                    return 0;
+                }
+                return Costs.Select(o => o.Price).Max();
+            }
         }
 
         public override ObservableCollection<KeyValuePair<string, double>> GetStatData()
         {
+            //replace with SQL-interactivity    <----------------------------------
             List<KeyValuePair<string, Double>> coll = new List<KeyValuePair<string, double>>();
             var res = Costs.Select(o => o.Date).Distinct().OrderBy(o => o);
             res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Costs.Where(item => item.Date == obj).Sum(o => o.Price))));

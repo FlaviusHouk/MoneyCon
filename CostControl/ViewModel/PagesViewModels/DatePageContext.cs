@@ -34,21 +34,42 @@ namespace CostControl.ViewModel.PagesViewModels
 
         public string Date
         {
-            get { return Сosts.Select(o => o.Date).First().ToShortDateString(); }
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return null;
+                }
+                return Сosts.Select(o => o.Date).First().ToShortDateString();
+            }
         }
 
         public double Sum
         {
-            get { return Сosts.Select(o => o.Price).Sum(); }
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return 0;
+                }
+                return Сosts.Select(o => o.Price).Sum(); }
         }
 
         public double Max
         {
-            get { return Сosts.Select(o => o.Price).Max(); }
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return 0;
+                }
+                return Сosts.Select(o => o.Price).Max();
+            }
         }
 
         public override ObservableCollection<KeyValuePair<string, double>> GetStatData()
         {
+            //replace with SQL-interactivity    <----------------------------------
             List<KeyValuePair<string, double>> coll = new List<KeyValuePair<string, double>>();
             Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Сosts.Where(item => item.Category == obj).Sum(o => o.Price))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);

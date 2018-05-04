@@ -195,6 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\AddCostProcedure.sql" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\tags.png" />
     <Resource Include="Resources\stats.png" />
     <Resource Include="Resources\linechart.png" />
     <Resource Include="Resources\piechart.png" />

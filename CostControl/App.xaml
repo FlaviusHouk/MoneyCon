@@ -18,8 +18,8 @@
         <converts:IntToImageMatchConverter x:Key="IntToImageMatchConverter"/>
         <converts:DateToShortDateConverter x:Key="DateToShortDateConverter"/>
         <converts:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
-        
-        
+
+        <BitmapImage x:Key="LogoImage" UriSource="Resources/logo.png"/>
         <BitmapImage x:Key="AddImage" UriSource="Resources/add.png"/>
         <BitmapImage x:Key="RemoveImage" UriSource="Resources/remove.png"/>
         <BitmapImage x:Key="ClearImage" UriSource="Resources/clear.png"/>
@@ -30,6 +30,7 @@
         <BitmapImage x:Key="LineChartImage" UriSource="Resources/linechart.png"/>
         <BitmapImage x:Key="PieChartImage" UriSource="Resources/piechart.png"/>
         <BitmapImage x:Key="StatImage" UriSource="Resources/stats.png"/>
+        <BitmapImage x:Key="TagsImage" UriSource="Resources/tags.png"/>
 
         <Style TargetType="ToggleButton" x:Name="toggleStyle">
             <Setter Property="Content">

@@ -40,8 +40,6 @@ namespace CostControl.ViewModel
             set { _costs = value; }
         }
 
-
-
         public ObservableCollection<string> Tags
         {
             get
@@ -51,7 +49,6 @@ namespace CostControl.ViewModel
                 return _tags;
             }
         }
-
 
         private CostViewModel _selectedCost;
         public CostViewModel SelectedCost
@@ -135,7 +132,15 @@ namespace CostControl.ViewModel
                     RaisePropertyChanged(nameof(CountOfItems));
                     RaisePropertyChanged(nameof(HasItems));
                     RaisePropertyChanged(nameof(ActiveStat));
-                }));
+                },() =>
+                {
+                    if (SelectedFilter==3 && string.IsNullOrEmpty(SelectedTag))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                ));
             }
         }
 
@@ -208,10 +213,11 @@ namespace CostControl.ViewModel
                 if (!value)
                 {
                     ClearAllFilters();
-                    SelectedFilter = 0;
+                    SelectedFilter = 2;
                 }
                 RaisePropertyChanged(nameof(IsFiltersEnabled));
                 RaisePropertyChanged(nameof(ActiveStat));
+                RaisePropertyChanged(nameof(HasItems));
             }
         }
 

@@ -31,22 +31,51 @@ namespace CostControl.ViewModel.PagesViewModels
 
         public string StartDate
         {
-            get { return Сosts.Select(o => o.Date).Min().ToShortDateString(); }
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return null;
+                }
+                return Сosts.Select(o => o.Date).Min().ToShortDateString();
+            }
         }
 
         public string EndDate
         {
-            get { return Сosts.Select(o => o.Date).Max().ToShortDateString(); }
+
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return null;
+                }
+                return Сosts.Select(o => o.Date).Max().ToShortDateString();
+            }
         }
 
         public double Sum
         {
-            get { return Сosts.Select(o => o.Price).Sum(); }
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return 0;
+                }
+                return Сosts.Select(o => o.Price).Sum();
+            }
         }
 
         public double Max
         {
-            get { return Сosts.Select(o => o.Price).Max(); }
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return 0;
+                }
+                return Сosts.Select(o => o.Price).Max();
+            }
         }
 
         public override ObservableCollection<KeyValuePair<string, double>> GetStatData()
@@ -55,6 +84,7 @@ namespace CostControl.ViewModel.PagesViewModels
             {
                 return null;
             }
+            //replace with SQL-interactivity    <----------------------------------
             List<KeyValuePair<string, Double>> coll = new List<KeyValuePair<string, double>>();
             if (_typeOfChart.Value)
             {

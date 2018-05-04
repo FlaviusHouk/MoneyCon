@@ -37,6 +37,7 @@ namespace CostControl.ViewModel
 
         public virtual ObservableCollection<KeyValuePair<string, double>> GetStatData()
         {
+            // replace overrided methods with SQL-interactivity    <----------------------------------
             return null;
         }
 

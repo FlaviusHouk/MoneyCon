@@ -10,7 +10,7 @@ namespace CostControl.Model
 {
     public class DataBaseWorker
     {
-        private const string _connectionString = @"Server=ODS1-LDL-F51222\SQLEXPRESS01; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
+        private const string _connectionString = @"Server=MOZGOKLUY-PC; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
         private SqlConnection _conn;
         private Dictionary<int, string> _categories;
 
