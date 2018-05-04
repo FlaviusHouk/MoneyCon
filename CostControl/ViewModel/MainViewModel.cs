@@ -35,6 +35,15 @@ namespace CostControl.ViewModel
             set { _costs = value; }
         }
 
+        public ObservableCollection<KeyValuePair<string, double>> DataCharts
+        {
+            get
+            {
+                RaisePropertyChanged(nameof(HasItems));
+                return GetDataForChart();
+            }
+        }
+
         public List<string> Tags
         {
             get
@@ -61,6 +70,11 @@ namespace CostControl.ViewModel
             get { return _selectedCost != null; }
         }
 
+        public bool HasItems
+        {
+            get { return Costs.Count == 0; }
+        }
+
 
         public RelayCommand ClearFiltersCommand
         {
@@ -69,6 +83,7 @@ namespace CostControl.ViewModel
                 return _clearFiltersCommand ?? (_clearFiltersCommand = new RelayCommand(() =>
                 {
                     ClearAllFilters();
+                    RaisePropertyChanged(nameof(DataCharts));
                 }, () => IsFiltersEnabled              
                 ));
             }
@@ -86,6 +101,7 @@ namespace CostControl.ViewModel
                     {
                         Costs.Add(vm.Cost);
                     }
+                    RaisePropertyChanged(nameof(DataCharts));
 
                 }));
             }
@@ -98,7 +114,7 @@ namespace CostControl.ViewModel
                 {
                     Costs.Clear();
                     IEnumerable<Cost> res = null;
-                    if (SelectedFilter == 0)
+                    if (SelectedFilter == 0 && !string.IsNullOrEmpty(_filterText))
                     {
                         res = _db.GetRecordsByDescription(_filterText);
                     }
@@ -117,6 +133,8 @@ namespace CostControl.ViewModel
                     res.ForEachCustom(obj => Costs.Add(new CostViewModel(obj, _db)));
                     IsFiltered = true;
                     RaisePropertyChanged(nameof(CountOfItems));
+                    RaisePropertyChanged(nameof(HasItems));
+                    RaisePropertyChanged(nameof(DataCharts));
                 }));
             }
         }
@@ -132,11 +150,22 @@ namespace CostControl.ViewModel
                     {
                         System.Diagnostics.Debug.WriteLine("Категории сохранены");
                     }
+                    RaisePropertyChanged(nameof(DataCharts));
                 }));
             }
         }
 
-       
+       private bool? _typeOfChart = null;
+       public bool? TypeOfChart
+        {
+            get { return _typeOfChart; }
+            set
+            {
+                _typeOfChart = value;
+                RaisePropertyChanged(nameof(TypeOfChart));
+            }
+        }
+
         public RelayCommand RemoveItemCommand
         {
             get
@@ -170,6 +199,7 @@ namespace CostControl.ViewModel
                     SelectedFilter = 0;
                 }
                 RaisePropertyChanged(nameof(IsFiltersEnabled));
+                RaisePropertyChanged(nameof(DataCharts));
             }
         }
 
@@ -272,6 +302,7 @@ namespace CostControl.ViewModel
             RaisePropertyChanged(nameof(Costs));
             IsFiltered = false;
             InitializeStartCosts();
+            
         }
 
         private void InitializeStartCosts()
@@ -281,6 +312,15 @@ namespace CostControl.ViewModel
             var lastday = firstday.AddMonths(1).AddDays(1);
             var coll = _db.GetRecordsByDateSpan(firstday, lastday).Select(obj => new CostViewModel(obj, _db));
             coll.ForEachCustom(obj => Costs.Add(obj));
+            
+        }
+
+        private ObservableCollection<KeyValuePair<string, double>> GetDataForChart()
+        {
+            List<KeyValuePair<string,Double>> coll = new List<KeyValuePair<string, double>>();
+            var s = Costs.Select(o => o.Date).Distinct();
+            s.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Costs.Where(item => item.Date == obj).Sum(o => o.Price))));
+            return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
 
         #endregion

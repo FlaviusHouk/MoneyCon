@@ -13,10 +13,12 @@
         <vm:ViewModelLocator x:Key="Locator"/>
 
         <converts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <converts:IntToImageMatchConverter x:Key="IntToImageMatchConverter"></converts:IntToImageMatchConverter>
-        <converts:DateToShortDateConverter x:Key="DateToShortDateConverter"></converts:DateToShortDateConverter>
+        <converts:AntiBoolToVisibilityConverter x:Key="AntiBoolToVisibilityConverter"/>
+        <converts:IntToImageMatchConverter x:Key="IntToImageMatchConverter"/>
+        <converts:DateToShortDateConverter x:Key="DateToShortDateConverter"/>
         <converts:InverseAndBooleansToBooleanConverter x:Key="InverseAndBooleansToBooleanConverter"/>
-
+        
+        
         <BitmapImage x:Key="AddImage" UriSource="Resources/add.png"/>
         <BitmapImage x:Key="RemoveImage" UriSource="Resources/remove.png"/>
         <BitmapImage x:Key="ClearImage" UriSource="Resources/clear.png"/>
@@ -24,6 +26,9 @@
         <BitmapImage x:Key="NoFoundImage" UriSource="Resources/no found.png"/>
         <BitmapImage x:Key="AddTagImage" UriSource="Resources/addTag.png"/>
         <BitmapImage x:Key="SaveImage" UriSource="Resources/save.png"/>
+        <BitmapImage x:Key="LineChartImage" UriSource="Resources/linechart.png"/>
+        <BitmapImage x:Key="PieChartImage" UriSource="Resources/piechart.png"/>
+        <BitmapImage x:Key="StatImage" UriSource="Resources/stats.png"/>
 
 
 

@@ -55,6 +55,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <HintPath>..\..\..\..\..\Desktop\New folder\Toolkit-release\DataVisualization\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -80,6 +83,7 @@
     <Compile Include="Converters\DateToShortDayConverter.cs" />
     <Compile Include="Converters\IntToImageMatchConverter.cs" />
     <Compile Include="Converters\InverseAndBooleansToBooleanConverter.cs" />
+    <Compile Include="Enums\enumFilterType.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Model\Cost.cs" />
     <Compile Include="Model\DataBaseWorker.cs" />
@@ -170,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\AddCostProcedure.sql" />
+    <Resource Include="Resources\stats.png" />
+    <Resource Include="Resources\linechart.png" />
+    <Resource Include="Resources\piechart.png" />
     <Resource Include="Resources\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

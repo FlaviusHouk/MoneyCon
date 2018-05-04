@@ -63,6 +63,7 @@ namespace CostControl.ViewModel
         {
             Cost = GetCurrenCost(this);
             Cost.InsertCurrentRecord(_db);
+            IsModifed = false;
         }
 
         public string Error
