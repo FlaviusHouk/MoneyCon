@@ -69,9 +69,9 @@ namespace CostControl.ViewModel
             }
         }
 
-        public CategoriesWindowViewModel(List<string> tags, DataBaseWorker db)
+        public CategoriesWindowViewModel(ObservableCollection<string> tags, DataBaseWorker db)
         {
-            Categories = new ObservableCollection<string>(tags);
+            Categories = tags;
             _db = db;
         }
     }

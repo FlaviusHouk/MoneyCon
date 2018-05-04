@@ -7,6 +7,7 @@
 			 xmlns:ignore="http://www.galasoft.ch/ignore"
              StartupUri="Views/MainWindow.xaml"
              xmlns:converts="clr-namespace:CostControl.Converters"
+             xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d ignore">
 
     <Application.Resources>
@@ -30,7 +31,36 @@
         <BitmapImage x:Key="PieChartImage" UriSource="Resources/piechart.png"/>
         <BitmapImage x:Key="StatImage" UriSource="Resources/stats.png"/>
 
-
+        <Style TargetType="ToggleButton" x:Name="toggleStyle">
+            <Setter Property="Content">
+                <Setter.Value>
+                    null
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Image Width="20" Source="{StaticResource LineChartImage}"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Image Width="20" Source="{StaticResource PieChartImage}"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="{x:Null}">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Image Width="20" Source="{StaticResource StatImage}"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <ControlTemplate x:Key="validationFailed">
             <StackPanel Orientation="Horizontal">

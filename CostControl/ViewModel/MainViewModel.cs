@@ -11,6 +11,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using CostControl.Model;
 using System.Collections;
 using CostControl.Views;
+using System.Windows.Controls;
+using CostControl.ViewModel.PagesViewModels;
+using System.Windows;
 
 namespace CostControl.ViewModel
 {
@@ -19,11 +22,13 @@ namespace CostControl.ViewModel
     {
         #region fieilds
         private ObservableCollection<CostViewModel> _costs = new ObservableCollection<CostViewModel>();
+        private ObservableCollection<string> _tags = new ObservableCollection<string>();
         private RelayCommand _clearFiltersCommand;
         private RelayCommand _addItemCommand;
         private RelayCommand _removeItemCommand;
         private RelayCommand _addTagCommand;
         private RelayCommand _useFilterCommand;
+        private Dictionary<int, BasePageContext> _pageViewModels = new Dictionary<int, BasePageContext>();
 
         private DataBaseWorker _db;
         public DataBaseWorker DB { get { return _db; } }
@@ -35,20 +40,15 @@ namespace CostControl.ViewModel
             set { _costs = value; }
         }
 
-        public ObservableCollection<KeyValuePair<string, double>> DataCharts
-        {
-            get
-            {
-                RaisePropertyChanged(nameof(HasItems));
-                return GetDataForChart();
-            }
-        }
 
-        public List<string> Tags
+
+        public ObservableCollection<string> Tags
         {
             get
             {
-                return _db.Categories;
+                _tags.Clear();
+                _db.Categories.ForEachCustom(obj => _tags.Add(obj));
+                return _tags;
             }
         }
 
@@ -83,7 +83,7 @@ namespace CostControl.ViewModel
                 return _clearFiltersCommand ?? (_clearFiltersCommand = new RelayCommand(() =>
                 {
                     ClearAllFilters();
-                    RaisePropertyChanged(nameof(DataCharts));
+                    RaisePropertyChanged(nameof(ActiveStat));
                 }, () => IsFiltersEnabled              
                 ));
             }
@@ -101,7 +101,7 @@ namespace CostControl.ViewModel
                     {
                         Costs.Add(vm.Cost);
                     }
-                    RaisePropertyChanged(nameof(DataCharts));
+                    RaisePropertyChanged(nameof(ActiveStat));
 
                 }));
             }
@@ -130,11 +130,11 @@ namespace CostControl.ViewModel
                     {
                         res = _db.GetRecordsByCategory(_tag);
                     }
-                    res.ForEachCustom(obj => Costs.Add(new CostViewModel(obj, _db)));
+                    res?.ForEachCustom(obj => Costs.Add(new CostViewModel(obj, _db)));
                     IsFiltered = true;
                     RaisePropertyChanged(nameof(CountOfItems));
                     RaisePropertyChanged(nameof(HasItems));
-                    RaisePropertyChanged(nameof(DataCharts));
+                    RaisePropertyChanged(nameof(ActiveStat));
                 }));
             }
         }
@@ -150,7 +150,7 @@ namespace CostControl.ViewModel
                     {
                         System.Diagnostics.Debug.WriteLine("Категории сохранены");
                     }
-                    RaisePropertyChanged(nameof(DataCharts));
+                    RaisePropertyChanged(nameof(ActiveStat));
                 }));
             }
         }
@@ -163,6 +163,18 @@ namespace CostControl.ViewModel
             {
                 _typeOfChart = value;
                 RaisePropertyChanged(nameof(TypeOfChart));
+            }
+        }
+
+        private Page _activeStat;
+        public Page ActiveStat
+        {
+            get
+            {
+                _activeStat = Application.LoadComponent(_pageViewModels[SelectedFilter].PageUri) as Page;
+                _activeStat.DataContext = _pageViewModels[SelectedFilter];
+                _pageViewModels[SelectedFilter]?.Update();
+                return _activeStat;
             }
         }
 
@@ -199,7 +211,7 @@ namespace CostControl.ViewModel
                     SelectedFilter = 0;
                 }
                 RaisePropertyChanged(nameof(IsFiltersEnabled));
-                RaisePropertyChanged(nameof(DataCharts));
+                RaisePropertyChanged(nameof(ActiveStat));
             }
         }
 
@@ -285,6 +297,11 @@ namespace CostControl.ViewModel
         {
             _db = new DataBaseWorker();
             InitializeStartCosts();
+            _pageViewModels.Add(0, new TextPageContext(Costs, Tags));
+            _pageViewModels.Add(1, new DatePageContext(Costs, Tags));
+            _pageViewModels.Add(2, new DateSpanPageContext(Costs,Tags));
+            _pageViewModels.Add(3, new CategoryPageContext(Costs));
+            SelectedFilter = 2;
         }
         #endregion
         #region methods
@@ -313,14 +330,6 @@ namespace CostControl.ViewModel
             var coll = _db.GetRecordsByDateSpan(firstday, lastday).Select(obj => new CostViewModel(obj, _db));
             coll.ForEachCustom(obj => Costs.Add(obj));
             
-        }
-
-        private ObservableCollection<KeyValuePair<string, double>> GetDataForChart()
-        {
-            List<KeyValuePair<string,Double>> coll = new List<KeyValuePair<string, double>>();
-            var s = Costs.Select(o => o.Date).Distinct();
-            s.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Costs.Where(item => item.Date == obj).Sum(o => o.Price))));
-            return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
 
         #endregion

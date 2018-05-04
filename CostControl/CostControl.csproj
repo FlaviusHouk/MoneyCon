@@ -88,10 +88,15 @@
     <Compile Include="Model\Cost.cs" />
     <Compile Include="Model\DataBaseWorker.cs" />
     <Compile Include="ViewModel\AddCostViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModels\BasePageContext.cs" />
     <Compile Include="ViewModel\CostViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\CategoriesWindowViewModel.cs" />
     <Compile Include="ViewModel\InputNameWindowViewModel.cs" />
+    <Compile Include="ViewModel\PagesViewModels\CategoryPageContext.cs" />
+    <Compile Include="ViewModel\PagesViewModels\DatePageContext.cs" />
+    <Compile Include="ViewModel\PagesViewModels\DateSpanPageContext.cs" />
+    <Compile Include="ViewModel\PagesViewModels\TextPageContext.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Views\AddCostWindow.xaml">
       <SubType>Form</SubType>
@@ -126,6 +131,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\StatPages\CategoryFilterStatPage.xaml">
+      <SubType>Form</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatPages\DateFilterStatPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatPages\DateSpanFilterStatPage.xaml">
+      <SubType>Form</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatPages\TextFilterStatPage.xaml">
+      <SubType>Form</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

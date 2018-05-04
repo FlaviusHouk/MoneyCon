@@ -72,3 +72,11 @@ C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\W
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.pdb
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\WPFToolkit.pdb
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\CategoryFilterStatPage.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\TextFilterStatPage.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\CategoryFilterStatPage.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\TextFilterStatPage.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\DateSpanFilterStatPage.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\DateSpanFilterStatPage.g.cs
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\DateFilterStatPage.baml
+C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\DateFilterStatPage.g.cs

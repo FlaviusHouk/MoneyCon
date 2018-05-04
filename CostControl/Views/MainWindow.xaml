@@ -6,7 +6,7 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         Height="600" MinHeight="600"
         Width="1000" MinWidth="1000"
-        Title="CostControl" xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        Title="CostControl" 
         DataContext="{Binding Main, Source={StaticResource Locator}}" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="32">
@@ -241,111 +241,8 @@
                 </Grid>
             </GroupBox>
             <TextBlock Text="Выберите расход для редактирования" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0" Foreground="Gray" FontSize="20" Visibility="{Binding HasSelectedCost, Converter={StaticResource AntiBoolToVisibilityConverter}}"></TextBlock>
-            <GroupBox Grid.Column="2" Grid.Row="2">
-                <GroupBox.Header>
-                    <StackPanel  Orientation="Horizontal">
-                        <ToggleButton IsChecked="{Binding TypeOfChart}" IsThreeState="True" Background="Transparent" BorderThickness="0">
-                            <ToggleButton.Style>
-                                <Style TargetType="ToggleButton">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            null
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
-                                            <Setter Property="Content">
-                                                <Setter.Value>
-                                                    <Image Width="20" Source="{StaticResource LineChartImage}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Trigger>
-                                        <Trigger Property="IsChecked" Value="False">
-                                            <Setter Property="Content">
-                                                <Setter.Value>
-                                                    <Image Width="20" Source="{StaticResource PieChartImage}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Trigger>
-                                        <Trigger Property="IsChecked" Value="{x:Null}">
-                                            <Setter Property="Content">
-                                                <Setter.Value>
-                                                    <Image Width="20" Source="{StaticResource StatImage}"/>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ToggleButton.Style>
-                        </ToggleButton>
-                        <TextBlock Text="Статистика" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </GroupBox.Header>
-                <Grid>
-                    <Grid Visibility="{Binding HasItems, Converter={StaticResource AntiBoolToVisibilityConverter}}">
-
-                        <chartingToolkit:Chart x:Name="chart" Background="Transparent" BorderBrush="Transparent" >
-                            <chartingToolkit:Chart.Style>
-                                <Style TargetType="chartingToolkit:Chart">
-                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding TypeOfChart}" Value="true">
-                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding TypeOfChart}" Value="false">
-                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </chartingToolkit:Chart.Style>
-                            <chartingToolkit:LineSeries ItemsSource="{Binding DataCharts}" DependentValuePath="Value" IndependentValuePath="Key"  IsSelectionEnabled="True">
-                                <chartingToolkit:LineSeries.Style>
-                                    <Style TargetType="chartingToolkit:LineSeries">
-                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding TypeOfChart}" Value="true">
-                                                <Setter Property="Visibility" Value="Visible"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </chartingToolkit:LineSeries.Style>
-                            </chartingToolkit:LineSeries>
-                            <chartingToolkit:PieSeries ItemsSource="{Binding DataCharts}" DependentValuePath="Value" IndependentValuePath="Key"  IsSelectionEnabled="True">
-                                <chartingToolkit:PieSeries.Style>
-                                    <Style TargetType="chartingToolkit:PieSeries">
-                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding TypeOfChart}" Value="false">
-                                                <Setter Property="Visibility" Value="Visible"></Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </chartingToolkit:PieSeries.Style>
-                            </chartingToolkit:PieSeries>
-                        </chartingToolkit:Chart>
-                    </Grid>
-                    <TextBlock Text="Тестовая статистика">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Visible"></Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding TypeOfChart}" Value="{x:Null}">
-                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding TypeOfChart}" Value="true">
-                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding TypeOfChart}" Value="false">
-                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock Text="Недостаточно элементов для графика" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray" Visibility="{Binding HasItems, Converter={StaticResource BoolToVisibilityConverter}}">
-                    </TextBlock>
-                </Grid>
-            </GroupBox>
+            <Frame Visibility="{Binding HasItems, Converter={StaticResource AntiBoolToVisibilityConverter}}" NavigationUIVisibility="Hidden"  Grid.Column="2" Grid.Row="2" Content="{Binding ActiveStat}"></Frame>
+            <TextBlock Text="Недостаточно данных для статистики" VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.Column="2" Grid.Row="2" Foreground="Gray" FontSize="20" Visibility="{Binding HasItems, Converter={StaticResource BoolToVisibilityConverter}}"></TextBlock>
             <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="2" Background="Gray"/>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Gray" Width="5" Grid.RowSpan="3"/>
         </Grid>

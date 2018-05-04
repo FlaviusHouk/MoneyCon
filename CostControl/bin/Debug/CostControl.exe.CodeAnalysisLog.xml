@@ -10,10 +10,25 @@
        <Types>
         <Type Name="DataBaseWorker" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-05-04 11:22:29Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-05-04 13:54:39Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">Implement IDisposable on 'DataBaseWorker' because it creates members of the following IDisposable types: 'SqlConnection'. If 'DataBaseWorker' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.</Issue>
           </Message>
          </Messages>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="CostControl.ViewModel">
+       <Types>
+        <Type Name="MainViewModel" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-05-04 13:54:39Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\ViewModel" File="MainViewModel.cs" Line="24">'MainViewModel.MainViewModel()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;MainViewModel..ctor()&#xD;&#xA;MainViewModel.set_SelectedFilter(Int32):Void&#xD;&#xA;ObservableObject.RaisePropertyChanged(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
         </Type>
        </Types>
       </Namespace>
@@ -23,6 +38,16 @@
   </Target>
  </Targets>
  <Rules>
+  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+   <Name>Do not call overridable methods in constructors</Name>
+   <Description>Virtual methods defined on the class should not be called from constructors. If a derived class has overridden the method, the derived class version will be called (before the derived class constructor is called).</Description>
+   <Resolution Name="Default">{0} contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182331.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
+   <File Name="usagerules.dll" Version="14.0.0.0" />
+  </Rule>
   <Rule TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001">
    <Name>Types that own disposable fields should be disposable</Name>
    <Description>Types that declare disposable members should also implement IDisposable. If the type does not own any unmanaged resources, do not implement a finalizer on it.</Description>
