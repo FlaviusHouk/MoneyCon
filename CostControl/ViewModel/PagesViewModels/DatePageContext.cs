@@ -55,6 +55,18 @@ namespace CostControl.ViewModel.PagesViewModels
                 return Сosts.Select(o => o.Price).Sum(); }
         }
 
+        public double Avg
+        {
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return 0;
+                }
+                return _db.GetAvgByDate(Сosts.First().Date);
+            }
+        }
+
         public double Max
         {
             get
@@ -71,7 +83,7 @@ namespace CostControl.ViewModel.PagesViewModels
         {
             //replace with SQL-interactivity    <----------------------------------
             List<KeyValuePair<string, double>> coll = new List<KeyValuePair<string, double>>();
-            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Сosts.Where(item => item.Category == obj).Sum(o => o.Price))));
+            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, _db.GetSumByCategory(obj))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
     }

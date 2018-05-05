@@ -70,14 +70,16 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Style>
-                <TextBlock Text="Начальная дата:" Margin="4"/>
-                <TextBlock Text="{Binding StartDate}" Margin="4"/>
-                <TextBlock Text="Конечная дата:" Margin="4"/>
-                <TextBlock Text="{Binding EndDate}" Margin="4"/>
-                <TextBlock Text="Всего потрачено:" Margin="4"/>
-                <TextBlock Text="{Binding Sum, StringFormat='##.##₴'}" Margin="4"/>
-                <TextBlock Text="Максимальный расход:" Margin="4"/>
-                <TextBlock Text="{Binding Max, StringFormat='##.##₴'}" Margin="4"/>
+                <TextBlock Text="Начальная дата:" Margin="3"/>
+                <TextBlock Text="{Binding StartDate}" Margin="3"/>
+                <TextBlock Text="Конечная дата:" Margin="3"/>
+                <TextBlock Text="{Binding EndDate}" Margin="3"/>
+                <TextBlock Text="Всего потрачено:" Margin="3"/>
+                <TextBlock Text="{Binding Sum, StringFormat='##.##₴'}" Margin="3"/>
+                <TextBlock Text="Средний расход:" Margin="3"/>
+                <TextBlock Text="{Binding Avg, StringFormat='##.##₴'}" Margin="3"/>
+                <TextBlock Text="Максимальный расход:" Margin="3"/>
+                <TextBlock Text="{Binding Max, StringFormat='##.##₴'}" Margin="3"/>
             </StackPanel>
         </Grid>
     </GroupBox>

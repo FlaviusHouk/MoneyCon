@@ -67,6 +67,18 @@ namespace CostControl.ViewModel.PagesViewModels
             }
         }
 
+        public double Avg
+        {
+            get
+            {
+                if (!Costs.Any())
+                {
+                    return 0;
+                }
+                return _db.GetAvgByCategory(Costs.First().Category);
+            }
+        }
+
         public double Max
         {
             get
