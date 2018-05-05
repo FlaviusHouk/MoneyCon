@@ -9,6 +9,11 @@ using System.Windows.Data;
 using System;
 using GalaSoft.MvvmLight.CommandWpf;
 using CostControl.Model;
+using System.Collections;
+using CostControl.Views;
+using System.Windows.Controls;
+using CostControl.ViewModel.PagesViewModels;
+using System.Windows;
 
 namespace CostControl.ViewModel
 {
@@ -22,7 +27,11 @@ namespace CostControl.ViewModel
         private RelayCommand _addItemCommand;
         private RelayCommand _removeItemCommand;
         private RelayCommand _addTagCommand;
+        private RelayCommand _useFilterCommand;
+        private Dictionary<int, BasePageContext> _pageViewModels = new Dictionary<int, BasePageContext>();
+
         private DataBaseWorker _db;
+        public DataBaseWorker DB { get { return _db; } }
         #endregion
         #region properties
         public ObservableCollection<CostViewModel> Costs
@@ -33,11 +42,13 @@ namespace CostControl.ViewModel
 
         public ObservableCollection<string> Tags
         {
-            get { return _tags; }
-            set { _tags = value; }
+            get
+            {
+                _tags.Clear();
+                _db.Categories.ForEachCustom(obj => _tags.Add(obj));
+                return _tags;
+            }
         }
-
-        public CollectionView CostsView { get; private set; }
 
         private CostViewModel _selectedCost;
         public CostViewModel SelectedCost
@@ -56,6 +67,11 @@ namespace CostControl.ViewModel
             get { return _selectedCost != null; }
         }
 
+        public bool HasItems
+        {
+            get { return Costs.Count == 0; }
+        }
+
 
         public RelayCommand ClearFiltersCommand
         {
@@ -64,6 +80,7 @@ namespace CostControl.ViewModel
                 return _clearFiltersCommand ?? (_clearFiltersCommand = new RelayCommand(() =>
                 {
                     ClearAllFilters();
+                    RaisePropertyChanged(nameof(ActiveStat));
                 }, () => IsFiltersEnabled              
                 ));
             }
@@ -75,8 +92,55 @@ namespace CostControl.ViewModel
             {
                 return _addItemCommand ?? (_addItemCommand = new RelayCommand(() =>
                 {
-                    Costs.Add(new CostViewModel(0, "Расход", DateTime.Now, null));
+                    var vm = new AddCostViewModel(_db);
+                    var win = new AddCostWindow() { Owner = App.Current.MainWindow, DataContext = vm };
+                    if (win.ShowDialog() == true)
+                    {
+                        Costs.Add(vm.Cost);
+                    }
+                    RaisePropertyChanged(nameof(ActiveStat));
+
                 }));
+            }
+        }
+        public RelayCommand UseFilterCommand
+        {
+            get
+            {
+                return _useFilterCommand ?? (_useFilterCommand = new RelayCommand(() =>
+                {
+                    Costs.Clear();
+                    IEnumerable<Cost> res = null;
+                    if (SelectedFilter == 0 && !string.IsNullOrEmpty(_filterText))
+                    {
+                        res = _db.GetRecordsByDescription(_filterText);
+                    }
+                    else if (SelectedFilter == 1)
+                    {
+                        res = _db.GetRecordsByDate(_aloneDate);
+                    }
+                    else if (SelectedFilter == 2)
+                    {
+                        res = _db.GetRecordsByDateSpan(_startDate, _endDate);
+                    }
+                    else if (SelectedFilter == 3)
+                    {
+                        res = _db.GetRecordsByCategory(_tag);
+                    }
+                    res?.ForEachCustom(obj => Costs.Add(new CostViewModel(obj, _db)));
+                    IsFiltered = true;
+                    RaisePropertyChanged(nameof(CountOfItems));
+                    RaisePropertyChanged(nameof(HasItems));
+                    RaisePropertyChanged(nameof(ActiveStat));
+                },() =>
+                {
+                    if (SelectedFilter==3 && string.IsNullOrEmpty(SelectedTag))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                ));
             }
         }
 
@@ -86,8 +150,36 @@ namespace CostControl.ViewModel
             {
                 return _addTagCommand ?? (_addTagCommand = new RelayCommand(() =>
                 {
-                    Tags.Add("Tag1");
+                    var w = new Views.CategoriesWindow {Owner = App.Current.MainWindow };
+                    if (w.ShowDialog() == true)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Категории сохранены");
+                    }
+                    RaisePropertyChanged(nameof(ActiveStat));
                 }));
+            }
+        }
+
+       private bool? _typeOfChart = null;
+       public bool? TypeOfChart
+        {
+            get { return _typeOfChart; }
+            set
+            {
+                _typeOfChart = value;
+                RaisePropertyChanged(nameof(TypeOfChart));
+            }
+        }
+
+        private Page _activeStat;
+        public Page ActiveStat
+        {
+            get
+            {
+                _activeStat = Application.LoadComponent(_pageViewModels[SelectedFilter].PageUri) as Page;
+                _activeStat.DataContext = _pageViewModels[SelectedFilter];
+                _pageViewModels[SelectedFilter]?.Update();
+                return _activeStat;
             }
         }
 
@@ -97,6 +189,7 @@ namespace CostControl.ViewModel
             {
                 return _removeItemCommand ?? (_removeItemCommand = new RelayCommand(() =>
                 {
+                    _db.DeleteCost(SelectedCost.Cost);
                     Costs.Remove(SelectedCost);
                 }, () => HasSelectedCost));
             }
@@ -117,9 +210,14 @@ namespace CostControl.ViewModel
             set
             {
                 _isFiltersEnabled = value;
-                ClearAllFilters();
-                SelectedFilter = 0;
+                if (!value)
+                {
+                    ClearAllFilters();
+                    SelectedFilter = 2;
+                }
                 RaisePropertyChanged(nameof(IsFiltersEnabled));
+                RaisePropertyChanged(nameof(ActiveStat));
+                RaisePropertyChanged(nameof(HasItems));
             }
         }
 
@@ -151,7 +249,6 @@ namespace CostControl.ViewModel
             set
             {
                 _filterText = value;
-                RaiseFilters();
             }
 
         }
@@ -162,7 +259,6 @@ namespace CostControl.ViewModel
             set
             {
                 _aloneDate = value;
-                RaiseFilters();
             }
 
         }
@@ -173,7 +269,6 @@ namespace CostControl.ViewModel
             set
             {
                 _startDate = value;
-                RaiseFilters();
             }
 
         }
@@ -184,14 +279,13 @@ namespace CostControl.ViewModel
             set
             {
                 _endDate = value;
-                RaiseFilters();
             }
 
         }
 
         public int CountOfItems
         {
-            get { return CostsView.Count; }
+            get { return Costs.Count; }
         }
 
         public string SelectedTag
@@ -200,7 +294,6 @@ namespace CostControl.ViewModel
             set
             {
                 _tag = value;
-                RaiseFilters();
             }
         }
 
@@ -209,34 +302,16 @@ namespace CostControl.ViewModel
         public MainViewModel()
         {
             _db = new DataBaseWorker();
-            
-
-            _costs.Add(new CostViewModel(15, "Хлеб", new System.DateTime(2018, 11, 30), "Еда"));
-            _costs.Add(new CostViewModel(25, "Молоко", new System.DateTime(2018, 12, 30), "Еда"));
-            _costs.Add(new CostViewModel(20, "Вода", new System.DateTime(2018, 10, 30), "Развлечения"));
-            _tags.Add("Еда");
-            _tags.Add("Развлечения");
-            CostsView = (CollectionView)CollectionViewSource.GetDefaultView(Costs);
-            CostsView.Filter = OnFilterMovie;
+            InitializeStartCosts();
+            _pageViewModels.Add(0, new TextPageContext(Costs, Tags));
+            _pageViewModels.Add(1, new DatePageContext(Costs, Tags));
+            _pageViewModels.Add(2, new DateSpanPageContext(Costs,Tags));
+            _pageViewModels.Add(3, new CategoryPageContext(Costs));
+            SelectedFilter = 2;
         }
         #endregion
         #region methods
-        public void RaiseFilters()
-        {
-            CostsView.Refresh();
-            RaisePropertyChanged(nameof(CountOfItems));
-            RaisePropertyChanged(nameof(Costs));
-
-        }
-        private bool OnFilterMovie(object obj)
-        {
-            if (IsFiltersEnabled)
-            {
-                return ApplySelectedCrit(obj as CostViewModel);
-            }
-            return true;
-        }
-
+    
         private void ClearAllFilters()
         {
             _filterText = String.Empty;
@@ -249,34 +324,20 @@ namespace CostControl.ViewModel
             RaisePropertyChanged(nameof(EndDate));
             RaisePropertyChanged(nameof(Costs));
             IsFiltered = false;
-            CostsView.Refresh();
+            InitializeStartCosts();
+            
         }
 
-        private bool ApplySelectedCrit(CostViewModel item)
+        private void InitializeStartCosts()
         {
-            IsFiltered = true;
-            if (SelectedFilter == 0 && !String.IsNullOrEmpty(FilterText))
-            {
-                return item.Header.ToLower().Contains(FilterText?.ToLower());
-            }
-            else if (SelectedFilter == 1)
-            {
-                return item.Date == AloneDate;
-            }
-            else if (SelectedFilter == 2)
-            {
-                return item.Date > StartDate && item.Date < EndDate;
-            }
-            else if (SelectedFilter == 3)
-            {
-                return String.Compare(item.Tag, SelectedTag) == 0;
-            }
-            else
-            {
-                IsFiltered = false;
-                return true;
-            }
+            Costs.Clear();
+            var firstday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
+            var lastday = firstday.AddMonths(1).AddDays(1);
+            var coll = _db.GetRecordsByDateSpan(firstday, lastday).Select(obj => new CostViewModel(obj, _db));
+            coll.ForEachCustom(obj => Costs.Add(obj));
+            
         }
+
         #endregion
     }
 }

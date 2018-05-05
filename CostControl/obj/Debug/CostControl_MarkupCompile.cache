@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\
+C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\
 CostControl
 none
 false
 CODE_ANALYSIS;DEBUG;TRACE
-C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\App.xaml
-11892971807
+C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\App.xaml
+8-1570671961
 1720601551
-14-1015303495
-68-864829
-Views\MainWindow.xaml;
+27-601180843
+69727930382
+Views\AddCostWindow.xaml;Views\CategoriesWindow.xaml;Views\InputNameWindow.xaml;Views\MainWindow.xaml;Views\StatPages\CategoryFilterStatPage.xaml;Views\StatPages\DateFilterStatPage.xaml;Views\StatPages\DateSpanFilterStatPage.xaml;Views\StatPages\TextFilterStatPage.xaml;
 
 False
 

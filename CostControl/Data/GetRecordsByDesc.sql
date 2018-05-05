@@ -1,4 +1,4 @@
-CREATE PROCEDURE GetRecordsByDescription(@Desc nchar(512))
+CREATE PROCEDURE GetRecordsByDescription(@Desc nvarchar(512))
 AS
 BEGIN
 	SELECT * FROM Costs WHERE CHARINDEX(Description, @Desc) != 0

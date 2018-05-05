@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-        Height="600" MinHeight="500"
-        Width="1000" MinWidth="500"
-        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="CostControl"
+        Height="600" MinHeight="600"
+        Width="1000" MinWidth="1000"
+        Title="CostControl" Icon="{StaticResource LogoImage}"
         DataContext="{Binding Main, Source={StaticResource Locator}}" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="32">
@@ -22,21 +21,23 @@
                     <Image Source="{StaticResource ClearImage}"/>
                 </Button>
                 <Button ToolTip="Добавить категорию" Command="{Binding AddTagCommand}">
-                    <Image Source="{StaticResource AddTagImage}"/>
-                </Button>
-                <Button ToolTip="Сохранить всё" Command="{Binding SaveItemsCommand}">
-                    <Image Source="{StaticResource SaveImage}"/>
+                    <Image Source="{StaticResource TagsImage}"/>
                 </Button>
             </ToolBar>
         </StackPanel>
 
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" MinHeight="220"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*" MinHeight="220"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" MinWidth="150"/>
+                <ColumnDefinition Width="2*" MinWidth="400"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*" MinWidth="370"/>
             </Grid.ColumnDefinitions>
-            <DockPanel LastChildFill="True">
+            <DockPanel LastChildFill="True" Grid.RowSpan="3">
                 <GroupBox DockPanel.Dock="Top">
                     <GroupBox.Header>
                         <StackPanel Orientation="Horizontal">
@@ -44,43 +45,47 @@
                             <TextBlock Text="Фильтры"></TextBlock>
                         </StackPanel>
                     </GroupBox.Header>
-                    <StackPanel>
-                        <TabControl SelectedIndex="{Binding SelectedFilter}" IsEnabled="{Binding IsFiltersEnabled}">
-                            <TabItem Header="Поис по тексту">
-                                <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"></TextBox>
-                            </TabItem>
-                            <TabItem Header="Дата">
-                                <DatePicker BorderThickness="0" SelectedDate="{Binding AloneDate, Mode=TwoWay}"/>
-                            </TabItem>
-                            <TabItem Header="Между датами">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="85*"/>
-                                        <ColumnDefinition Width="50*"/>
-                                        <ColumnDefinition Width="85*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <DatePicker Text="От" BorderThickness="0" SelectedDate="{Binding StartDate, Mode=TwoWay}" Grid.Column="0"/>
-                                    <DatePicker Text="До" BorderThickness="0" SelectedDate="{Binding EndDate, Mode=TwoWay}" Grid.Column="2"/>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="По категориям">
-                                <ComboBox ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag}" Text="Выберите категорию" IsReadOnly="True"></ComboBox>
-                            </TabItem>
-                        </TabControl>
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding IsFiltered, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center">
-                            <Image Source="{Binding CountOfItems, Converter={StaticResource IntToImageMatchConverter}}" Width="20" Margin="0,0,10,0"/>
-                            <TextBlock VerticalAlignment="Center" Text="{Binding CountOfItems, StringFormat=Найдено:{0} записи(-ей)}"/>
+                    <Grid>
+                        <StackPanel IsEnabled="{Binding IsFiltersEnabled}" Visibility="{Binding IsFiltersEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <TabControl SelectedIndex="{Binding SelectedFilter}" >
+                                <TabItem Header="Поис по тексту">
+                                    <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"></TextBox>
+                                </TabItem>
+                                <TabItem Header="Дата">
+                                    <DatePicker BorderThickness="0" SelectedDate="{Binding AloneDate, Mode=TwoWay}"/>
+                                </TabItem>
+                                <TabItem Header="Между датами">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="85*"/>
+                                            <ColumnDefinition Width="50*"/>
+                                            <ColumnDefinition Width="85*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <DatePicker Text="От" BorderThickness="0" SelectedDate="{Binding StartDate, Mode=TwoWay}" Grid.Column="0"/>
+                                        <DatePicker Text="До" BorderThickness="0" SelectedDate="{Binding EndDate, Mode=TwoWay}" Grid.Column="2"/>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="По категориям">
+                                    <ComboBox ItemsSource="{Binding Tags}" SelectedItem="{Binding SelectedTag}" IsReadOnly="True"></ComboBox>
+                                </TabItem>
+                            </TabControl>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsFiltered, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center">
+                                <Image Source="{Binding CountOfItems, Converter={StaticResource IntToImageMatchConverter}}" Width="20" Margin="0,0,10,0"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding CountOfItems, StringFormat=Найдено: {0} записи(-ей)}"/>
+                            </StackPanel>
+                            <Button Content="Применить" Command="{Binding UseFilterCommand}"></Button>
                         </StackPanel>
-                    </StackPanel>
+                        <TextBlock Text="Включите фильтры  для их отображения" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Gray" Visibility="{Binding IsFiltersEnabled, Converter={StaticResource AntiBoolToVisibilityConverter}}"></TextBlock>
+                    </Grid>
                 </GroupBox>
                 <GroupBox Header="Расходы">
-                    <ListView ItemsSource="{Binding CostsView}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}"  BorderThickness="0">
+                    <ListView ItemsSource="{Binding Costs}" Grid.Column="0" SelectedItem="{Binding SelectedCost, Mode=TwoWay}"  BorderThickness="0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Дата" Width="75" DisplayMemberBinding="{Binding Date, Converter={StaticResource DateToShortDateConverter}}"></GridViewColumn>
-                                <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Header}"></GridViewColumn>
-                                <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Cost, StringFormat='{}{0}₴'}"></GridViewColumn>
-                                <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Tag}"></GridViewColumn>
+                                <GridViewColumn Header="Цель" Width="75" DisplayMemberBinding="{Binding Desc}"></GridViewColumn>
+                                <GridViewColumn Header="Стоимость" DisplayMemberBinding="{Binding Price, StringFormat='##.##₴'}"></GridViewColumn>
+                                <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Category}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
 
@@ -88,7 +93,7 @@
                             <Style TargetType="ListViewItem">
                                 <Setter Property="Background" Value="Transparent"></Setter>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsModifed}" Value="True">
+                                    <DataTrigger Binding="{Binding IsModifed}" Value="true">
                                         <Setter Property="Background">
                                             <Setter.Value>
                                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -101,74 +106,119 @@
                                 </Style.Triggers>
                             </Style>
                         </ListView.ItemContainerStyle>
-
-                        <ListView.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding }"/>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListView.GroupStyle>
                     </ListView>
                 </GroupBox>
             </DockPanel>
-            <GroupBox Header="Редактирование расхода" Grid.Column="2">
-                <Grid Margin="5"  DataContext="{Binding SelectedCost}" Visibility="{Binding Source={StaticResource Locator}, Path=Main.HasSelectedCost, Converter={StaticResource BoolToVisibilityConverter}}">
+            <GroupBox Grid.Column="2" DataContext="{Binding SelectedCost}">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Width="30" Height="30" Background="Transparent" ToolTip="Сохранить запись" BorderThickness="0" Command="{Binding SaveCost}">
+                            <Image  Source="{StaticResource SaveImage}"/>
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource InverseAndBooleansToBooleanConverter}" Mode="TwoWay">
+                                    <Binding ElementName="desc" Path="(Validation.HasError)" />
+                                    <Binding ElementName="price" Path="(Validation.HasError)" />
+                                    <Binding ElementName="date" Path="(Validation.HasError)" />
+                                    <Binding ElementName="cat" Path="(Validation.HasError)" />
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.5" AutoReverse="True" Duration="0:0:0.5"></DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <TextBlock Text="Редактирование расхода" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+
+                <Grid Margin="5"  Background="White" Visibility="{Binding Main.HasSelectedCost, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="35*"/>
-                        <RowDefinition Height="458*"/>
+                        <RowDefinition Height="21*"/>
+                        <RowDefinition Height="63*"/>
+                        <RowDefinition Height="16*"/>
+                        <RowDefinition Height="17*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="73*"/>
-                        <ColumnDefinition Width="123*"/>
-                        <ColumnDefinition Width="97*"/>
-                        <ColumnDefinition Width="37*"/>
-                        <ColumnDefinition Width="115*"/>
+                        <ColumnDefinition Width="77*"/>
+                        <ColumnDefinition Width="165*"/>
+                        <ColumnDefinition Width="229*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.Resources>
-                        <Style TargetType="{x:Type TextBox}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,2" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="Opacity" TargetName="border" Value="1"/>
-                                            </Trigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="border" Value="#FF17FF00"/>
-                                            </Trigger>
-                                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                                <Setter Property="BorderBrush" TargetName="border" Value="Orange"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
+                        <ControlTemplate x:Key="validationFailed">
+                            <StackPanel Orientation="Horizontal">
+                                <Border BorderBrush="Violet" BorderThickness="2">
+                                    <AdornedElementPlaceholder/>
+                                </Border>
+                                <TextBlock Foreground="Red" FontWeight="Bold">!</TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
                     </Grid.Resources>
                     <TextBlock Text="Дата: " ></TextBlock>
-                    <DatePicker BorderThickness="0" SelectedDate="{Binding Date, Mode=TwoWay}" Grid.Column="1"></DatePicker>
+                    <DatePicker x:Name="date" BorderThickness="0" Grid.Column="1" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="Date" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="true">
+                                        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
                     <TextBlock Text="Цель: " Grid.Row="1" Grid.Column="0" ></TextBlock>
-                    <TextBox Text="{Binding Header, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" BorderBrush="Transparent">
+                    <TextBox x:Name="desc" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" BorderBrush="Transparent" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <TextBox.Text>
+                            <Binding Path="Desc" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                     <TextBlock Text="Цена: " Grid.Row="2" Grid.Column="0"></TextBlock>
-                    <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent"></TextBox>
+                    <TextBox x:Name="price" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <TextBox.Text>
+                            <Binding Path="Price" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBlock Text="Категория: " Grid.Row="3" Grid.Column="0" ></TextBlock>
-                    <ComboBox ItemsSource="{Binding Main.Tags, Source={StaticResource Locator}}" SelectedItem="{Binding Tag}" Grid.Column="1" Grid.Row="3"/>
-                    <Button Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Background="Transparent" ToolTip="Сохранить запись" BorderThickness="0" Command="{Binding SaveCost}">
-                        <Image Source="{StaticResource SaveImage}"/>
-                    </Button>
+                    <ComboBox x:Name="cat" ItemsSource="{Binding Main.Tags, Source={StaticResource Locator}}" Grid.Column="1" Grid.Row="3" Validation.ErrorTemplate="{StaticResource validationFailed}">
+                        <ComboBox.SelectedItem>
+                            <Binding Path="Category" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <DataErrorValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedItem>
+                    </ComboBox>
                 </Grid>
             </GroupBox>
-            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Gray" Width="5"/>
+            <TextBlock Text="Выберите расход для редактирования" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0" Foreground="Gray" FontSize="20" Visibility="{Binding HasSelectedCost, Converter={StaticResource AntiBoolToVisibilityConverter}}"></TextBlock>
+            <Frame Visibility="{Binding HasItems, Converter={StaticResource AntiBoolToVisibilityConverter}}" NavigationUIVisibility="Hidden"  Grid.Column="2" Grid.Row="2" Content="{Binding ActiveStat}"></Frame>
+            <TextBlock Text="Недостаточно данных для статистики" VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.Column="2" Grid.Row="2" Foreground="Gray" FontSize="20" Visibility="{Binding HasItems, Converter={StaticResource BoolToVisibilityConverter}}"></TextBlock>
+            <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="2" Background="Gray"/>
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Gray" Width="5" Grid.RowSpan="3"/>
         </Grid>
     </DockPanel>
 </Window>
