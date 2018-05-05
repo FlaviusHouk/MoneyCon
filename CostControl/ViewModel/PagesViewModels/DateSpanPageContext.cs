@@ -66,6 +66,18 @@ namespace CostControl.ViewModel.PagesViewModels
             }
         }
 
+        public double Avg
+        {
+            get
+            {
+                if (!Costs.Any())
+                {
+                    return 0;
+                }
+                return _db.GetAvgByDateSpan(Costs.Min(o => o.Date), Costs.Max(q => q.Date));
+            }
+        }
+
         public double Max
         {
             get
@@ -89,10 +101,10 @@ namespace CostControl.ViewModel.PagesViewModels
             if (_typeOfChart.Value)
             {
                 var res = Costs.Select(o => o.Date).Distinct().OrderBy(o => o);
-                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Costs.Where(item => item.Date == obj).Sum(o => o.Price))));
+                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), _db.GetSumByDate(obj))));
                 return new ObservableCollection<KeyValuePair<string, double>>(coll);
             }
-            Cats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Costs.Where(item => item.Category == obj).Sum(o => o.Price))));
+            Cats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, _db.GetSumByCategory(obj))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
     }

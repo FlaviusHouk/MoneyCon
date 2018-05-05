@@ -1,11 +1,11 @@
 ﻿<Page x:Class="CostControl.Views.StatPages.DateSpanFilterStatPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2004"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2003"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-        mc:Ignorable="d ignore" Background="White" d:DesignWidth="494.174" d:DesignHeight="434.645">
+        mc:Ignorable="d ignore" Background="White" d:DesignWidth="393.173" d:DesignHeight="333.635">
     <GroupBox Grid.Column="2" Grid.Row="2">
         <GroupBox.Header>
             <StackPanel  Orientation="Horizontal">
@@ -94,14 +94,16 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Style>
-                <TextBlock Text="Начальная дата:" Margin="4"/>
-                <TextBlock Text="{Binding StartDate}" Margin="4"/>
-                <TextBlock Text="Конечная дата:" Margin="4"/>
-                <TextBlock Text="{Binding EndDate}" Margin="4"/>
-                <TextBlock Text="Всего потрачено:" Margin="4"/>
-                <TextBlock Text="{Binding Sum, StringFormat='##.##₴'}" Margin="4"/>
-                <TextBlock Text="Максимальный расход:" Margin="4"/>
-                <TextBlock Text="{Binding Max, StringFormat='##.##₴'}" Margin="4"/>
+                <TextBlock Text="Начальная дата:" Margin="3"/>
+                <TextBlock Text="{Binding StartDate}" Margin="3"/>
+                <TextBlock Text="Конечная дата:" Margin="3"/>
+                <TextBlock Text="{Binding EndDate}" Margin="3"/>
+                <TextBlock Text="Всего потрачено:" Margin="3"/>
+                <TextBlock Text="{Binding Sum, StringFormat='##.##₴'}" Margin="3"/>
+                <TextBlock Text="Средний расход:" Margin="3"/>
+                <TextBlock Text="{Binding Avg, StringFormat='##.##₴'}" Margin="3"/>
+                <TextBlock Text="Максимальный расход:" Margin="3"/>
+                <TextBlock Text="{Binding Max, StringFormat='##.##₴'}" Margin="3"/>
             </StackPanel>
         </Grid>
     </GroupBox>

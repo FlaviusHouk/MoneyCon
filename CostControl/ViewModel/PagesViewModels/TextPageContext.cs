@@ -65,7 +65,17 @@ namespace CostControl.ViewModel.PagesViewModels
                 return Сosts.Select(o => o.Price).Sum();
             }
         }
-
+        public double Avg
+        {
+            get
+            {
+                if (!Сosts.Any())
+                {
+                    return 0;
+                }
+                return _db.GetAvgByDescription(Сosts.First().Desc);
+            }
+        }
         public double Max
         {
             get
@@ -89,11 +99,11 @@ namespace CostControl.ViewModel.PagesViewModels
             if (_typeOfChart.Value)
             {
                 var res = Сosts.Select(o => o.Date).Distinct().OrderBy(o => o);
-                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Сosts.Where(item => item.Date == obj).Sum(o => o.Price))));
+                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), _db.GetSumByDate(obj))));
                 return new ObservableCollection<KeyValuePair<string, double>>(coll);
             }
 
-            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Сosts.Where(item => item.Category == obj).Sum(o => o.Price))));
+            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, _db.GetSumByCategory(obj))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
     }
