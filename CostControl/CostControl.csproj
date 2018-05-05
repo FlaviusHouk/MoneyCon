@@ -55,9 +55,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
-      <HintPath>..\..\..\..\..\Desktop\New folder\Toolkit-release\DataVisualization\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.2.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -82,34 +79,12 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateToShortDayConverter.cs" />
     <Compile Include="Converters\IntToImageMatchConverter.cs" />
-    <Compile Include="Converters\InverseAndBooleansToBooleanConverter.cs" />
-    <Compile Include="Enums\enumFilterType.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Model\Cost.cs" />
     <Compile Include="Model\DataBaseWorker.cs" />
-    <Compile Include="ViewModel\AddCostViewModel.cs" />
-    <Compile Include="ViewModel\PagesViewModels\BasePageContext.cs" />
     <Compile Include="ViewModel\CostViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\CategoriesWindowViewModel.cs" />
-    <Compile Include="ViewModel\InputNameWindowViewModel.cs" />
-    <Compile Include="ViewModel\PagesViewModels\CategoryPageContext.cs" />
-    <Compile Include="ViewModel\PagesViewModels\DatePageContext.cs" />
-    <Compile Include="ViewModel\PagesViewModels\DateSpanPageContext.cs" />
-    <Compile Include="ViewModel\PagesViewModels\TextPageContext.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Views\AddCostWindow.xaml">
-      <SubType>Form</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CategoriesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\InputNameWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,35 +93,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\AddCostWindow.xaml.cs">
-      <DependentUpon>AddCostWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CategoriesWindow.xaml.cs">
-      <DependentUpon>CategoriesWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\InputNameWindow.xaml.cs">
-      <DependentUpon>InputNameWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\StatPages\CategoryFilterStatPage.xaml">
-      <SubType>Form</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StatPages\DateFilterStatPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StatPages\DateSpanFilterStatPage.xaml">
-      <SubType>Form</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StatPages\TextFilterStatPage.xaml">
-      <SubType>Form</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -195,11 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\AddCostProcedure.sql" />
-    <Resource Include="Resources\logo.png" />
-    <Resource Include="Resources\tags.png" />
-    <Resource Include="Resources\stats.png" />
-    <Resource Include="Resources\linechart.png" />
-    <Resource Include="Resources\piechart.png" />
     <Resource Include="Resources\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

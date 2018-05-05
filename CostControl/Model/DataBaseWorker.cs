@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using CostControl.Helpers;
 
 namespace CostControl.Model
 {
-    public class DataBaseWorker
+    class DataBaseWorker
     {
-        private const string _connectionString = @"Server=MOZGOKLUY-PC; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
+        private const string _connectionString = @"Server=FLAVIUSWINHP\SQLEXPRESS; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
         private SqlConnection _conn;
         private Dictionary<int, string> _categories;
 
-        public List<string> Categories { get { return _categories.Values.ToList(); } }
 
         public DataBaseWorker()
         {
@@ -37,7 +35,6 @@ namespace CostControl.Model
                 string name = reader.GetValue(1).ToString();
                 _categories.Add(id, name);
             }
-            reader.Close();
         }
 
         public int AddCost(Cost newObj)
@@ -60,7 +57,7 @@ namespace CostControl.Model
                 com.Parameters["@Category"].Value = -1;
 
             com.Parameters.Add("@Price", System.Data.SqlDbType.Real);
-            com.Parameters["@Price"].Value = newObj.Price;
+            com.Parameters["@Price"].Value = newObj.Price; 
 
             com.Parameters.Add("@ID", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.Output;
             com.ExecuteNonQuery();
@@ -98,7 +95,6 @@ namespace CostControl.Model
                 com.Parameters["@ID"].Value = oldRec.Id;
 
                 com.ExecuteNonQuery();
-
             }
         }
 
@@ -131,13 +127,12 @@ namespace CostControl.Model
             {
                 string desc = reader.GetString(3);
                 int cat = reader.GetInt32(4);
-                double price = Convert.ToDouble(reader.GetValue(2));
+                double price = reader.GetDouble(2);
                 int id = reader.GetInt32(0);
 
                 Cost read = new Cost(id, date, price, desc, _categories[cat]);
                 toRet.Add(read);
             }
-            reader.Close();
 
             return toRet;
         }
@@ -160,16 +155,14 @@ namespace CostControl.Model
             {
                 string desc = reader.GetString(3);
                 int cat = reader.GetInt32(4);
-                double price = Convert.ToDouble(reader.GetValue(2));
+                double price = reader.GetDouble(2);
                 int id = reader.GetInt32(0);
-                var s = reader.GetValue(1).ToString();
-                DateTime date;
-                DateTime.TryParse(s, out date);
+                DateTime date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", null);
 
                 Cost read = new Cost(id, date, price, desc, _categories[cat]);
                 toRet.Add(read);
             }
-            reader.Close();
+
             return toRet;
         }
 
@@ -192,15 +185,14 @@ namespace CostControl.Model
             while (reader.Read())
             {
                 string desc = reader.GetString(3);
-                double price = Convert.ToDouble(reader.GetValue(2));
+                double price = reader.GetDouble(2);
                 int id = reader.GetInt32(0);
-                var s = reader.GetValue(1).ToString();
-                DateTime date;
-                DateTime.TryParse(s, out date);
+                DateTime date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", null);
+
                 Cost read = new Cost(id, date, price, desc, category);
                 toRet.Add(read);
             }
-            reader.Close();
+
             return toRet;
         }
 
@@ -218,16 +210,15 @@ namespace CostControl.Model
             while (reader.Read())
             {
                 string description = reader.GetString(3);
-                double price = Convert.ToDouble(reader.GetValue(2));
+                double price = reader.GetDouble(2);
                 int cat = reader.GetInt32(4);
                 int id = reader.GetInt32(0);
-                var s = reader.GetValue(1).ToString();
-                DateTime date;
-                DateTime.TryParse(s, out date);
+                DateTime date = DateTime.ParseExact(reader.GetString(1), "yyyy-MM-dd", null);
+
                 Cost read = new Cost(id, date, price, desc, _categories[cat]);
                 toRet.Add(read);
             }
-            reader.Close();
+
             return toRet;
         }
     }

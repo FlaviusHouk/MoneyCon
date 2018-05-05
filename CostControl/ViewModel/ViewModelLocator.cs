@@ -39,14 +39,6 @@ namespace CostControl.ViewModel
             }
         }
 
-        public CategoriesWindowViewModel CatViewModel
-        {
-            get
-            {
-                return new CategoriesWindowViewModel(Main.Tags, Main.DB);
-            }
-        }
-
         public static void Cleanup()
         {
         }
