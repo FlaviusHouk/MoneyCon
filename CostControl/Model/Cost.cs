@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CostControl.Model
 {
-    class Cost
+    public class Cost
     {
         private readonly double _price;
         private readonly string _desc, _category;
