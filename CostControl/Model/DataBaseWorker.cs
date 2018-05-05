@@ -44,6 +44,7 @@ namespace CostControl.Model
             if (id > 0)
             {
                 _categories.Add(id, name);
+                return true;
             }
             else
             {
@@ -280,7 +281,7 @@ namespace CostControl.Model
 
         public double GetSumByDateSpan(DateTime bDate, DateTime eDate)
         {
-            SqlCommand com = new SqlCommand("dbo.GetRecordsByDateSpan", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetSumByDateSpan", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
@@ -308,7 +309,7 @@ namespace CostControl.Model
 
         public double GetSumByCategory(string category)
         {
-            SqlCommand com = new SqlCommand("dbo.GetRecordsByCategory", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetSumByCategory", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
@@ -323,7 +324,7 @@ namespace CostControl.Model
 
         public double GetSumByDescription(string desc)
         {
-            SqlCommand com = new SqlCommand("dbo.GetRecordsByDescription", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetSumByDescription", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
@@ -353,7 +354,7 @@ namespace CostControl.Model
 
         public double GetAvgByDateSpan(DateTime bDate, DateTime eDate)
         {
-            SqlCommand com = new SqlCommand("dbo.GetRecordsByDateSpan", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetAvgByDateSpan", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
@@ -381,7 +382,7 @@ namespace CostControl.Model
 
         public double GetAvgByCategory(string category)
         {
-            SqlCommand com = new SqlCommand("dbo.GetRecordsByCategory", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetAvgByCategory", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
@@ -396,7 +397,7 @@ namespace CostControl.Model
 
         public double GetAvgByDescription(string desc)
         {
-            SqlCommand com = new SqlCommand("dbo.GetRecordsByDescription", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetAvgByDescription", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
