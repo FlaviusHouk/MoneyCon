@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CostControl.Model;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ namespace CostControl.ViewModel
     {
         #region Fields
         private readonly Uri _pageUri;
+        protected DataBaseWorker _db;
         #endregion
 
         #region Properties
@@ -25,9 +27,10 @@ namespace CostControl.ViewModel
 
         #region Constructors
 
-        protected BasePageContext(Uri pageUri)
+        protected BasePageContext(Uri pageUri, DataBaseWorker db)
         {
             _pageUri = pageUri;
+            _db = db;
         }
 
         public virtual void Update()
