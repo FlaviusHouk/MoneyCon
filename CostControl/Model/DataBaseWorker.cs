@@ -175,6 +175,11 @@ namespace CostControl.Model
 
         public IEnumerable<Cost> GetRecordsByCategory(int categoryIndex)
         {
+            if (categoryIndex == -1)
+            {
+                return GetRecordsByCategory(string.Empty);
+            }
+            
             return GetRecordsByCategory(_categories[categoryIndex]);
         }
 
@@ -229,6 +234,79 @@ namespace CostControl.Model
             }
             reader.Close();
             return toRet;
+        }
+
+        public double GetSumByDate(DateTime date)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetSumByDate", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Date", System.Data.SqlDbType.Date);
+            com.Parameters["@Date"].Value = date.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+        }
+
+        public double GetSumByDateSpan(DateTime bDate, DateTime eDate)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDateSpan", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
+            com.Parameters["@bDate"].Value = bDate.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@eDate", System.Data.SqlDbType.Date);
+            com.Parameters["@eDate"].Value = eDate.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+        }
+
+        public double GetSumByCategory(int categoryIndex)
+        {
+            if (categoryIndex == -1)
+            {
+                return GetSumByCategory(string.Empty);
+            }
+
+            return GetSumByCategory(_categories[categoryIndex]);
+        }
+
+        public double GetSumByCategory(string category)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByCategory", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
+            com.Parameters["@Category"].Value = category;
+
+            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+        }
+
+        public double GetSumByDescription(string desc)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDescription", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
+            com.Parameters["@Desc"].Value = desc;
+
+            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@Sum"].Value);
         }
     }
 }
