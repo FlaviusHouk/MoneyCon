@@ -143,7 +143,6 @@ C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLi
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.dll
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\WPFToolkit.dll
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.pdb
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.xml
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
@@ -152,10 +151,6 @@ C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLi
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.xml
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.xml
-C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.pdb
-C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
-C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\WPFToolkit.pdb
-C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.csprojResolveAssemblyReference.cache
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\Views\AddCostWindow.baml
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\Views\InputNameWindow.baml
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\Views\MainWindow.baml

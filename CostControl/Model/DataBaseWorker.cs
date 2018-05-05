@@ -219,7 +219,13 @@ namespace CostControl.Model
                 DateTime date;
                 DateTime.TryParse(s, out date);
 
-                Cost read = new Cost(id, date, price, desc, _categories[cat]);
+                string catName = string.Empty;
+                if (cat != -1)
+                {
+                    catName = _categories[cat];
+                }
+
+                Cost read = new Cost(id, date, price, desc, catName);
                 toRet.Add(read);
             }
             reader.Close();
@@ -379,6 +385,11 @@ namespace CostControl.Model
 
         public double GetAvgByDateSpan(DateTime bDate, DateTime eDate)
         {
+            if (bDate == eDate)
+            {
+                return GetAvgByDate(bDate);
+            }
+
             SqlCommand com = new SqlCommand("dbo.GetAvgByDateSpan", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
