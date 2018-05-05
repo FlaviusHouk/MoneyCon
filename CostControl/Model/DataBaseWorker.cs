@@ -244,11 +244,11 @@ namespace CostControl.Model
             com.Parameters.Add("@Date", System.Data.SqlDbType.Date);
             com.Parameters["@Date"].Value = date.ToString("yyyy-MM-dd");
 
-            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
             com.ExecuteNonQuery();
 
-            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
         }
 
         public double GetSumByDateSpan(DateTime bDate, DateTime eDate)
@@ -262,11 +262,11 @@ namespace CostControl.Model
             com.Parameters.Add("@eDate", System.Data.SqlDbType.Date);
             com.Parameters["@eDate"].Value = eDate.ToString("yyyy-MM-dd");
 
-            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
             com.ExecuteNonQuery();
 
-            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
         }
 
         public double GetSumByCategory(int categoryIndex)
@@ -287,11 +287,11 @@ namespace CostControl.Model
             com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
             com.Parameters["@Category"].Value = category;
 
-            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
             com.ExecuteNonQuery();
 
-            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
         }
 
         public double GetSumByDescription(string desc)
@@ -302,11 +302,84 @@ namespace CostControl.Model
             com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
             com.Parameters["@Desc"].Value = desc;
 
-            com.Parameters.Add("@Sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
             com.ExecuteNonQuery();
 
-            return Convert.ToDouble(com.Parameters["@Sum"].Value);
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
+        }
+
+        public double GetAvgByDate(DateTime date)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetAvgByDate", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Date", System.Data.SqlDbType.Date);
+            com.Parameters["@Date"].Value = date.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
+        }
+
+        public double GetAvgByDateSpan(DateTime bDate, DateTime eDate)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDateSpan", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
+            com.Parameters["@bDate"].Value = bDate.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@eDate", System.Data.SqlDbType.Date);
+            com.Parameters["@eDate"].Value = eDate.ToString("yyyy-MM-dd");
+
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
+        }
+
+        public double GetAvgByCategory(int categoryIndex)
+        {
+            if (categoryIndex == -1)
+            {
+                return GetAvgByCategory(string.Empty);
+            }
+
+            return GetAvgByCategory(_categories[categoryIndex]);
+        }
+
+        public double GetAvgByCategory(string category)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByCategory", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
+            com.Parameters["@Category"].Value = category;
+
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
+        }
+
+        public double GetAvgByDescription(string desc)
+        {
+            SqlCommand com = new SqlCommand("dbo.GetRecordsByDescription", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
+            com.Parameters["@Desc"].Value = desc;
+
+            com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            return Convert.ToDouble(com.Parameters["@sum"].Value);
         }
     }
 }
