@@ -36,9 +36,9 @@ namespace CostControl.ViewModel
                         }
                         break;
                     case nameof(Desc):
-                        if (Desc==String.Empty || Desc.Any(obj => Char.IsNumber(obj)))
+                        if (Desc==String.Empty || Char.IsDigit(Desc.First()) || Char.IsSeparator(Desc.First()))
                         {
-                            _error = "Описание не должно содержать цифр или быть пустым";
+                            _error = "Описание не должно начинаться из цифр/символов или быть пустым";
                         }
                         break;
                     case nameof(Category):
