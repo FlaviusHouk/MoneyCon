@@ -24,7 +24,7 @@ namespace CostControl.Model
             ReadCategories();
         }
 
-        private bool AddCategory(string name)
+        public bool AddCategory(string name)
         {
             if (_categories.ContainsValue(name))
                 return false;
@@ -50,6 +50,31 @@ namespace CostControl.Model
             {
                 return false;
             }            
+        }
+
+        public bool RemoveCategory(int index)
+        {
+            int categoryNum = _categories.Count;
+
+            if (_categories.ContainsKey(index))
+            {
+                SqlCommand com = new SqlCommand("dbo.DeleteCategory", _conn);
+                com.CommandType = System.Data.CommandType.StoredProcedure;
+
+                com.Parameters.Add("@ID", System.Data.SqlDbType.Int);
+                com.Parameters["@ID"].Value = index;
+
+                com.ExecuteNonQuery();
+
+                _categories.Clear();
+                ReadCategories();
+
+                return _categories.Count != categoryNum;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void ReadCategories()
