@@ -24,6 +24,33 @@ namespace CostControl.Model
             ReadCategories();
         }
 
+        private bool AddCategory(string name)
+        {
+            if (_categories.ContainsValue(name))
+                return false;
+
+            SqlCommand com = new SqlCommand("dbo.AddCategory", _conn);
+            com.CommandType = System.Data.CommandType.StoredProcedure;
+
+            com.Parameters.Add("@Name", System.Data.SqlDbType.NVarChar);
+            com.Parameters["@Name"].Value = name;
+
+            com.Parameters.Add("@ID", System.Data.SqlDbType.Int).Direction = System.Data.ParameterDirection.Output;
+
+            com.ExecuteNonQuery();
+
+            int id = Convert.ToInt32(com.Parameters["@ID"].Value);
+
+            if (id > 0)
+            {
+                _categories.Add(id, name);
+            }
+            else
+            {
+                return false;
+            }            
+        }
+
         private void ReadCategories()
         {
             _categories = new Dictionary<int, string>();
