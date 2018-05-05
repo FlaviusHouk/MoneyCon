@@ -1,4 +1,5 @@
 ﻿using CostControl.Helpers;
+using CostControl.Model;
 using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace CostControl.ViewModel.PagesViewModels
         private const string _pageUri = "\\Views\\StatPages\\CategoryFilterStatPage.xaml";
         public ObservableCollection<CostViewModel> Costs;
 
-        public CategoryPageContext(ObservableCollection<CostViewModel> costs) : base(new System.Uri(_pageUri, UriKind.Relative))
+        public CategoryPageContext(ObservableCollection<CostViewModel> costs, DataBaseWorker db) : base(new System.Uri(_pageUri, UriKind.Relative), db)
         {
             Costs = costs;
         }
@@ -80,11 +81,10 @@ namespace CostControl.ViewModel.PagesViewModels
 
         public override ObservableCollection<KeyValuePair<string, double>> GetStatData()
         {
-            //replace with SQL-interactivity    <----------------------------------
-            List<KeyValuePair<string, Double>> coll = new List<KeyValuePair<string, double>>();
+            List<KeyValuePair<string, double>> lis = new List<KeyValuePair<string, double>>();
             var res = Costs.Select(o => o.Date).Distinct().OrderBy(o => o);
-            res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Costs.Where(item => item.Date == obj).Sum(o => o.Price))));
-            return new ObservableCollection<KeyValuePair<string, double>>(coll);
+            res.ForEachCustom(obj => lis.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), _db.GetSumByDate(obj))));
+            return new ObservableCollection<KeyValuePair<string, double>>(lis);
         }
     }
 }

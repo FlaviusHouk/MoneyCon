@@ -12,7 +12,7 @@ namespace CostControl.ViewModel.PagesViewModels
         private ObservableCollection<CostViewModel> Сosts;
         private ObservableCollection<string> Сats;
 
-        public TextPageContext(ObservableCollection<CostViewModel> costs, ObservableCollection<string> cats) : base(new Uri(_pageUri, UriKind.Relative))
+        public TextPageContext(ObservableCollection<CostViewModel> costs, ObservableCollection<string> cats, Model.DataBaseWorker db) : base(new Uri(_pageUri, UriKind.Relative), db)
         {
             Сosts = costs;
             Сats = cats;

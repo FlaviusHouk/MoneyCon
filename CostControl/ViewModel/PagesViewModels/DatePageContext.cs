@@ -15,7 +15,7 @@ namespace CostControl.ViewModel.PagesViewModels
         private ObservableCollection<string> Сats;
 
 
-        public DatePageContext(ObservableCollection<CostViewModel> costs, ObservableCollection<string> cats) : base(new Uri(_pageUri, UriKind.Relative))
+        public DatePageContext(ObservableCollection<CostViewModel> costs, ObservableCollection<string> cats, Model.DataBaseWorker db) : base(new Uri(_pageUri, UriKind.Relative), db)
         {
             Сosts = costs;
             Сats = cats;

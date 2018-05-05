@@ -303,10 +303,10 @@ namespace CostControl.ViewModel
         {
             _db = new DataBaseWorker();
             InitializeStartCosts();
-            _pageViewModels.Add(0, new TextPageContext(Costs, Tags));
-            _pageViewModels.Add(1, new DatePageContext(Costs, Tags));
-            _pageViewModels.Add(2, new DateSpanPageContext(Costs,Tags));
-            _pageViewModels.Add(3, new CategoryPageContext(Costs));
+            _pageViewModels.Add(0, new TextPageContext(Costs, Tags, _db));
+            _pageViewModels.Add(1, new DatePageContext(Costs, Tags, _db));
+            _pageViewModels.Add(2, new DateSpanPageContext(Costs,Tags, _db));
+            _pageViewModels.Add(3, new CategoryPageContext(Costs, _db));
             SelectedFilter = 2;
         }
         #endregion
