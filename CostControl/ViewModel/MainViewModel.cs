@@ -45,7 +45,7 @@ namespace CostControl.ViewModel
             get
             {
                 _tags.Clear();
-                _db.Categories.ForEachCustom(obj => _tags.Add(obj));
+                _db.Categories.ForEachCustom(obj => _tags.Add(obj.Value));
                 return _tags;
             }
         }

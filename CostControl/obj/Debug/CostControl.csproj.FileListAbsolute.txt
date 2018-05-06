@@ -90,7 +90,6 @@ C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.Mvvm
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.dll
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.dll
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\WPFToolkit.dll
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.pdb
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.xml
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
@@ -99,9 +98,7 @@ C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.Mvvm
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\GalaSoft.MvvmLight.Platform.xml
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\Microsoft.Practices.ServiceLocation.xml
-C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.pdb
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
-C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\WPFToolkit.pdb
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.csprojResolveAssemblyReference.cache
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\obj\Debug\Views\AddCostWindow.baml
 C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\obj\Debug\Views\MainWindow.baml
@@ -179,3 +176,4 @@ C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.csp
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.csprojResolveAssemblyReference.cache
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
+C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll

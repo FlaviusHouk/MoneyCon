@@ -10,11 +10,11 @@ namespace CostControl.Model
 {
     public class DataBaseWorker
     {
-        private const string _connectionString = @"Server=FLAVIUSWINHP\SQLEXPRESS; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
+        private const string _connectionString = @"Server=MOZGOKLUY-PC; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
         private SqlConnection _conn;
         private Dictionary<int, string> _categories;
 
-        public List<string> Categories { get { return _categories.Values.ToList(); } }
+        public Dictionary<int,string> Categories { get { return _categories; } }
 
         public DataBaseWorker()
         {
@@ -110,7 +110,7 @@ namespace CostControl.Model
             if (categoryNum > 0)
                 com.Parameters["@Category"].Value = _categories.Keys.ElementAt(categoryNum);
             else
-                com.Parameters["@Category"].Value = -1;
+                com.Parameters["@Category"].Value = 1;
 
             com.Parameters.Add("@Price", System.Data.SqlDbType.Real);
             com.Parameters["@Price"].Value = newObj.Price;
@@ -142,7 +142,7 @@ namespace CostControl.Model
                 if (categoryNum > 0)
                     com.Parameters["@Category"].Value = _categories.Keys.ElementAt(categoryNum);
                 else
-                    com.Parameters["@Category"].Value = -1;
+                    com.Parameters["@Category"].Value = 1;
 
                 com.Parameters.Add("@Price", System.Data.SqlDbType.Real);
                 com.Parameters["@Price"].Value = newRec.Price;

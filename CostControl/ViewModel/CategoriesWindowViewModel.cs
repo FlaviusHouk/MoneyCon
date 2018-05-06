@@ -5,6 +5,8 @@ using GalaSoft.MvvmLight.Command;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Windows;
 
 namespace CostControl.ViewModel
 {
@@ -25,7 +27,11 @@ namespace CostControl.ViewModel
 
                     if (win.ShowDialog() == true)
                     {
-                        Categories.Add(vm.Name);
+                        if (_db.AddCategory(vm.Name))
+                        {
+                            Categories.Add(vm.Name);
+                        }
+                        else { MessageBox.Show("Не удалось добавить категорию"); }
                     }
 
                 }));
@@ -38,7 +44,9 @@ namespace CostControl.ViewModel
             {
                 return _removeCategoryCommand ?? (_removeCategoryCommand = new RelayCommand(() =>
                 {
+                    _db.RemoveCategory(_db.Categories.First(obj => string.Compare(obj.Value, SelectedCategory) == 0).Key);
                     Categories.Remove(SelectedCategory);
+                    
                 }, () => 
                 {
                     if (SelectedCategory== null)
