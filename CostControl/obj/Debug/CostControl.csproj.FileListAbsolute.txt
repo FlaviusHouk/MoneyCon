@@ -177,3 +177,5 @@ C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.g.r
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.Properties.Resources.resources
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.csproj.GenerateResource.Cache
 C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\obj\Debug\CostControl.csprojResolveAssemblyReference.cache
+C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
+C:\Users\Flavius\Documents\GitHub\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
