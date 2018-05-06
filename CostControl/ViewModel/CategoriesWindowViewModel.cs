@@ -22,6 +22,7 @@ namespace CostControl.ViewModel
             {
                 return _addCategoryCommand ?? (_addCategoryCommand = new RelayCommand(() =>
                 {
+
                     var vm = new InputNameWindowViewModel();
                     var win = new InputNameWindow() { DataContext = vm, Owner = App.Current.MainWindow };
 
@@ -44,8 +45,11 @@ namespace CostControl.ViewModel
             {
                 return _removeCategoryCommand ?? (_removeCategoryCommand = new RelayCommand(() =>
                 {
-                    _db.RemoveCategory(_db.Categories.First(obj => string.Compare(obj.Value, SelectedCategory) == 0).Key);
-                    Categories.Remove(SelectedCategory);
+                    if (_db.RemoveCategory(_db.Categories.First(obj => string.Compare(obj.Value, SelectedCategory) == 0).Key))
+                    {
+                        Categories.Remove(SelectedCategory);
+                    }
+                    else { MessageBox.Show("Не удалось удалить категорию, удалите все расходы этой категории"); }
                     
                 }, () => 
                 {

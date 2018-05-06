@@ -150,6 +150,7 @@ namespace CostControl.ViewModel
             {
                 return _addTagCommand ?? (_addTagCommand = new RelayCommand(() =>
                 {
+                    SelectedCost = null;
                     var w = new Views.CategoriesWindow {Owner = App.Current.MainWindow };
                     if (w.ShowDialog() == true)
                     {

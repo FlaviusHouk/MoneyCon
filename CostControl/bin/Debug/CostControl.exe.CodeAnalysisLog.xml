@@ -10,7 +10,7 @@
        <Types>
         <Type Name="DataBaseWorker" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-05-06 14:26:05Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2018-05-06 14:45:06Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">Реализуйте IDisposable для 'DataBaseWorker', поскольку он создает члены следующих типов IDisposable: 'SqlConnection'. Если 'DataBaseWorker' ранее был доставлен, добавление в данный тип новых членов, реализующих IDisposable, считается критическим изменением для существующих потребителей.</Issue>
           </Message>
          </Messages>
@@ -23,7 +23,7 @@
          <Members>
           <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-05-06 14:26:05Z" FixCategory="NonBreaking">
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-05-06 14:45:06Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\MozGOkluY\Documents\GitHub\MoneyCon\CostControl\ViewModel" File="MainViewModel.cs" Line="24">'MainViewModel.MainViewModel()' содержит цепочку вызовов, которая приводит к вызову виртуального метода, определенного классом. Просмотрите следующий стек вызовов для обнаружения непреднамеренных последствий: &#xD;&#xA;&#xD;&#xA;MainViewModel..ctor()&#xD;&#xA;MainViewModel.set_SelectedFilter(Int32):Void&#xD;&#xA;ObservableObject.RaisePropertyChanged(String):Void</Issue>
             </Message>
            </Messages>
