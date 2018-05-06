@@ -197,14 +197,17 @@ namespace CostControl.Model
 
         public IEnumerable<Cost> GetRecordsByDateSpan(DateTime bDate, DateTime eDate)
         {
+            bDate = bDate.AddDays(-1);
+            eDate = eDate.AddDays(1);
+
             SqlCommand com = new SqlCommand("dbo.GetRecordsByDateSpan", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
-
+            
             com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
-            com.Parameters["@bDate"].Value = bDate.ToString("yyyy-MM-dd");
+            com.Parameters["@bDate"].Value = bDate;
 
             com.Parameters.Add("@eDate", System.Data.SqlDbType.Date);
-            com.Parameters["@eDate"].Value = eDate.ToString("yyyy-MM-dd");
+            com.Parameters["@eDate"].Value = eDate;
 
             var reader = com.ExecuteReader();
             List<Cost> toRet = new List<Cost>();
@@ -343,8 +346,8 @@ namespace CostControl.Model
             SqlCommand com = new SqlCommand("dbo.GetSumByCategory", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
-            com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
-            com.Parameters["@Category"].Value = category;
+            com.Parameters.Add("@Cat", System.Data.SqlDbType.Int);
+            com.Parameters["@Cat"].Value = _categories.First(pair=>string.Compare(category, pair.Value) == 0).Key;
 
             com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
@@ -394,10 +397,10 @@ namespace CostControl.Model
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@bDate", System.Data.SqlDbType.Date);
-            com.Parameters["@bDate"].Value = bDate.ToString("yyyy-MM-dd");
+            com.Parameters["@bDate"].Value = bDate;
 
             com.Parameters.Add("@eDate", System.Data.SqlDbType.Date);
-            com.Parameters["@eDate"].Value = eDate.ToString("yyyy-MM-dd");
+            com.Parameters["@eDate"].Value = eDate;
 
             com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
@@ -418,11 +421,11 @@ namespace CostControl.Model
 
         public double GetAvgByCategory(string category)
         {
-            SqlCommand com = new SqlCommand("dbo.GetAvgByCategory", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetAvgByCat", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
-            com.Parameters.Add("@Category", System.Data.SqlDbType.NChar);
-            com.Parameters["@Category"].Value = category;
+            com.Parameters.Add("@Cat", System.Data.SqlDbType.Int);
+            com.Parameters["@Cat"].Value = _categories.First(pair => string.Compare(category, pair.Value) == 0).Key; ;
 
             com.Parameters.Add("@sum", System.Data.SqlDbType.Real).Direction = System.Data.ParameterDirection.Output;
 
@@ -433,7 +436,7 @@ namespace CostControl.Model
 
         public double GetAvgByDescription(string desc)
         {
-            SqlCommand com = new SqlCommand("dbo.GetAvgByDescription", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetAvgByDesc", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
