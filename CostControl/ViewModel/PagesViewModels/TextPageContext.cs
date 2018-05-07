@@ -62,7 +62,7 @@ namespace CostControl.ViewModel.PagesViewModels
                 {
                     return 0;
                 }
-                return Сosts.Select(o => o.Price).Sum();
+                return _db.GetSumByDescription(Сosts.First().Desc);
             }
         }
         public double Avg
@@ -94,16 +94,15 @@ namespace CostControl.ViewModel.PagesViewModels
             {
                 return null;
             }
-            //replace with SQL-interactivity    <----------------------------------
             List<KeyValuePair<string, Double>> coll = new List<KeyValuePair<string, double>>();
             if (_typeOfChart.Value)
             {
                 var res = Сosts.Select(o => o.Date).Distinct().OrderBy(o => o);
-                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), _db.GetSumByDate(obj))));
+                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Сosts.Where(o => o.Date == obj).Sum(o => o.Price))));
                 return new ObservableCollection<KeyValuePair<string, double>>(coll);
             }
 
-            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, _db.GetSumByCategory(obj))));
+            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Сosts.Where(o => string.Compare(o.Category, obj)==0).Sum(o => o.Price))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
     }

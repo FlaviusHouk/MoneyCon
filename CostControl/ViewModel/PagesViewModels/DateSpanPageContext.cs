@@ -62,7 +62,7 @@ namespace CostControl.ViewModel.PagesViewModels
                 {
                     return 0;
                 }
-                return Costs.Select(o => o.Price).Sum();
+                return _db.GetSumByDateSpan(Costs.OrderBy(o => o.Date).First().Date, Costs.OrderBy(o => o.Date).Last().Date);
             }
         }
 
@@ -101,10 +101,10 @@ namespace CostControl.ViewModel.PagesViewModels
             if (_typeOfChart.Value)
             {
                 var res = Costs.Select(o => o.Date).Distinct().OrderBy(o => o);
-                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), _db.GetSumByDate(obj))));
+                res.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj.ToShortDateString(), Costs.Where(o => o.Date == obj).Sum(o => o.Price))));
                 return new ObservableCollection<KeyValuePair<string, double>>(coll);
             }
-            Cats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, _db.GetSumByCategory(obj))));
+            Cats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Costs.Where(o => string.Compare(o.Category, obj) == 0).Sum(o => o.Price))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
     }

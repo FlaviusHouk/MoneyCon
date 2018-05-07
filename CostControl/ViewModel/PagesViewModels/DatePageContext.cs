@@ -52,7 +52,7 @@ namespace CostControl.ViewModel.PagesViewModels
                 {
                     return 0;
                 }
-                return Сosts.Select(o => o.Price).Sum(); }
+                return _db.GetSumByDate(Сosts.First().Date); }
         }
 
         public double Avg
@@ -81,9 +81,8 @@ namespace CostControl.ViewModel.PagesViewModels
 
         public override ObservableCollection<KeyValuePair<string, double>> GetStatData()
         {
-            //replace with SQL-interactivity    <----------------------------------
             List<KeyValuePair<string, double>> coll = new List<KeyValuePair<string, double>>();
-            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, _db.GetSumByCategory(obj))));
+            Сats.ForEachCustom(obj => coll.Add(new KeyValuePair<string, double>(obj, Сosts.Where(o => string.Compare(o.Category, obj) == 0).Sum(o => o.Price))));
             return new ObservableCollection<KeyValuePair<string, double>>(coll);
         }
     }

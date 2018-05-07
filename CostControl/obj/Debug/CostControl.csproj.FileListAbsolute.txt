@@ -68,10 +68,7 @@ C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\V
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\AddCostWindow.baml
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\AddCostWindow.g.cs
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
-C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\WPFToolkit.dll
-C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.pdb
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.xml
-C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\bin\Debug\WPFToolkit.pdb
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\CategoryFilterStatPage.baml
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\TextFilterStatPage.baml
 C:\Users\danyil.hryhoriev\Documents\GitHub\Reps\MoneyCon\CostControl\obj\Debug\Views\StatPages\CategoryFilterStatPage.g.cs

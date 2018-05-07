@@ -10,7 +10,7 @@ namespace CostControl.Model
 {
     public class DataBaseWorker
     {
-        private const string _connectionString = @"Server=MOZGOKLUY-PC; Database=MoneyCon; User ID=MoneyCon_Internal; Password=12345678";
+        private const string _connectionString = @"Server=ODS1-LDL-F51222\SQLEXPRESS01; Database=MoneyCon; User ID=123; Password=123";
         private SqlConnection _conn;
         private Dictionary<int, string> _categories;
 
@@ -110,7 +110,7 @@ namespace CostControl.Model
             if (categoryNum > 0)
                 com.Parameters["@Category"].Value = _categories.Keys.ElementAt(categoryNum);
             else
-                com.Parameters["@Category"].Value = 1;
+                com.Parameters["@Category"].Value = -1;
 
             com.Parameters.Add("@Price", System.Data.SqlDbType.Real);
             com.Parameters["@Price"].Value = newObj.Price;
@@ -142,7 +142,7 @@ namespace CostControl.Model
                 if (categoryNum > 0)
                     com.Parameters["@Category"].Value = _categories.Keys.ElementAt(categoryNum);
                 else
-                    com.Parameters["@Category"].Value = 1;
+                    com.Parameters["@Category"].Value = -1;
 
                 com.Parameters.Add("@Price", System.Data.SqlDbType.Real);
                 com.Parameters["@Price"].Value = newRec.Price;
@@ -315,6 +315,11 @@ namespace CostControl.Model
 
         public double GetSumByDateSpan(DateTime bDate, DateTime eDate)
         {
+            if (bDate == eDate)
+            {
+                return GetSumByDate(bDate);
+            }
+
             SqlCommand com = new SqlCommand("dbo.GetSumByDateSpan", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -358,7 +363,7 @@ namespace CostControl.Model
 
         public double GetSumByDescription(string desc)
         {
-            SqlCommand com = new SqlCommand("dbo.GetSumByDescription", _conn);
+            SqlCommand com = new SqlCommand("dbo.GetSumByDesc", _conn);
             com.CommandType = System.Data.CommandType.StoredProcedure;
 
             com.Parameters.Add("@Desc", System.Data.SqlDbType.NChar);
