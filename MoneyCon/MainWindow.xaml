@@ -1,0 +1,117 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MoneyCon.Controls;assembly=MoneyCon"
+        xmlns:pages="clr-namespace:MoneyCon.ViewModel.PagesViewModels;assembly=MoneyCon"
+        xmlns:converters="clr-namespace:MoneyCon.Converters;assembly=MoneyCon"
+        Height="600" MinHeight="600"
+        Width="1000" MinWidth="1000"
+        Title="MoneyCon">
+
+  <Window.Resources>
+    <converters:TabTemplateSelector x:Key="TabTemplateSelector"/>
+  </Window.Resources>
+  
+    <DockPanel LastChildFill="True">
+      <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+        <Button Content="Add" Margin="2"/>
+        <Button Content="Remove" Margin="2"/>
+        <Button Content="Clear" Margin="2"/>
+        <Button Content="Tags" Margin="2"/>
+      </StackPanel>
+    
+      <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" MinHeight="220"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*" MinHeight="220"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" MinWidth="400"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*" MinWidth="370"/>
+            </Grid.ColumnDefinitions>
+    
+        <DockPanel LastChildFill="True" Grid.RowSpan="3">
+          <controls:GroupBox DockPanel.Dock="Top" BorderThickness="1" BorderBrush="LightGray">
+            <Grid>
+              <StackPanel>
+                <TabControl SelectedItem="{Binding SelectedFilter, Converter={StaticResource TabTemplateSelector}}">
+                  <TabItem Header="Text search" >
+                     <TextBox Text="{Binding Text}" DataContext="{Binding TextFilterContext}"/>
+                  </TabItem>
+                  <TabItem Header="Date">
+                     <TextBlock Text="DataPicker"/>
+                  </TabItem>
+                  <TabItem Header="Between dates">
+                    <Grid>
+                       <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="85*"/>
+                          <ColumnDefinition Width="50*"/>
+                          <ColumnDefinition Width="85*"/>
+                       </Grid.ColumnDefinitions>
+                    <TextBox Text="2 DatePickers"/>
+                    </Grid>
+                  </TabItem>
+                 <TabItem Header="Categories">
+                   <DropDown></DropDown>
+                 </TabItem>
+                </TabControl>
+
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <!--<Image Source="{Binding CountOfItems, Converter={StaticResource IntToImageMatchConverter}}" Width="20" Margin="0,0,10,0"/>-->
+                                <TextBlock VerticalAlignment="Center" Text="Found: {0}"/>
+              </StackPanel>
+                <DockPanel LastChildFill="False">
+                  <CheckBox IsChecked="{Binding IsFiltersEnabled}" Content="IsFiltersEnabled" DockPanel.Dock="Left"/>
+                  <Button DockPanel.Dock="Right" Content="Apply"/>
+                </DockPanel>
+              </StackPanel>
+            </Grid>
+          </controls:GroupBox>
+          <controls:GroupBox Header="Costs" Margin="0,5,0,0" BorderBrush="LightGray" BorderThickness="1" Padding="1">
+            <controls:GroupBox.Content>
+              <ListBox BorderThickness="0"/>
+            </controls:GroupBox.Content>
+          </controls:GroupBox>
+        </DockPanel>
+      <Border Grid.Column="2" BorderBrush="Gray" BorderThickness="1" Margin="2">
+         <Grid Margin="5"  Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="21*"/>
+                        <RowDefinition Height="63*"/>
+                        <RowDefinition Height="16*"/>
+                        <RowDefinition Height="17*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="77*"/>
+                        <ColumnDefinition Width="165*"/>
+                        <ColumnDefinition Width="229*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <ControlTemplate x:Key="validationFailed">
+                            <StackPanel Orientation="Horizontal">
+                                <Border BorderBrush="Violet" BorderThickness="2">
+                                    <AdornedElementPlaceholder/>
+                                </Border>
+                                <TextBlock Foreground="Red" FontWeight="Bold">!</TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Grid.Resources>
+                <TextBlock Text="Date: " />
+                <!--DatePicker-->
+                <TextBlock Text="Target: " Grid.Row="1" Grid.Column="0"/>
+                    <TextBox x:Name="desc" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" BorderBrush="Transparent"/>
+                    <TextBlock Text="Price: " Grid.Row="2" Grid.Column="0"/>
+                    <TextBox x:Name="price" Grid.Row="2" Grid.Column="1" BorderBrush="Transparent"/>
+                    <TextBlock Text="Catehory: " Grid.Row="3" Grid.Column="0" />
+                    <DropDown x:Name="cat" Grid.Column="1" Grid.Row="3"/>
+           </Grid>
+      </Border>
+      <TextBlock Text="Choose item for edit" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0" Foreground="Gray" FontSize="20"/>
+      <!--Diagram <Frame Visibility="{Binding HasItems, Converter={StaticResource AntiBoolToVisibilityConverter}}" NavigationUIVisibility="Hidden"  Grid.Column="2" Grid.Row="2" Content="{Binding ActiveStat}"/>-->
+      <TextBlock Text="There is not enough data for statistics" VerticalAlignment="Center" HorizontalAlignment="Center"  Grid.Column="2" Grid.Row="2" Foreground="Gray" FontSize="20" />
+      <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="2" Background="Gray"/>
+      <GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Gray" Width="5" Grid.RowSpan="3"/>
+    </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,27 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AuthWindow" Width="400" Height="150">
+   <DockPanel LastChildFill="True">
+     <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+       <Button Content="Auth" Margin="5" Click="OnClose"/>
+       <Button Content="Cancel" Margin="5"/>
+     </StackPanel>
+     <TextBlock Text="Enter credentials" DockPanel.Dock="Top" TextAlignment="Center" TextBlock.FontWeight="Bold" FontFamily="Consolas" FontSize="20"/>
+
+     <Grid Margin="5">
+       <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="auto"/>
+         <ColumnDefinition Width="*"/>
+       </Grid.ColumnDefinitions>
+       <Grid.RowDefinitions>
+         <RowDefinition Height="auto"/>
+         <RowDefinition Height="auto"/>
+       </Grid.RowDefinitions>
+
+       <TextBlock Text="Login" Margin="2" VerticalAlignment="Center"/>
+       <TextBlock Grid.Row="1" Text="Password" Margin="2" VerticalAlignment="Center"/>
+       <TextBox Grid.Column="1" Margin="5,5,0,5"/>
+       <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,0"/>
+     </Grid>
+   </DockPanel>
+</Window>
